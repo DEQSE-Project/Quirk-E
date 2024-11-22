@@ -307,7 +307,6 @@ suite.test("parse_nested_circuits", () => {
 
 suite.test("known_gates_toolbox", () => {
     let allToolboxGates = seq(Gates.TopToolboxGroups).
-        concat(Gates.BottomToolboxGroups).
         flatMap(e => e.gates).
         filter(e => e !== undefined).
         flatMap(e => e.gateFamily).

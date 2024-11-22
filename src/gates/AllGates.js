@@ -271,10 +271,6 @@ Gates.TopToolboxGroups = [
             Controls.XParityControl, undefined,
         ]
     },
-];
-
-/** @type {!Array<!{hint: !string, gates: !Array<undefined|!Gate>}>} */
-Gates.BottomToolboxGroups = [
     {
         hint: "X/Y Probes",
         gates: [
