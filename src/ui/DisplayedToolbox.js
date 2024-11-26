@@ -132,13 +132,14 @@ class DisplayedToolbox {
         if (this.labelsOnTop) {
             let r = this.gateDrawRect(groupIndex, 0);
             let c = new Point(r.x + Config.TOOLBOX_GATE_SPAN - Config.TOOLBOX_GATE_SPACING / 2, r.y - 18);
-            return new Rect(c.x - Config.TOOLBOX_GATE_SPAN, c.y, Config.TOOLBOX_GATE_SPAN * 2, 20);
+            return new Rect(c.x - Config.TOOLBOX_GATE_SPAN, c.y, Config.TOOLBOX_GATE_SPAN * 2, 20 - 4); 
         }
-
-        let r = this.gateDrawRect(groupIndex, this.groupHeight*2 - 2);
+    
+        let r = this.gateDrawRect(groupIndex, this.groupHeight * 2 - 2);
         let c = new Point(r.x + Config.TOOLBOX_GATE_SPAN - Config.TOOLBOX_GATE_SPACING / 2, r.bottom());
-        return new Rect(c.x - Config.TOOLBOX_GATE_SPAN, c.y+2, Config.TOOLBOX_GATE_SPAN * 2, 20);
+        return new Rect(c.x - Config.TOOLBOX_GATE_SPAN, c.y + 2, Config.TOOLBOX_GATE_SPAN * 2, 20); 
     }
+    
 
     /**
      *
@@ -356,7 +357,7 @@ class DisplayedToolbox {
      * @returns {!number}
      */
     desiredHeight() {
-        return (1 + this.groupHeight) * (Config.GATE_RADIUS * 2 + 2) - Config.GATE_RADIUS;
+        return (1 + this.groupHeight) * (Config.GATE_RADIUS * 2 + 2) + Config.GATE_RADIUS;
     }
 
     /**

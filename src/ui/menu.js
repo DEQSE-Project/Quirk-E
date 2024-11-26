@@ -20,6 +20,11 @@ const menuIsVisible = new ObservableValue(true);
 const obsMenuIsShowing = menuIsVisible.observable().whenDifferent();
 let closeMenu = () => menuIsVisible.set(false);
 
+const useColors = new ObservableValue(false);
+useColors.observable().subscribe((newValue) => {
+    applyColorSettings(newValue);
+});
+
 const groverLink = {
     "cols":[
         ["X","X","X","X","X"],
@@ -344,7 +349,12 @@ function initMenu(revision, obsIsAnyOverlayShowing) {
     }
 
     document.getElementById('use-colors').addEventListener('change', function (event) {
-        const useColors = event.target.checked;
+        if(event.target.checked) {
+            useColors.set(true);
+        }
+        else {
+            useColors.set(false);
+        }
         // Update the app's behavior based on the toggle state
         console.log(`Use Colors: ${useColors}`);
         // Apply this setting wherever necessary in the app

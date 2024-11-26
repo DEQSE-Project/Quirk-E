@@ -32,24 +32,24 @@ Config.MIN_WIRE_COUNT = 2;
 Config.MIN_COL_COUNT = 5;
 Config.URL_CIRCUIT_PARAM_KEY = 'circuit';
 
-// Gate background colors.
+// Gate background colors without using colors.
 Config.GATE_FILL_COLOR = 'white';
-Config.HIGHLIGHTED_GATE_FILL_COLOR = '#FB7';
-Config.TIME_DEPENDENT_HIGHLIGHT_COLOR = '#FFC';
+Config.HIGHLIGHTED_GATE_FILL_COLOR = '#c9c9c9';
+Config.TIME_DEPENDENT_HIGHLIGHT_COLOR = '#ece8e8';
 
 // Mixed-state displays are green.
-Config.DISPLAY_GATE_IN_TOOLBOX_FILL_COLOR = '#4F4';
-Config.DISPLAY_GATE_BACK_COLOR = '#EFE';
-Config.DISPLAY_GATE_FORE_COLOR = '#3F3';
+Config.DISPLAY_GATE_IN_TOOLBOX_FILL_COLOR = '#d2d8c1';
+Config.DISPLAY_GATE_BACK_COLOR = '#eafaea';
+Config.DISPLAY_GATE_FORE_COLOR = '#91be91';
 
 // Changes are yellow.
-Config.OPERATION_BACK_COLOR = '#FFE';
-Config.OPERATION_FORE_COLOR = '#FF0';
+Config.OPERATION_BACK_COLOR = '#f5f5e8';
+Config.OPERATION_FORE_COLOR = '#e7e792';
 
 // Pure-state displays are cyan.
-Config.SUPERPOSITION_BACK_COLOR = '#EFF';
-Config.SUPERPOSITION_MID_COLOR = '#8FF';
-Config.SUPERPOSITION_FORE_COLOR = '#0BB';
+Config.SUPERPOSITION_BACK_COLOR = '#deecec';
+Config.SUPERPOSITION_MID_COLOR = '#b7e7e7';
+Config.SUPERPOSITION_FORE_COLOR = '#659696';
 
 // Time constants.
 Config.CYCLE_DURATION_MS = 8000; // How long it takes for evolving gates to cycle, in milliseconds.
@@ -66,19 +66,19 @@ Config.BACKGROUND_COLOR_CIRCUIT = 'white';
 
 // Toolbox layout.
 Config.BACKGROUND_COLOR_TOOLBOX = '#CCC';
-Config.TOOLBOX_GATE_SPACING = 2;
+Config.TOOLBOX_GATE_SPACING = 6;
 Config.TOOLBOX_GROUP_SPACING = 24 - Config.TOOLBOX_GATE_SPACING;
 Config.TOOLBOX_GATE_SPAN = Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING;
 Config.TOOLBOX_GROUP_SPAN = Config.TOOLBOX_GATE_SPAN * 2 + Config.TOOLBOX_GROUP_SPACING;
 Config.TOOLBOX_MARGIN_X = 35;
-Config.TOOLBOX_MARGIN_Y = 18;
+Config.TOOLBOX_MARGIN_Y = 35;
 
 /**
  * Some tooltips end up looking terrible without available vertical space.
  * (e.g. the error box might not fit, or the gate tips might get squashed)
  * @type {number}
  */
-Config.MINIMUM_CANVAS_HEIGHT = 400;
+Config.MINIMUM_CANVAS_HEIGHT = 500;
 
 Config.SUPPRESSED_GLSL_WARNING_PATTERNS = [];
 
@@ -95,5 +95,19 @@ Config.CHECK_WEB_GL_ERRORS_EVEN_ON_HOT_PATHS = false;
 Config.SEMI_STABLE_RANDOM_VALUE_LIFETIME_MILLIS = 300;
 
 Config.IGNORED_WEBGL_INFO_TERMS = [];
+
+// Colored version color codes.
+Config.ROTATION_AND_TURNS_COLOR = '#efdd92';
+Config.ROTATION_AND_TURNS_HIGHLIGHT = '#edd265';
+Config.LOGICAL_AND_PARITY_COLOR ='#f8aa79';
+Config.LOGICAL_AND_PARITY_HIGHLIGHT ='#e68c54';
+Config.MATH_COLOR = '#b782c6';
+Config.MATH_HIGHLIGHT = '#a360b5';
+Config.VISUALIZATION_AND_PROBES_COLOR = '#82d48a';
+Config.VISUALIZATION_AND_PROBES_HIGHLIGHT = '#5ecf6a';
+Config.SAMPLING_AND_PROBABILITY_COLOR = '#8acff8';
+Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT = '#43baff';
+Config.OTHER_COLOR = '#d9d9d9';
+Config.OTHER_HIGHLIGHT = '#bab7b7';
 
 export {Config}

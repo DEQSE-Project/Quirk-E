@@ -10,9 +10,9 @@ function drawSlicerGate(args) {
 
     // Drawn as box with a dashed line
     if (args.isInToolbox) {
-        let backColor = Config.GATE_FILL_COLOR;
+        let backColor = Config.OTHER_COLOR;
         if (args.isHighlighted) {
-            backColor = Config.HIGHLIGHTED_GATE_FILL_COLOR;
+            backColor = Config.OTHER_HIGHLIGHT;
         }
         args.painter.fillRect(args.rect, backColor);
         GatePainting.paintOutline(args)

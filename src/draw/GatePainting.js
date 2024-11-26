@@ -308,7 +308,7 @@ GatePainting.SECTIONED_DRAWER_MAKER = (labels, dividers) => args => {
     GatePainting.paintResizeTab(args);
 };
 
-const DISPLAY_GATE_DEFAULT_DRAWER = GatePainting.MAKE_HIGHLIGHTED_DRAWER(Config.DISPLAY_GATE_IN_TOOLBOX_FILL_COLOR);
+const DISPLAY_GATE_DEFAULT_DRAWER = GatePainting.MAKE_HIGHLIGHTED_DRAWER(Config.VISUALIZATION_AND_PROBES_COLOR);
 
 GatePainting.makeDisplayDrawer = statePainter => args => {
     if (args.positionInCircuit === undefined) {
@@ -340,7 +340,7 @@ GatePainting.MATRIX_DRAWER = args => {
         return;
     }
 
-    args.painter.fillRect(args.rect, args.isHighlighted ? Config.HIGHLIGHTED_GATE_FILL_COLOR : Config.GATE_FILL_COLOR);
+    args.painter.fillRect(args.rect, args.isHighlighted ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.GATE_FILL_COLOR);
     MathPainter.paintMatrix(
         args.painter,
         m,
@@ -354,7 +354,7 @@ GatePainting.MATRIX_DRAWER = args => {
     if (args.isHighlighted) {
         args.painter.ctx.save();
         args.painter.ctx.globalAlpha *= 0.9;
-        args.painter.fillRect(args.rect, Config.HIGHLIGHTED_GATE_FILL_COLOR);
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
         args.painter.ctx.restore();
     }
     GatePainting.paintOutline(args);
