@@ -276,14 +276,6 @@ const distillLink = {
     ]
 };
 
-function applyColorSettings(useColors) {
-    if (useColors) {
-        document.body.classList.add('colors-enabled');
-    } else {
-        document.body.classList.remove('colors-enabled');
-    }
-}
-
 /**
  * @param {!Revision} revision
  * @param {!Observable.<!boolean>} obsIsAnyOverlayShowing
@@ -347,19 +339,6 @@ function initMenu(revision, obsIsAnyOverlayShowing) {
             return false;
         };
     }
-
-    document.getElementById('use-colors').addEventListener('change', function (event) {
-        if(event.target.checked) {
-            useColors.set(true);
-        }
-        else {
-            useColors.set(false);
-        }
-        // Update the app's behavior based on the toggle state
-        console.log(`Use Colors: ${useColors}`);
-        // Apply this setting wherever necessary in the app
-        applyColorSettings(useColors);
-    });
 }
 
 export {initMenu, obsMenuIsShowing, closeMenu}

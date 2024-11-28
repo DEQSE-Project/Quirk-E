@@ -17,6 +17,7 @@
 import {Gate, GateBuilder} from "../circuit/Gate.js"
 import {GatePainting} from "../draw/GatePainting.js"
 import {reverseShaderForSize} from "./ReverseBitsGate.js"
+import {Config} from "../Config.js"
 
 let InputGates = {};
 
@@ -26,13 +27,18 @@ let InputGates = {};
  * @param {!boolean} reverse
  */
 function drawInputGate(args, key, reverse) {
-    GatePainting.paintBackground(args, '#DDD', '#DDD');
+    GatePainting.paintBackground(args, Config.VISUALIZATION_AND_PROBES_COLOR, Config.VISUALIZATION_AND_PROBES_COLOR);
     if (args.isInToolbox) {
         GatePainting.paintOutline(args);
     } else {
         args.painter.strokeRect(args.rect, '#888');
     }
     GatePainting.paintResizeTab(args);
+
+    if(args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        args.painter.strokeRect(args.rect, 'black');
+    }
 
     let {x, y} = args.rect.center();
     args.painter.print(
@@ -92,13 +98,32 @@ let makeSetInputGate = key => new GateBuilder().
     }]).
     setDrawer(args => {
         GatePainting.paintLocationIndependentFrame(args, '#EEE', '#EEE');
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+        }
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
         if (args.isInToolbox) {
             GatePainting.paintGateSymbol(args, `${key}=#\ndefault`);
         } else {
             GatePainting.paintGateSymbol(args, `${key}=${args.gate.param}`);
         }
         GatePainting.paintGateButton(args);
-    }).
+    }}).
     setOnClickGateFunc(oldGate => {
         let txt = prompt(`Enter new fallback value for input ${key} (between 0 and 65535).`,
             '' + oldGate.param);

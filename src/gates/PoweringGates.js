@@ -17,6 +17,7 @@
 import {GateBuilder} from "../circuit/Gate.js"
 import {GatePainting} from "../draw/GatePainting.js"
 import {Matrix} from "../math/Matrix.js"
+import {Config} from "../Config.js"
 
 let PoweringGates = {};
 
@@ -41,7 +42,23 @@ PoweringGates.XForward = new GateBuilder().
     setSerializedIdAndSymbol("X^t").
     setTitle("X-Raising Gate (forward)").
     setBlurb("Right-handed cycle from no-op to X.").
-    setDrawer(GatePainting.makeCycleDrawer(1, 1)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 1, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 1, 0);
+        }
+    }).
     setEffectToTimeVaryingMatrix(XPow).
     promiseEffectIsUnitary().
     gate;
@@ -51,7 +68,23 @@ PoweringGates.XBackward = new GateBuilder().
     setSerializedIdAndSymbol("X^-t").
     setTitle("X-Raising Gate (backward)").
     setBlurb("Left-handed cycle from no-op to X.").
-    setDrawer(GatePainting.makeCycleDrawer(-1, 1)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, 1, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, 1, 0);
+        }
+    }).
     setEffectToTimeVaryingMatrix(t => XPow(-t)).
     promiseEffectIsUnitary().
     gate;
@@ -60,7 +93,23 @@ PoweringGates.YForward = new GateBuilder().
     setSerializedIdAndSymbol("Y^t").
     setTitle("Y-Raising Gate (forward)").
     setBlurb("Right-handed cycle from no-op to Y.").
-    setDrawer(GatePainting.makeCycleDrawer(0.5, 1)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0.5, 1, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0.5, 1, 0);
+        }
+    }).
     setEffectToTimeVaryingMatrix(YPow).
     promiseEffectIsUnitary().
     gate;
@@ -70,7 +119,23 @@ PoweringGates.YBackward = new GateBuilder().
     setSerializedIdAndSymbol("Y^-t").
     setTitle("Y-Raising Gate (backward)").
     setBlurb("Left-handed cycle from no-op to Y.").
-    setDrawer(GatePainting.makeCycleDrawer(-0.5, 1)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -0.5, 1, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1,-0.5, 1, 0);
+        }
+    }).
     setEffectToTimeVaryingMatrix(t => YPow(-t)).
     promiseEffectIsUnitary().
     gate;
@@ -79,7 +144,23 @@ PoweringGates.ZForward = new GateBuilder().
     setSerializedIdAndSymbol("Z^t").
     setTitle("Z-Raising Gate (forward)").
     setBlurb("Right-handed cycle from no-op to Z.").
-    setDrawer(GatePainting.makeCycleDrawer(-1, -0.5)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, -0.5, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, -0.5, 0);
+        }
+    }).
     setEffectToTimeVaryingMatrix(ZPow).
     promiseEffectOnlyPhases().
     gate;
@@ -89,7 +170,23 @@ PoweringGates.ZBackward = new GateBuilder().
     setSerializedIdAndSymbol("Z^-t").
     setTitle("Z-Raising Gate (backward)").
     setBlurb("Left-handed cycle from no-op to Z.").
-    setDrawer(GatePainting.makeCycleDrawer(1, -0.5)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, -0.5, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, -0.5, 0);
+        }
+    }).
     setEffectToTimeVaryingMatrix(t => ZPow(-t)).
     promiseEffectOnlyPhases().
     gate;

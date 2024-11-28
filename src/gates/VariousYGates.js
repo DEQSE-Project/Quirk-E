@@ -13,72 +13,207 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {Gate} from "../circuit/Gate.js"
+import {GateBuilder} from "../circuit/Gate.js"
+import {GatePainting} from "../draw/GatePainting.js"
 import {Matrix} from "../math/Matrix.js"
+import {Config} from "../Config.js"
 
 let VariousYGates = {};
 
-VariousYGates.Y3 = Gate.fromKnownMatrix(
-    "Y^⅓",
-    Matrix.fromPauliRotation(0, 1 / 6, 0),
-    "Y^⅓ Gate",
-    "Principle third root of Y.");
-VariousYGates.Y3i = Gate.fromKnownMatrix(
-    "Y^-⅓",
-    Matrix.fromPauliRotation(0, -1 / 6, 0),
-    "Y^-⅓ Gate",
-    "Adjoint third root of Y.",
-    undefined,
-    VariousYGates.Y3);
-VariousYGates.Y4 = Gate.fromKnownMatrix(
-    "Y^¼",
-    Matrix.fromPauliRotation(0, 1 / 8, 0),
-    "Y^¼ Gate",
-    "Principle fourth root of Y.");
-VariousYGates.Y4i = Gate.fromKnownMatrix(
-    "Y^-¼",
-    Matrix.fromPauliRotation(0, -1 / 8, 0),
-    "Y^-¼ Gate",
-    "Adjoint fourth root of Y.",
-    undefined,
-    VariousYGates.Y4);
-VariousYGates.Y8 = Gate.fromKnownMatrix(
-    "Y^⅛",
-    Matrix.fromPauliRotation(0, 1 / 16, 0),
-    "Y^⅛ Gate",
-    "Principle eighth root of Y.");
-VariousYGates.Y8i = Gate.fromKnownMatrix(
-    "Y^-⅛",
-    Matrix.fromPauliRotation(0, -1 / 16, 0),
-    "Y^-⅛ Gate",
-    "Adjoint eighth root of Y.",
-    undefined,
-    VariousYGates.Y8);
-VariousYGates.Y16 = Gate.fromKnownMatrix(
-    "Y^⅟₁₆",
-    Matrix.fromPauliRotation(0, 1 / 32, 0),
-    "Y^⅟₁₆ Gate",
-    "Principle sixteenth root of Y.");
-VariousYGates.Y16i = Gate.fromKnownMatrix(
-    "Y^-⅟₁₆",
-    Matrix.fromPauliRotation(0, -1 / 32, 0),
-    "Y^-⅟₁₆ Gate",
-    "Adjoint sixteenth root of Y.",
-    undefined,
-    VariousYGates.Y16);
-VariousYGates.Y32 = Gate.fromKnownMatrix(
-    "Y^⅟₃₂",
-    Matrix.fromPauliRotation(0, 1 / 64, 0),
-    "Y^⅟₃₂ Gate",
-    "Principle 32'nd root of Y.");
-VariousYGates.Y32i = Gate.fromKnownMatrix(
-    "Y^-⅟₃₂",
-    Matrix.fromPauliRotation(0, -1 / 64, 0),
-    "Y^-⅟₃₂ Gate",
-    "Adjoint 32'nd root of Y.",
-    undefined,
-    VariousYGates.Y32);
+VariousYGates.Y3 = new GateBuilder().
+    setSerializedIdAndSymbol("Y^⅓").
+    setTitle("Y^⅓ Gate").
+    setBlurb("Principle third root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 1 / 6, 0)).
+    gate;
+
+VariousYGates.Y3i = new GateBuilder().
+    setSerializedIdAndSymbol("Y^-⅓").
+    setTitle("Y^-⅓ Gate").
+    setBlurb("Adjoint third root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, -1 / 6, 0)).
+    setAlternate(VariousYGates.Y3).
+    gate;
+
+VariousYGates.Y4 = new GateBuilder().
+    setSerializedIdAndSymbol("Y^¼").
+    setTitle("Y^¼ Gate").
+    setBlurb("Principle fourth root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 1 / 8, 0)).
+    gate;
+
+VariousYGates.Y4i = new GateBuilder().
+    setSerializedIdAndSymbol("Y^-¼").
+    setTitle("Y^-¼ Gate").
+    setBlurb("Adjoint fourth root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, -1 / 8, 0)).
+    setAlternate(VariousYGates.Y4).
+    gate;
+
+VariousYGates.Y8 = new GateBuilder().
+    setSerializedIdAndSymbol("Y^⅛").
+    setTitle("Y^⅛ Gate").
+    setBlurb("Principle eighth root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 1 / 16, 0)).
+    gate;
+
+VariousYGates.Y8i = new GateBuilder().
+    setSerializedIdAndSymbol("Y^-⅛").
+    setTitle("Y^-⅛ Gate").
+    setBlurb("Adjoint eighth root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, -1 / 16, 0)).
+    setAlternate(VariousYGates.Y8).
+    gate;
+
+VariousYGates.Y16 = new GateBuilder().
+    setSerializedIdAndSymbol("Y^⅟₁₆").
+    setTitle("Y^⅟₁₆ Gate").
+    setBlurb("Principle sixteenth root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 1 / 32, 0)).
+    gate;
+
+VariousYGates.Y16i = new GateBuilder().
+    setSerializedIdAndSymbol("Y^-⅟₁₆").
+    setTitle("Y^-⅟₁₆ Gate").
+    setBlurb("Adjoint sixteenth root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, -1 / 32, 0)).
+    setAlternate(VariousYGates.Y16).
+    gate;
+
+VariousYGates.Y32 = new GateBuilder().
+    setSerializedIdAndSymbol("Y^⅟₃₂").
+    setTitle("Y^⅟₃₂ Gate").
+    setBlurb("Principle 32'nd root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 1 / 64, 0)).
+    gate;
+
+VariousYGates.Y32i = new GateBuilder().
+    setSerializedIdAndSymbol("Y^-⅟₃₂").
+    setTitle("Y^-⅟₃₂ Gate").
+    setBlurb("Adjoint 32'nd root of Y.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 0, 0);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, -1 / 64, 0)).
+    setAlternate(VariousYGates.Y32).
+    gate;
 
 VariousYGates.all =[
     VariousYGates.Y3,

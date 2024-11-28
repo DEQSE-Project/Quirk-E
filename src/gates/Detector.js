@@ -176,10 +176,23 @@ function drawHighlight(args) {
     if (args.isHighlighted || args.isInToolbox) {
         args.painter.fillRect(
             args.rect,
-            args.isHighlighted ? Config.HIGHLIGHTED_GATE_FILL_COLOR : Config.GATE_FILL_COLOR);
+            args.isHighlighted ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.VISUALIZATION_AND_PROBES_COLOR);
         GatePainting.paintOutline(args);
     }
 }
+
+function addTransparencyToHex(hexColor, alpha) {
+    // Ensure the input is a valid 6-character hex
+    if (!/^#([0-9A-Fa-f]{6})$/.test(hexColor)) {
+        throw new Error("Invalid hex color format. Expected #RRGGBB.");
+    }
+    let alphaHex = Math.round(alpha * 255).toString(16).padStart(2, "0"); // Convert alpha to hex
+    return hexColor + alphaHex; // Append alpha to the hex color
+}
+
+// Usage
+let color = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT; // "#FF0000"
+let transparentColor = addTransparencyToHex(color, 0.5); // "#FF000080"
 
 /**
  * @param {!GateDrawParams} args
@@ -196,7 +209,7 @@ function drawWedge(args, axis) {
     args.painter.trace(trace => {
         trace.ctx.arc(x, y, r, τ*3/4, τ/4);
         trace.ctx.lineTo(x, y - r - 1);
-    }).thenStroke('black', 2).thenFill(Config.TIME_DEPENDENT_HIGHLIGHT_COLOR);
+    }).thenStroke('black', 2).thenFill(transparentColor);
     args.painter.printLine(axis, args.rect, 0.5, undefined, undefined, undefined, 0.5);
 }
 

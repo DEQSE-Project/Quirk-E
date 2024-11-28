@@ -18,6 +18,8 @@ import {Gate} from "../circuit/Gate.js"
 import {ketArgs, ketShaderPermute, ketInputGateShaderCode} from "../circuit/KetShaderUtil.js"
 import {Util} from "../base/Util.js"
 import {WglArg} from "../webgl/WglArg.js"
+import {Config} from "../Config.js"
+import {GatePainting} from "../draw/GatePainting.js"
 
 let ModularIncrementGates = {};
 
@@ -62,7 +64,31 @@ ModularIncrementGates.IncrementModRFamily = Gate.buildFamily(1, 16, (span, build
     setActualEffectToShaderProvider(ctx => MODULAR_INCREMENT_SHADER.withArgs(
         ...ketArgs(ctx, span, ['R']),
         WglArg.float("amount", +1))).
-    setKnownEffectToParametrizedPermutation((t, a) => t < a ? (t + 1) % a : t));
+    setKnownEffectToParametrizedPermutation((t, a) => t < a ? (t + 1) % a : t).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularIncrementGates.DecrementModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(ModularIncrementGates.IncrementModRFamily).
@@ -76,7 +102,31 @@ ModularIncrementGates.DecrementModRFamily = Gate.buildFamily(1, 16, (span, build
     setActualEffectToShaderProvider(ctx => MODULAR_INCREMENT_SHADER.withArgs(
         ...ketArgs(ctx, span, ['R']),
         WglArg.float("amount", -1))).
-    setKnownEffectToParametrizedPermutation((t, a) => t < a ? Util.properMod(t - 1, a) : t));
+    setKnownEffectToParametrizedPermutation((t, a) => t < a ? Util.properMod(t - 1, a) : t).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularIncrementGates.all = [
     ...ModularIncrementGates.IncrementModRFamily.all,

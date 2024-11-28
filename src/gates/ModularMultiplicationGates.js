@@ -25,6 +25,7 @@ import {modulusTooBigChecker} from "./ModularIncrementGates.js"
 import {BIG_MUL_MOD_SHADER_CODE} from "./MultiplyAccumulateGates.js"
 import {Util} from "../base/Util.js"
 import {WglArg} from "../webgl/WglArg.js"
+import {GatePainting} from "../draw/GatePainting.js"
 
 let ModularMultiplicationGates = {};
 
@@ -225,7 +226,31 @@ ModularMultiplicationGates.TimesAModRFamily = Gate.buildFamily(1, 16, (span, bui
     setExtraDisableReasonFinder(modulusTooBigChecker("R", span)).
     setActualEffectToShaderProvider(ctx => MODULAR_MULTIPLICATION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'R']))).
-    setKnownEffectToParametrizedPermutation(modularMultiply));
+    setKnownEffectToParametrizedPermutation(modularMultiply).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularMultiplicationGates.TimesAModRInverseFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(ModularMultiplicationGates.TimesAModRFamily).
@@ -239,7 +264,31 @@ ModularMultiplicationGates.TimesAModRInverseFamily = Gate.buildFamily(1, 16, (sp
     setExtraDisableReasonFinder(modulusTooBigChecker("R", span)).
     setActualEffectToShaderProvider(ctx => MODULAR_INVERSE_MULTIPLICATION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'R']))).
-    setKnownEffectToParametrizedPermutation(modularUnmultiply));
+    setKnownEffectToParametrizedPermutation(modularUnmultiply).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularMultiplicationGates.TimesBToTheAModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setSerializedId("*BToAmodR" + span).
@@ -253,7 +302,31 @@ ModularMultiplicationGates.TimesBToTheAModRFamily = Gate.buildFamily(1, 16, (spa
     setActualEffectToShaderProvider(ctx => MODULAR_POWER_MULTIPLICATION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'B', 'R']),
         WglArg.float('factor', +1))).
-    setKnownEffectToParametrizedPermutation((t, a, b, r) => modularPowerMultiply(t, b, a, r)));
+    setKnownEffectToParametrizedPermutation((t, a, b, r) => modularPowerMultiply(t, b, a, r)).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularMultiplicationGates.TimesInverseBToTheAModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(ModularMultiplicationGates.TimesBToTheAModRFamily).
@@ -268,7 +341,31 @@ ModularMultiplicationGates.TimesInverseBToTheAModRFamily = Gate.buildFamily(1, 1
     setActualEffectToShaderProvider(ctx => MODULAR_POWER_MULTIPLICATION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'B', 'R']),
         WglArg.float('factor', -1))).
-    setKnownEffectToParametrizedPermutation((t, a, b, r) => modularPowerMultiply(t, b, -a, r)));
+    setKnownEffectToParametrizedPermutation((t, a, b, r) => modularPowerMultiply(t, b, -a, r)).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularMultiplicationGates.all = [
     ...ModularMultiplicationGates.TimesAModRFamily.all,

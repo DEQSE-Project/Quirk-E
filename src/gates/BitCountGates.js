@@ -46,6 +46,17 @@ BitCountGates.PlusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => b
     setActualEffectToShaderProvider(ctx => POP_COUNT_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A']),
         WglArg.float("factor", +1))).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((t, a) => (t + Util.numberOfSetBits(a)) & ((1 << span) - 1)));
 
 BitCountGates.MinusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
@@ -58,6 +69,17 @@ BitCountGates.MinusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => 
     setActualEffectToShaderProvider(ctx => POP_COUNT_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A']),
         WglArg.float("factor", -1))).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((t, a) => (t - Util.numberOfSetBits(a)) & ((1 << span) - 1)));
 
 BitCountGates.all = [

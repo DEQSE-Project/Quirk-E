@@ -1,3 +1,4 @@
+// TODO: Highlight color not working in toolbox
 /**
  * Copyright 2017 Google Inc.
  *

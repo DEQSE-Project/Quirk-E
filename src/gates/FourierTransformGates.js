@@ -21,6 +21,7 @@ import {Matrix} from "../math/Matrix.js"
 import {HalfTurnGates} from "./HalfTurnGates.js"
 import {reverseShaderForSize} from "./ReverseBitsGate.js"
 import {WglArg} from "../webgl/WglArg.js"
+import {Config} from "../Config.js"
 
 /**
  * @param {!CircuitEvalContext} ctx

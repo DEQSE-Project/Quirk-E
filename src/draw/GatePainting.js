@@ -68,10 +68,15 @@ GatePainting.LABEL_DRAWER = args => {
  */
 GatePainting.MAKE_HIGHLIGHTED_DRAWER =
     (toolboxFillColor = Config.GATE_FILL_COLOR, normalFillColor = Config.GATE_FILL_COLOR) => args => {
-        GatePainting.paintBackground(args, toolboxFillColor, normalFillColor);
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintResizeTab(args);
         GatePainting.paintGateSymbol(args);
+        if (args.isHighlighted && args.isInToolbox) {
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+            GatePainting.paintOutline(args);
+            GatePainting.paintGateSymbol(args);
+        }
     };
 
 /**
@@ -315,7 +320,7 @@ GatePainting.makeDisplayDrawer = statePainter => args => {
         DISPLAY_GATE_DEFAULT_DRAWER(args);
         return;
     }
-
+    
     GatePainting.paintResizeTab(args);
 
     statePainter(args);

@@ -28,9 +28,9 @@ let SpacerGate = new GateBuilder().
     setDrawer(args => {
         // Drawn as an ellipsis.
         if (args.isInToolbox || args.isHighlighted) {
-            let backColor = Config.GATE_FILL_COLOR;
+            let backColor = Config.OTHER_COLOR;
             if (args.isHighlighted) {
-                backColor = Config.HIGHLIGHTED_GATE_FILL_COLOR;
+                backColor = Config.OTHER_HIGHLIGHT;
             }
             args.painter.fillRect(args.rect, backColor);
             GatePainting.paintOutline(args);

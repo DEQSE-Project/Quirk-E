@@ -1,3 +1,5 @@
+// TODO: Toolbox highlight does not work yet.
+
 /**
  * Copyright 2017 Google Inc.
  *
@@ -23,6 +25,7 @@ import {Matrix} from "../math/Matrix.js"
 import {Shaders} from "../webgl/Shaders.js"
 import {Util} from "../base/Util.js"
 import {WglArg} from "../webgl/WglArg.js"
+import {Config} from "../Config.js"
 import {WglConfiguredShader} from "../webgl/WglConfiguredShader.js"
 import {
     Inputs,
@@ -203,6 +206,9 @@ const DENSITY_MATRIX_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(a
     let n = args.gate.height;
     let ρ = args.customStats || Matrix.zero(1<<n, 1<<n).times(NaN);
     MathPainter.paintDensityMatrix(args.painter, ρ, args.rect, args.focusPoints);
+    if (args.isHighlighted) {
+        GatePainting.paintBackground(args, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT)
+    }
 });
 
 let DensityMatrixDisplayFamily = Gate.buildFamily(1, 8, (span, builder) =>

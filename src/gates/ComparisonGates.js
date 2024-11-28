@@ -17,6 +17,8 @@
 import {GateBuilder} from "../circuit/Gate.js"
 import {ketArgs, ketShaderPermute, ketInputGateShaderCode} from "../circuit/KetShaderUtil.js"
 import {WglConfiguredShader} from "../webgl/WglConfiguredShader.js"
+import {Config} from "../Config.js"
+import {GatePainting} from "../draw/GatePainting.js"
 
 let ComparisonGates = {};
 
@@ -45,6 +47,22 @@ ComparisonGates.ALessThanB = new GateBuilder().
     setBlurb("Toggles a qubit if input A is less than input B.").
     setRequiredContextKeys("Input Range A", "Input Range B").
     setActualEffectToShaderProvider(customComparisonShader('lhs < rhs')).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((v, a, b) => v ^ (a < b ? 1 : 0)).
     gate;
 
@@ -55,6 +73,22 @@ ComparisonGates.ALessThanOrEqualToB = new GateBuilder().
     setBlurb("Toggles a qubit if input A is at most input B.").
     setRequiredContextKeys("Input Range A", "Input Range B").
     setActualEffectToShaderProvider(customComparisonShader('lhs <= rhs')).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((v, a, b) => v ^ (a <= b ? 1 : 0)).
     gate;
 
@@ -66,6 +100,22 @@ ComparisonGates.AGreaterThanB = new GateBuilder().
     setBlurb("Toggles a qubit if input A is greater than input B.").
     setRequiredContextKeys("Input Range A", "Input Range B").
     setActualEffectToShaderProvider(customComparisonShader('lhs > rhs')).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((v, a, b) => v ^ (a > b ? 1 : 0)).
     gate;
 
@@ -77,6 +127,22 @@ ComparisonGates.AGreaterThanOrEqualToB = new GateBuilder().
     setBlurb("Toggles a qubit if input A is at least input B.").
     setRequiredContextKeys("Input Range A", "Input Range B").
     setActualEffectToShaderProvider(customComparisonShader('lhs >= rhs')).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((v, a, b) => v ^ (a >= b ? 1 : 0)).
     gate;
 
@@ -87,6 +153,22 @@ ComparisonGates.AEqualToB = new GateBuilder().
     setBlurb("Toggles a qubit if input A is equal to input B.").
     setRequiredContextKeys("Input Range A", "Input Range B").
     setActualEffectToShaderProvider(customComparisonShader('lhs == rhs')).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((v, a, b) => v ^ (a === b ? 1 : 0)).
     gate;
 
@@ -98,6 +180,22 @@ ComparisonGates.ANotEqualToB = new GateBuilder().
     setBlurb("Toggles a qubit if input A isn't equal to input B.").
     setRequiredContextKeys("Input Range A", "Input Range B").
     setActualEffectToShaderProvider(customComparisonShader('lhs != rhs')).
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     setKnownEffectToParametrizedPermutation((v, a, b) => v ^ (a !== b ? 1 : 0)).
     gate;
 

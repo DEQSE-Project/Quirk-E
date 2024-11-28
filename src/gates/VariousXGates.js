@@ -14,71 +14,172 @@
  * limitations under the License.
  */
 
-import {Gate} from "../circuit/Gate.js"
+import {GateBuilder} from "../circuit/Gate.js"
+import {GatePainting} from "../draw/GatePainting.js"
 import {Matrix} from "../math/Matrix.js"
+import {Config} from "../Config.js"
 
 let VariousXGates = {};
 
-VariousXGates.X3 = Gate.fromKnownMatrix(
-    "X^⅓",
-    Matrix.fromPauliRotation(1 / 6, 0, 0),
-    "X^⅓ Gate",
-    "Principle third root of X.");
-VariousXGates.X3i = Gate.fromKnownMatrix(
-    "X^-⅓",
-    Matrix.fromPauliRotation(-1 / 6, 0, 0),
-    "X^-⅓ Gate",
-    "Adjoint third root of X.",
-    undefined,
-    VariousXGates.X3);
-VariousXGates.X4 = Gate.fromKnownMatrix(
-    "X^¼",
-    Matrix.fromPauliRotation(1 / 8, 0, 0),
-    "X^¼ Gate",
-    "Principle fourth root of X.");
-VariousXGates.X4i = Gate.fromKnownMatrix(
-    "X^-¼",
-    Matrix.fromPauliRotation(-1 / 8, 0, 0),
-    "X^-¼ Gate",
-    "Adjoint fourth root of X.",
-    undefined,
-    VariousXGates.X4);
-VariousXGates.X8 = Gate.fromKnownMatrix(
-    "X^⅛",
-    Matrix.fromPauliRotation(1 / 16, 0, 0),
-    "X^⅛ Gate",
-    "Principle eighth root of X.");
-VariousXGates.X8i = Gate.fromKnownMatrix(
-    "X^-⅛",
-    Matrix.fromPauliRotation(-1 / 16, 0, 0),
-    "X^-⅛ Gate",
-    "Adjoint eighth root of X.",
-    undefined,
-    VariousXGates.X8);
-VariousXGates.X16 = Gate.fromKnownMatrix(
-    "X^⅟₁₆",
-    Matrix.fromPauliRotation(1 / 32, 0, 0),
-    "X^⅟₁₆ Gate",
-    "Principle sixteenth root of X.");
-VariousXGates.X16i = Gate.fromKnownMatrix(
-    "X^-⅟₁₆",
-    Matrix.fromPauliRotation(-1 / 32, 0, 0),
-    "X^-⅟₁₆ Gate",
-    "Adjoint sixteenth root of X.",
-    undefined,
-    VariousXGates.X16);
-VariousXGates.X32 = Gate.fromKnownMatrix(
-    "X^⅟₃₂",
-    Matrix.fromPauliRotation(1 / 64, 0, 0),
-    "X^⅟₃₂ Gate",
-    "Principle 32'nd root of X.");
-VariousXGates.X32i = Gate.fromKnownMatrix(
-    "X^-⅟₃₂",
-    Matrix.fromPauliRotation(-1 / 64, 0, 0),
-    "X^-⅟₃₂ Gate",
-    "Adjoint 32'nd root of X.",
-    undefined,
-    VariousXGates.X32);
+VariousXGates.X3 = new GateBuilder().
+    setSerializedIdAndSymbol("X^⅓").
+    setTitle("X^⅓ Gate").
+    setBlurb("Principle third root of X.").
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(1 / 6, 0, 0))
+    .gate;
+VariousXGates.X3i = new GateBuilder().
+    setSerializedIdAndSymbol("X^-⅓").
+    setTitle("X^-⅓ Gate").
+    setBlurb("Adjoint third root of X.").
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(-1 / 6, 0, 0)).
+    setAlternate(VariousXGates.X3)
+    .gate;
+    VariousXGates.X4 = new GateBuilder().
+    setSerializedIdAndSymbol("X^¼").
+    setTitle("X^¼ Gate").
+    setBlurb("Principle fourth root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(1 / 8, 0, 0)).
+    gate;
+
+VariousXGates.X4i = new GateBuilder().
+    setSerializedIdAndSymbol("X^-¼").
+    setTitle("X^-¼ Gate").
+    setBlurb("Adjoint fourth root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(-1 / 8, 0, 0)).
+    setAlternate(VariousXGates.X4).
+    gate;
+
+VariousXGates.X8 = new GateBuilder().
+    setSerializedIdAndSymbol("X^⅛").
+    setTitle("X^⅛ Gate").
+    setBlurb("Principle eighth root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(1 / 16, 0, 0)).
+    gate;
+
+VariousXGates.X8i = new GateBuilder().
+    setSerializedIdAndSymbol("X^-⅛").
+    setTitle("X^-⅛ Gate").
+    setBlurb("Adjoint eighth root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(-1 / 16, 0, 0)).
+    setAlternate(VariousXGates.X8).
+    gate;
+
+VariousXGates.X16 = new GateBuilder().
+    setSerializedIdAndSymbol("X^⅟₁₆").
+    setTitle("X^⅟₁₆ Gate").
+    setBlurb("Principle sixteenth root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(1 / 32, 0, 0)).
+    gate;
+
+VariousXGates.X16i = new GateBuilder().
+    setSerializedIdAndSymbol("X^-⅟₁₆").
+    setTitle("X^-⅟₁₆ Gate").
+    setBlurb("Adjoint sixteenth root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(-1 / 32, 0, 0)).
+    setAlternate(VariousXGates.X16).
+    gate;
+
+VariousXGates.X32 = new GateBuilder().
+    setSerializedIdAndSymbol("X^⅟₃₂").
+    setTitle("X^⅟₃₂ Gate").
+    setBlurb("Principle 32'nd root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(1 / 64, 0, 0)).
+    gate;
+
+VariousXGates.X32i = new GateBuilder().
+    setSerializedIdAndSymbol("X^-⅟₃₂").
+    setTitle("X^-⅟₃₂ Gate").
+    setBlurb("Adjoint 32'nd root of X.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(-1 / 64, 0, 0)).
+    setAlternate(VariousXGates.X32).
+    gate;
+
 
 VariousXGates.all =[
     VariousXGates.X3,

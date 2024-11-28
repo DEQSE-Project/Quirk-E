@@ -14,76 +14,226 @@
  * limitations under the License.
  */
 
-import {Gate} from "../circuit/Gate.js"
+import {GateBuilder} from "../circuit/Gate.js"
+import {GatePainting} from "../draw/GatePainting.js"
 import {Matrix} from "../math/Matrix.js"
+import {Config} from "../Config.js"
 
 let VariousZGates = {};
 
-VariousZGates.Z3 = Gate.fromKnownMatrix(
-    "Z^⅓",
-    Matrix.fromPauliRotation(0, 0, 1 / 6),
-    "Z^⅓ Gate",
-    "Principle third root of Z.");
-VariousZGates.Z3i = Gate.fromKnownMatrix(
-    "Z^-⅓",
-    Matrix.fromPauliRotation(0, 0, -1 / 6),
-    "Z^-⅓ Gate",
-    "Adjoint third root of Z.",
-    undefined,
-    VariousZGates.Z3);
-VariousZGates.Z4 = Gate.fromKnownMatrix(
-    "T",
-    Matrix.fromPauliRotation(0, 0, 1 / 8),
-    "Z^¼ Gate",
-    "Principle fourth root of Z.",
-    "Z^¼");
-VariousZGates.Z4i = Gate.fromKnownMatrix(
-    "T^-1",
-    Matrix.fromPauliRotation(0, 0, -1 / 8),
-    "Z^-¼ Gate",
-    "Adjoint fourth root of Z.",
-    "Z^-¼",
-    VariousZGates.Z4);
-VariousZGates.Z8 = Gate.fromKnownMatrix(
-    "Z^⅛",
-    Matrix.fromPauliRotation(0, 0, 1 / 16),
-    "Z^⅛ Gate",
-    "Principle eighth root of Z.");
-VariousZGates.Z8i = Gate.fromKnownMatrix(
-    "Z^-⅛",
-    Matrix.fromPauliRotation(0, 0, -1 / 16),
-    "Z^-⅛ Gate",
-    "Adjoint eighth root of Z.",
-    undefined,
-    VariousZGates.Z8);
-VariousZGates.Z16 = Gate.fromKnownMatrix(
-    "Z^⅟₁₆",
-    Matrix.fromPauliRotation(0, 0, 1 / 32),
-    "Z^⅟₁₆ Gate",
-    "Principle 16'th root of Z.");
-VariousZGates.Z16i = Gate.fromKnownMatrix(
-    "Z^-⅟₁₆",
-    Matrix.fromPauliRotation(0, 0, -1 / 32),
-    "Z^-⅟₁₆ Gate",
-    "Adjoint 16'th root of Z.",
-    undefined,
-    VariousZGates.Z16);
+VariousZGates.Z3 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^⅓").
+    setTitle("Z^⅓ Gate").
+    setBlurb("Principle third root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 6)).
+    gate;
 
-VariousZGates.Z32 = Gate.fromKnownMatrix(
-    "Z^⅟₃₂",
-    Matrix.fromPauliRotation(0, 0, 1 / 64),
-    "Z^⅟₃₂ Gate",
-    "Principle 32'nd root of Z.");
-VariousZGates.Z64 = Gate.fromKnownMatrix(
-    "Z^⅟₆₄",
-    Matrix.fromPauliRotation(0, 0, 1 / 128),
-    "Z^⅟₆₄ Gate",
-    "Principle 64'th root of Z.");
-VariousZGates.Z128 = Gate.fromKnownMatrix(
-    "Z^⅟₁₂₈",
-    Matrix.fromPauliRotation(0, 0, 1 / 256),
-    "Z^⅟₁₂₈ Gate",
-    "Principle 128'th root of Z.");
+VariousZGates.Z3i = new GateBuilder().
+    setSerializedIdAndSymbol("Z^-⅓").
+    setTitle("Z^-⅓ Gate").
+    setBlurb("Adjoint third root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, -1 / 6)).
+    setAlternate(VariousZGates.Z3).
+    gate;
+
+VariousZGates.Z4 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^¼").
+    setTitle("Z^¼ Gate").
+    setBlurb("Principle fourth root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 8)).
+    gate;
+
+VariousZGates.Z4i = new GateBuilder().
+    setSerializedIdAndSymbol("Z^-¼").
+    setTitle("Z^-¼ Gate").
+    setBlurb("Adjoint fourth root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, -1 / 8)).
+    setAlternate(VariousZGates.Z4).
+    gate;
+
+VariousZGates.Z8 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^⅛").
+    setTitle("Z^⅛ Gate").
+    setBlurb("Principle eighth root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 16)).
+    gate;
+
+VariousZGates.Z8i = new GateBuilder().
+    setSerializedIdAndSymbol("Z^-⅛").
+    setTitle("Z^-⅛ Gate").
+    setBlurb("Adjoint eighth root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, -1 / 16)).
+    setAlternate(VariousZGates.Z8).
+    gate;
+
+VariousZGates.Z16 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^⅟₁₆").
+    setTitle("Z^⅟₁₆ Gate").
+    setBlurb("Principle sixteenth root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 32)).
+    gate;
+
+VariousZGates.Z16i = new GateBuilder().
+    setSerializedIdAndSymbol("Z^-⅟₁₆").
+    setTitle("Z^-⅟₁₆ Gate").
+    setBlurb("Adjoint sixteenth root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, -1 / 32)).
+    setAlternate(VariousZGates.Z16).
+    gate;
+
+VariousZGates.Z32 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^⅟₃₂").
+    setTitle("Z^⅟₃₂ Gate").
+    setBlurb("Principle 32'nd root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 64)).
+    gate;
+
+VariousZGates.Z64 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^⅟₆₄").
+    setTitle("Z^⅟₆₄ Gate").
+    setBlurb("Principle 64'th root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 128)).
+    gate;
+
+VariousZGates.Z128 = new GateBuilder().
+    setSerializedIdAndSymbol("Z^⅟₁₂₈").
+    setTitle("Z^⅟₁₂₈ Gate").
+    setBlurb("Principle 128'th root of Z.").
+    setDrawer(args => {
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox) {
+            GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
+        }
+    }).
+    setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 1 / 256)).
+    gate;
+
 
 VariousZGates.all =[
     VariousZGates.Z3,

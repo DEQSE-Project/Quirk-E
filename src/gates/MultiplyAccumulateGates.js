@@ -113,7 +113,31 @@ MultiplyAccumulateGates.MultiplyAddInputsFamily = Gate.buildFamily(1, 16, (span,
     setActualEffectToShaderProvider(ctx => MULTIPLY_ACCUMULATE_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'B']),
         WglArg.float("factor", +1))).
-    setKnownEffectToParametrizedPermutation((t, a, b) => (t + a*b) & ((1 << span) - 1)));
+    setKnownEffectToParametrizedPermutation((t, a, b) => (t + a*b) & ((1 << span) - 1)).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 MultiplyAccumulateGates.MultiplySubtractInputsFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(MultiplyAccumulateGates.MultiplyAddInputsFamily).
@@ -125,7 +149,31 @@ MultiplyAccumulateGates.MultiplySubtractInputsFamily = Gate.buildFamily(1, 16, (
     setActualEffectToShaderProvider(ctx => MULTIPLY_ACCUMULATE_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'B']),
         WglArg.float("factor", -1))).
-    setKnownEffectToParametrizedPermutation((t, a, b) => (t - a*b) & ((1 << span) - 1)));
+    setKnownEffectToParametrizedPermutation((t, a, b) => (t - a*b) & ((1 << span) - 1)).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 MultiplyAccumulateGates.SquareAddInputFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setSerializedId("+=AA" + span).
@@ -136,7 +184,31 @@ MultiplyAccumulateGates.SquareAddInputFamily = Gate.buildFamily(1, 16, (span, bu
     setActualEffectToUpdateFunc(ctx =>
         MultiplyAccumulateGates.MultiplyAddInputsFamily.ofSize(span).customOperation(
             ctx.withInputSetToOtherInput('B', 'A'))).
-    setKnownEffectToParametrizedPermutation((t, a) => (t + a*a) & ((1 << span) - 1)));
+    setKnownEffectToParametrizedPermutation((t, a) => (t + a*a) & ((1 << span) - 1)).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 MultiplyAccumulateGates.SquareSubtractInputFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(MultiplyAccumulateGates.SquareAddInputFamily).
@@ -148,7 +220,31 @@ MultiplyAccumulateGates.SquareSubtractInputFamily = Gate.buildFamily(1, 16, (spa
     setActualEffectToUpdateFunc(ctx =>
         MultiplyAccumulateGates.MultiplySubtractInputsFamily.ofSize(span).customOperation(
             ctx.withInputSetToOtherInput('B', 'A'))).
-    setKnownEffectToParametrizedPermutation((t, a) => (t - a*a) & ((1 << span) - 1)));
+    setKnownEffectToParametrizedPermutation((t, a) => (t - a*a) & ((1 << span) - 1)).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 MultiplyAccumulateGates.all = [
     ...MultiplyAccumulateGates.Legacy_MultiplyAddFamily.all,

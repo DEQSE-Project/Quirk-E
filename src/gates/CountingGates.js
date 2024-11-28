@@ -42,7 +42,10 @@ const staircaseCurve = steps => {
 };
 
 let STAIRCASE_DRAWER = (timeOffset, steps, flip=false) => args => {
-    GatePainting.MAKE_HIGHLIGHTED_DRAWER(Config.TIME_DEPENDENT_HIGHLIGHT_COLOR)(args);
+    //GatePainting.MAKE_HIGHLIGHTED_DRAWER(Config.TIME_DEPENDENT_HIGHLIGHT_COLOR)(args);
+    COLOR_GATE(args);
+
+    GatePainting.paintResizeTab(args);
 
     if (args.isInToolbox && !args.isHighlighted) {
         return;
@@ -81,6 +84,23 @@ let STAIRCASE_DRAWER = (timeOffset, steps, flip=false) => args => {
     args.painter.ctx.restore();
 };
 
+function COLOR_GATE(args) {
+    // Fill the gate with the configured fill color
+    args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+    
+    // Highlight the gate if needed (when `args.isHighlighted` is true)
+    if (args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+    }
+    GatePainting.paintGateSymbol(args);
+    if (args.isInToolbox) {
+        let r = args.rect.shiftedBy(0.5, 0.5);
+        args.painter.strokeLine(r.topRight(), r.bottomRight());
+        args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+    }
+    args.painter.strokeRect(args.rect, 'black');
+}
+
 /**
  * @param {!number} time
  * @param {!int} factor
@@ -109,9 +129,24 @@ CountingGates.ClockPulseGate = new GateBuilder().
     setSerializedIdAndSymbol("X^⌈t⌉").
     setTitle("Clock Pulse Gate").
     setBlurb("Xors a square wave into the target wire.").
-    setDrawer(STAIRCASE_DRAWER(0, 2)).
     setEffectToTimeVaryingMatrix(t => (t % 1) < 0.5 ? Matrix.identity(2) : Matrix.PAULI_X).
     promiseEffectOnlyPermutesAndPhases().
+    setDrawer(args => {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        if (args.isInToolbox) {
+            let r = args.rect.shiftedBy(0.5, 0.5);
+            args.painter.strokeLine(r.topRight(), r.bottomRight());
+            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        }
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 CountingGates.QuarterPhaseClockPulseGate = new GateBuilder().

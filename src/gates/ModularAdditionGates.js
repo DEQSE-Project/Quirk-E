@@ -19,6 +19,8 @@ import {ketArgs, ketShaderPermute, ketInputGateShaderCode} from "../circuit/KetS
 import {Util} from "../base/Util.js"
 import {WglArg} from "../webgl/WglArg.js"
 import {modulusTooBigChecker} from "./ModularIncrementGates.js"
+import {Config} from "../Config.js"
+import {GatePainting} from "../draw/GatePainting.js"
 
 let ModularAdditionGates = {};
 
@@ -49,7 +51,31 @@ ModularAdditionGates.PlusAModRFamily = Gate.buildFamily(1, 16, (span, builder) =
     setActualEffectToShaderProvider(ctx => MODULAR_ADDITION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'R']),
         WglArg.float("factor", +1))).
-    setKnownEffectToParametrizedPermutation((t, a, r) => t < r ? (t + a) % r : t));
+    setKnownEffectToParametrizedPermutation((t, a, r) => t < r ? (t + a) % r : t).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularAdditionGates.MinusAModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(ModularAdditionGates.PlusAModRFamily).
@@ -62,7 +88,31 @@ ModularAdditionGates.MinusAModRFamily = Gate.buildFamily(1, 16, (span, builder) 
     setActualEffectToShaderProvider(ctx => MODULAR_ADDITION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A', 'R']),
         WglArg.float("factor", -1))).
-    setKnownEffectToParametrizedPermutation((t, a, r) => t < r ? Util.properMod(t - a, r) : t));
+    setKnownEffectToParametrizedPermutation((t, a, r) => t < r ? Util.properMod(t - a, r) : t).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }));
 
 ModularAdditionGates.all = [
     ...ModularAdditionGates.PlusAModRFamily.all,

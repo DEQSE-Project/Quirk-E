@@ -1,3 +1,4 @@
+// TODO: Highlight color for this one!
 /**
  * Copyright 2017 Google Inc.
  *
@@ -233,10 +234,7 @@ const POINTWISE_CMUL_CONJ_SHADER = makePseudoShaderWithInputsAndOutputAndCode(
     }
     `);
 
-/**
- * @type {!function(!GateDrawParams)}
- */
-const AMPLITUDE_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(args => {
+function DRAW_GATE(args) {
     let n = args.gate.height;
     let {quality, ket, phaseLockIndex, incoherentKet} = args.customStats || {
         ket: (n === 1 ? Matrix.zero(2, 1) : Matrix.zero(1 << Math.floor(n / 2), 1 << Math.ceil(n / 2))).times(NaN),
@@ -244,6 +242,24 @@ const AMPLITUDE_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(args =
         phaseLockIndex: 0,
         incoherentKet: undefined
     };
+
+    if (args.positionInCircuit === undefined) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        }
+    }
+    
+    GatePainting.paintResizeTab(args);
+
+    if (args.isHighlighted) {
+        args.painter.strokeRect(args.rect, 'black', 1.5);
+    }
+
+    args.painter.ctx.save();
+    args.painter.ctx.globalAlpha *= 0.25;
+    GatePainting.paintResizeTab(args);
+    args.painter.ctx.restore();
 
     let isIncoherent = quality < 0.99;
     let matrix = isIncoherent ? incoherentKet : ket;
@@ -296,7 +312,88 @@ const AMPLITUDE_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(args =
         }
     }
 
+    if (args.positionInCircuit === undefined) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        }
+    }
+    
     paintErrorIfPresent(args, indicatorAlpha);
+}
+
+/**
+ * @type {!function(!GateDrawParams)}
+ */
+const AMPLITUDE_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(args => {
+    let n = args.gate.height;
+    let {quality, ket, phaseLockIndex, incoherentKet} = args.customStats || {
+        ket: (n === 1 ? Matrix.zero(2, 1) : Matrix.zero(1 << Math.floor(n / 2), 1 << Math.ceil(n / 2))).times(NaN),
+        quality: 1,
+        phaseLockIndex: 0,
+        incoherentKet: undefined
+    };
+    
+    let isIncoherent = quality < 0.99;
+    let matrix = isIncoherent ? incoherentKet : ket;
+    let dw = args.rect.w - args.rect.h*ket.width()/ket.height();
+    let drawRect = args.rect.skipLeft(dw/2).skipRight(dw/2);
+    let indicatorAlpha = Math.min(1, Math.max(0, (quality - 0.9999) / 0.0001));
+    MathPainter.paintMatrix(
+        args.painter,
+        matrix,
+        drawRect,
+        Config.SUPERPOSITION_MID_COLOR,
+        'black',
+        Config.SUPERPOSITION_FORE_COLOR,
+        Config.SUPERPOSITION_BACK_COLOR,
+        `rgba(0, 0, 0, ${indicatorAlpha})`);
+
+    let forceSign = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+    if (isIncoherent) {
+        MathPainter.paintMatrixTooltip(args.painter, matrix, drawRect, args.focusPoints,
+            (c, r) => `Chance of |${Util.bin(r*matrix.width() + c, args.gate.height)}⟩ (decimal ${r*matrix.width() + c}) [amplitude not defined]`,
+            (c, r, v) => `raw: ${(v.norm2()*100).toFixed(4)}%, log: ${(Math.log10(v.norm2())*10).toFixed(1)} dB`,
+            (c, r, v) => '[entangled with other qubits]');
+    } else {
+        MathPainter.paintMatrixTooltip(args.painter, matrix, drawRect, args.focusPoints,
+            (c, r) => `Amplitude of |${Util.bin(r*matrix.width() + c, args.gate.height)}⟩ (decimal ${r*matrix.width() + c})`,
+            (c, r, v) => 'val:' + v.toString(new Format(false, 0, 5, ", ")),
+            (c, r, v) => `mag²:${(v.norm2()*100).toFixed(4)}%, phase:${forceSign(v.phase() * 180 / Math.PI)}°`);
+        if (phaseLockIndex !== undefined) {
+            let cw = drawRect.w/matrix.width();
+            let rh = drawRect.h/matrix.height();
+            let c = phaseLockIndex % matrix.width();
+            let r = Math.floor(phaseLockIndex / matrix.width());
+            let cx = drawRect.x + cw*(c+0.5);
+            let cy = drawRect.y + rh*(r+0.5);
+            args.painter.strokeLine(
+                new Point(cx, cy),
+                new Point(cx + cw/2, cy),
+                `rgba(255,0,0,${indicatorAlpha})`,
+                2);
+            args.painter.print(
+                'fixed',
+                cx + 0.5*cw,
+                cy,
+                'right',
+                'bottom',
+                `rgba(255,0,0,${indicatorAlpha})`,
+                '12px monospace',
+                cw*0.5,
+                rh*0.5);
+        }
+    }
+
+    if (args.positionInCircuit === undefined) {
+        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+        }
+    }
+
+    paintErrorIfPresent(args, indicatorAlpha);
+    return;
 });
 
 /**

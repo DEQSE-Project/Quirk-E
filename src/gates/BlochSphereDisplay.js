@@ -1,3 +1,5 @@
+// TODO: Highlight color is not working yet.
+
 /**
  * Copyright 2017 Google Inc.
  *

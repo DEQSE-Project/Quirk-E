@@ -18,6 +18,7 @@ import {Gate} from "../circuit/Gate.js"
 import {GatePainting} from "../draw/GatePainting.js"
 import {ketArgs, ketShaderPermute, ketInputGateShaderCode} from "../circuit/KetShaderUtil.js"
 import {WglArg} from "../webgl/WglArg.js"
+import {Config} from "../Config.js"
 
 let ArithmeticGates = {};
 
@@ -47,7 +48,30 @@ ArithmeticGates.Legacy_AdditionFamily = Gate.buildFamily(2, 16, (span, builder) 
     setSymbol("b+=a").
     setTitle("Addition Gate").
     setBlurb("Adds a little-endian number into another.").
-    setDrawer(GatePainting.SECTIONED_DRAWER_MAKER(["a", "b+=a"], [Math.floor(span/2) / span])).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }).
     setActualEffectToUpdateFunc(ctx =>
         ArithmeticGates.PlusAFamily.ofSize(Math.ceil(span/2)).customOperation(
             ctx.withRow(ctx.row + Math.floor(span/2)).
@@ -60,7 +84,30 @@ ArithmeticGates.Legacy_SubtractionFamily = Gate.buildFamily(2, 16, (span, builde
     setSymbol("b-=a").
     setTitle("Subtraction Gate").
     setBlurb("Subtracts a little-endian number from another.").
-    setDrawer(GatePainting.SECTIONED_DRAWER_MAKER(["a", "b-=a"], [Math.floor(span/2) / span])).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }).
     setActualEffectToUpdateFunc(ctx =>
         ArithmeticGates.MinusAFamily.ofSize(Math.ceil(span/2)).customOperation(
             ctx.withRow(ctx.row + Math.floor(span/2)).
@@ -76,6 +123,30 @@ ArithmeticGates.PlusAFamily = Gate.buildFamily(1, 16, (span, builder) => builder
     setActualEffectToShaderProvider(ctx => ADDITION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A']),
         WglArg.float("factor", +1))).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }).
     setKnownEffectToParametrizedPermutation((v, a) => (v + a) & ((1 << span) - 1)));
 
 ArithmeticGates.MinusAFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
@@ -88,6 +159,30 @@ ArithmeticGates.MinusAFamily = Gate.buildFamily(1, 16, (span, builder) => builde
     setActualEffectToShaderProvider(ctx => ADDITION_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A']),
         WglArg.float("factor", -1))).
+    setDrawer(args => {
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+    
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            }
+            args.painter.strokeRect(args.rect);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+        }
+        
+    }).
     setKnownEffectToParametrizedPermutation((v, a) => (v - a) & ((1 << span) - 1)));
 
 ArithmeticGates.all = [
