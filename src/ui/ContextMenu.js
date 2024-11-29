@@ -31,7 +31,7 @@ class ContextMenu {
     open(position) {
         this.position = position;
         const {x, y} = position;
-        this.menuDiv.style.top = `${y + this.canvas.getBoundingClientRect().top + 5}px`;
+        this.menuDiv.style.top = `${y + 50}px`;
         this.menuDiv.style.left = `${x}px`;
         this.menuDiv.style.display = "block";
     }

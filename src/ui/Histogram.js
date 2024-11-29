@@ -34,21 +34,13 @@ class Histogram {
     }
 
     /**
-     * @param {!number} maxWidth
-     * @returns {!Rect}
-     */
-    curArea(maxWidth) {
-        return new Rect(0, this.top, maxWidth, this.desiredHeight());
-    }
-    
-    /**
      * @param {!Painter} painter
      * @param {!Number} num_wires
      */
     histogramArea(painter, num_wires) {
         let margin_top = 10;
         let margin_X = Config.TOOLBOX_MARGIN_X;
-        let margin_bottom = 24 + 20;
+        let margin_bottom = 48 + 12;
 
         let width = num_wires < 5 ? this.desiredWidth() - margin_X : painter.canvas.width - margin_X * 2;
         let height = this.desiredHeight() - margin_top - margin_bottom;
@@ -59,7 +51,7 @@ class Histogram {
      * @param {!Painter} painter   
      * @param {!Rect} area
      */
-    drawTitle(painter, area) {
+    drawYAxisTitle(painter, area) {
         let r = area.withX(0).withW(Config.TOOLBOX_MARGIN_X / 2);
         let {x, y} = r.center();
         painter.ctx.save();
@@ -67,6 +59,15 @@ class Histogram {
         painter.ctx.rotate(-Math.PI/2);
         painter.printLine("Probability (%)", new Rect(-r.h / 2, -r.w / 2, r.h, r.w), 0.5, 'black', 12);
         painter.ctx.restore();
+    }
+    
+    /**
+     * @param {!Painter} painter   
+     */
+    drawXAxisTitle(painter, area, numWires) {
+        let margin = (numWires < 6) ? 36 : 12;
+        let belowBars = area.withY(this.top + this.desiredHeight() - margin).withH(12);
+        painter.printLine("Computational basis", belowBars, 0.5, 'black', 12);
     }
     
     /**
@@ -116,11 +117,11 @@ class Histogram {
 
             if(bar_count <= 32) { // draw label, if there's enough space.
                 painter.printLine(label, new Rect(x, area.bottom(), width, 24), 0.5);
-            } else if (bar_count <= 128) {
+            } else {
                 painter.ctx.save();
-                painter.ctx.translate(x, this.curArea().bottom());
+                painter.ctx.translate(x, this.top + this.desiredHeight());
                 painter.ctx.rotate(-Math.PI/2);
-                painter.printLine(label, new Rect(0, 0, this.curArea().bottom() - area.bottom(), width), 0.5, undefined, undefined, undefined, 0.5);
+                painter.printLine(label, new Rect(0, 0, this.top + this.desiredHeight() - area.bottom() + 12, width), 0.5, undefined, undefined, undefined, 0.5);
                 painter.ctx.restore();
             }
             
@@ -150,7 +151,8 @@ class Histogram {
         let { numWires } = stats.circuitDefinition;
         let area = this.histogramArea(painter, numWires);
 
-        this.drawTitle(painter, area);
+        this.drawYAxisTitle(painter, area);
+        this.drawXAxisTitle(painter, area, numWires);
         this.drawAxeNumbers(painter, area);
         this.drawAxes(painter, area);
         if(numWires <= 7) { // don't draw bars with more than 7 wires
