@@ -268,17 +268,47 @@ function drawControlBulb(args, axis) {
     let p = args.rect.center();
     switch (axis) {
         case 'X':
-            args.painter.fillCircle(p, 5);
-            args.painter.strokeCircle(p, 5);
-            args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
-            args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            if (args.isHighlighted) {
+                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
+            else if (args.isInToolbox && !args.isHighlighted) {
+                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
+            else {
+                args.painter.fillCircle(p, 5);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
             break;
         case 'Y':
-            args.painter.fillCircle(p, 5);
-            args.painter.strokeCircle(p, 5);
-            let r = 5*Math.sqrt(0.5)*1.1;
-            args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
-            args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
+            if (args.isHighlighted) {
+                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.strokeCircle(p, 5);
+                let r = 5*Math.sqrt(0.5)*1.1;
+                args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+                args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
+            }
+            else if (args.isInToolbox && !args.isHighlighted) {
+                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+                args.painter.strokeCircle(p, 5);
+                let r = 5*Math.sqrt(0.5)*1.1;
+                args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+                args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
+            }
+            else {
+                args.painter.fillCircle(p, 5);
+                args.painter.strokeCircle(p, 5);
+                let r = 5*Math.sqrt(0.5)*1.1;
+                args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+                args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
+            }
             break;
         case 'Z':
             args.painter.fillCircle(p, 5, "black");

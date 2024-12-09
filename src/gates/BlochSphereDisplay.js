@@ -145,11 +145,35 @@ let BlochSphereDisplay = new GateBuilder().
     setTitle("Bloch Sphere Display").
     setBlurb("Shows a wire's local state as a point on the Bloch Sphere.\nUse controls to see conditional states.").
     markAsDrawerNeedsSingleQubitDensityStats().
-    setDrawer(GatePainting.makeDisplayDrawer(args => {
+    setDrawer(args => {
+        if (args.positionInCircuit === undefined) {
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+            GatePainting.paintOutline(args);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                GatePainting.paintOutline(args);
+                GatePainting.paintGateSymbol(args);
+            }
+            return;
+        }
+        
+        GatePainting.paintResizeTab(args);
+    
+        if (args.isHighlighted) {
+            args.painter.strokeRect(args.rect, 'black', 1.5);
+        }
+    
+        args.painter.ctx.save();
+        args.painter.ctx.globalAlpha *= 0.25;
+        GatePainting.paintResizeTab(args);
+        args.painter.ctx.restore();
+        
         let {row, col} = args.positionInCircuit;
         let ρ = args.stats.qubitDensityMatrix(col, row);
         paintBlochSphereDisplay(args.painter, ρ, args.rect, args.focusPoints);
-    })).
+    }).
     promiseHasNoNetEffectOnStateVector().
     setExtraDisableReasonFinder(args => args.isNested ? "can't\nnest\ndisplays\n(sorry)" : undefined).
     gate;

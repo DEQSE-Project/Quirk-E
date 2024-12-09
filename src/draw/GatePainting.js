@@ -68,15 +68,29 @@ GatePainting.LABEL_DRAWER = args => {
  */
 GatePainting.MAKE_HIGHLIGHTED_DRAWER =
     (toolboxFillColor = Config.GATE_FILL_COLOR, normalFillColor = Config.GATE_FILL_COLOR) => args => {
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
-        GatePainting.paintOutline(args);
-        GatePainting.paintResizeTab(args);
-        GatePainting.paintGateSymbol(args);
-        if (args.isHighlighted && args.isInToolbox) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        if (toolboxFillColor == Config.VISUALIZATION_AND_PROBES_COLOR) {
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
             GatePainting.paintOutline(args);
+            GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                GatePainting.paintOutline(args);
+                GatePainting.paintGateSymbol(args);
+            }
         }
+        else {
+            args.painter.fillRect(args.rect, Config.OTHER_COLOR);
+            GatePainting.paintOutline(args);
+            GatePainting.paintResizeTab(args);
+            GatePainting.paintGateSymbol(args);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.OTHER_HIGHLIGHT);
+                GatePainting.paintOutline(args);
+                GatePainting.paintGateSymbol(args);
+            }
+        }
+        
     };
 
 /**
@@ -250,12 +264,8 @@ GatePainting.paintLocationIndependentFrame = (args,
                                               toolboxFillColor = Config.GATE_FILL_COLOR,
                                             highlightFillColor = Config.HIGHLIGHTED_GATE_FILL_COLOR) => {
     if (args.isInToolbox) {
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.toolboxFillColor);
-        }
-        else {
-            args.painter.fillRect(args.rect, Config.highlightFillColor);
-        }
+        let backColor = args.isHighlighted ? highlightFillColor : normalFillColor;
+        GatePainting.paintBackground(args, backColor, backColor);
         GatePainting.paintOutline(args);
         return;
     }

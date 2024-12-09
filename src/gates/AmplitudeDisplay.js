@@ -384,14 +384,6 @@ const AMPLITUDE_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(args =
                 rh*0.5);
         }
     }
-
-    if (args.positionInCircuit === undefined) {
-        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
-        }
-    }
-
     paintErrorIfPresent(args, indicatorAlpha);
     return;
 });

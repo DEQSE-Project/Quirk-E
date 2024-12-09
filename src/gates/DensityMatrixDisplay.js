@@ -174,11 +174,35 @@ function singleDensityMatrixDisplayMaker(builder) {
     return densityMatrixDisplayMaker_shared(builder).
         setSerializedId("Density").
         markAsDrawerNeedsSingleQubitDensityStats().
-        setDrawer(GatePainting.makeDisplayDrawer(args => {
+        setDrawer(args => {
+            if (args.positionInCircuit === undefined) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+                GatePainting.paintOutline(args);
+                GatePainting.paintResizeTab(args);
+                GatePainting.paintGateSymbol(args);
+                if (args.isHighlighted) {
+                    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                    GatePainting.paintOutline(args);
+                    GatePainting.paintGateSymbol(args);
+                }
+                return;
+            }
+            
+            GatePainting.paintResizeTab(args);
+        
+            if (args.isHighlighted) {
+                args.painter.strokeRect(args.rect, 'black', 1.5);
+            }
+        
+            args.painter.ctx.save();
+            args.painter.ctx.globalAlpha *= 0.25;
+            GatePainting.paintResizeTab(args);
+            args.painter.ctx.restore();
+
             let {col, row} = args.positionInCircuit;
             let ρ = args.stats.qubitDensityMatrix(col, row).transpose();
             MathPainter.paintDensityMatrix(args.painter, ρ, args.rect, args.focusPoints);
-        }));
+        });
 }
 
 /**
@@ -207,7 +231,7 @@ const DENSITY_MATRIX_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(a
     let ρ = args.customStats || Matrix.zero(1<<n, 1<<n).times(NaN);
     MathPainter.paintDensityMatrix(args.painter, ρ, args.rect, args.focusPoints);
     if (args.isHighlighted) {
-        GatePainting.paintBackground(args, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT)
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
     }
 });
 

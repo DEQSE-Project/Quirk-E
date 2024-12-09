@@ -294,14 +294,33 @@ function singleChangeGateMaker(builder) {
     return shared_chanceGateMaker(builder).
         setSerializedId("Chance").
         markAsDrawerNeedsSingleQubitDensityStats().
-        setDrawer(GatePainting.makeDisplayDrawer(args => {
+        setDrawer(args => {
+            if (args.positionInCircuit === undefined) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+                GatePainting.paintOutline(args);
+                GatePainting.paintResizeTab(args);
+                GatePainting.paintGateSymbol(args);
+                if (args.isHighlighted) {
+                    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                    GatePainting.paintOutline(args);
+                    GatePainting.paintGateSymbol(args);
+                }
+                return;
+            }
+            
+            GatePainting.paintResizeTab(args);
+        
+            if (args.isHighlighted) {
+                args.painter.strokeRect(args.rect, 'black', 1.5);
+            }
+
             let {row, col} = args.positionInCircuit;
             MathPainter.paintProbabilityBox(
                 args.painter,
                 args.stats.controlledWireProbabilityJustAfter(row, col),
                 args.rect,
                 args.focusPoints);
-        }));
+        });
 }
 
 let ProbabilityDisplayFamily = Gate.buildFamily(1, 16, (span, builder) =>

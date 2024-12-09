@@ -18,13 +18,23 @@ import {Complex} from "../math/Complex.js"
 import {GateBuilder} from "../circuit/Gate.js"
 import {GatePainting} from "../draw/GatePainting.js"
 import {Matrix} from "../math/Matrix.js"
+import {Config} from "../Config.js"
 
 let PostSelectionGates = {};
 
 let POST_SELECT_DRAWER = args => {
-    if (args.isInToolbox  || args.isHighlighted) {
-        GatePainting.DEFAULT_DRAWER(args);
-    } else {
+    if (args.isInToolbox  && !args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        GatePainting.paintOutline(args);
+        GatePainting.paintResizeTab(args);
+        GatePainting.paintGateSymbol(args);
+    } else if (args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        GatePainting.paintOutline(args);
+        GatePainting.paintResizeTab(args);
+        GatePainting.paintGateSymbol(args);
+    }
+    else {
         args.painter.fillRect(args.rect, 'white');
         GatePainting.paintGateSymbol(args);
     }
