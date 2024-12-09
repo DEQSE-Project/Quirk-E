@@ -176,7 +176,7 @@ function drawHighlight(args) {
     if (args.isHighlighted || args.isInToolbox) {
         args.painter.fillRect(
             args.rect,
-            args.isHighlighted ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.VISUALIZATION_AND_PROBES_COLOR);
+            args.isHighlighted ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.SAMPLING_AND_PROBABILITY_COLOR);
         GatePainting.paintOutline(args);
     }
 }
@@ -191,7 +191,7 @@ function addTransparencyToHex(hexColor, alpha) {
 }
 
 // Usage
-let color = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT; // "#FF0000"
+let color = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT; // "#FF0000"
 let transparentColor = addTransparencyToHex(color, 0.5); // "#FF000080"
 
 /**

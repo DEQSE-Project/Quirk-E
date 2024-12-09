@@ -86,11 +86,11 @@ let STAIRCASE_DRAWER = (timeOffset, steps, flip=false) => args => {
 
 function COLOR_GATE(args) {
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
     
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
     }
     GatePainting.paintGateSymbol(args);
     if (args.isInToolbox) {

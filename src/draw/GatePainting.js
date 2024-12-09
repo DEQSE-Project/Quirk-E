@@ -243,17 +243,24 @@ GatePainting.traceLocationIndependentOutline = (args, tracer) => {
  * @param {!GateDrawParams} args
  * @param {!string} normalFillColor
  * @param {!string} toolboxFillColor
+ * @param [!string] highlightFillColor
  */
 GatePainting.paintLocationIndependentFrame = (args,
                                               normalFillColor = Config.GATE_FILL_COLOR,
-                                              toolboxFillColor = Config.GATE_FILL_COLOR) => {
+                                              toolboxFillColor = Config.GATE_FILL_COLOR,
+                                            highlightFillColor = Config.HIGHLIGHTED_GATE_FILL_COLOR) => {
     if (args.isInToolbox) {
-        GatePainting.paintBackground(args, toolboxFillColor, normalFillColor);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.toolboxFillColor);
+        }
+        else {
+            args.painter.fillRect(args.rect, Config.highlightFillColor);
+        }
         GatePainting.paintOutline(args);
         return;
     }
 
-    let backColor = args.isHighlighted ? Config.HIGHLIGHTED_GATE_FILL_COLOR : normalFillColor;
+    let backColor = args.isHighlighted ? highlightFillColor : normalFillColor;
     args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
     thenFill(backColor).
     thenStroke('black');

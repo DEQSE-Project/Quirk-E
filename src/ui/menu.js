@@ -20,11 +20,6 @@ const menuIsVisible = new ObservableValue(true);
 const obsMenuIsShowing = menuIsVisible.observable().whenDifferent();
 let closeMenu = () => menuIsVisible.set(false);
 
-const useColors = new ObservableValue(false);
-useColors.observable().subscribe((newValue) => {
-    applyColorSettings(newValue);
-});
-
 const groverLink = {
     "cols":[
         ["X","X","X","X","X"],

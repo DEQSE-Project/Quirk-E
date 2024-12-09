@@ -22,6 +22,7 @@ import {HalfTurnGates} from "./HalfTurnGates.js"
 import {reverseShaderForSize} from "./ReverseBitsGate.js"
 import {WglArg} from "../webgl/WglArg.js"
 import {Config} from "../Config.js"
+import {GatePainting} from "../draw/GatePainting.js"
 
 /**
  * @param {!CircuitEvalContext} ctx
@@ -80,12 +81,42 @@ function applyBackwardGradientShaders(ctx, span) {
     }
 }
 
+function DRAW_GATE (args) {
+    if (args.isInToolbox && !args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        GatePainting.paintOutline(args);
+        GatePainting.paintGateSymbol(args);
+        return;
+    }
+    if (args.isInToolbox && args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        GatePainting.paintOutline(args);
+        GatePainting.paintGateSymbol(args);
+        return;
+    }
+    if (!args.isInToolbox && !args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        GatePainting.paintOutline(args);
+        GatePainting.paintGateSymbol(args);
+        GatePainting.paintResizeTab(args);
+        return;
+    }
+    if (!args.isInToolbox && args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        GatePainting.paintOutline(args);
+        GatePainting.paintGateSymbol(args);
+        GatePainting.paintResizeTab(args);
+        return;
+    }
+}
+
 FourierTransformGates.FourierTransformFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setSerializedId("QFT" + span).
     setSymbol("QFT").
     setTitle("Fourier Transform Gate").
     setBlurb("Transforms to/from phase frequency space.").
     setActualEffectToUpdateFunc(ctx => applyForwardGradientShaders(ctx, span)).
+    setDrawer(DRAW_GATE).
     promiseEffectIsUnitary().
     setTooltipMatrixFunc(() => FOURIER_TRANSFORM_MATRIX_MAKER(span)));
 
@@ -95,6 +126,7 @@ FourierTransformGates.InverseFourierTransformFamily = Gate.buildFamily(1, 16, (s
     setAlternateFromFamily(FourierTransformGates.FourierTransformFamily).
     setTitle("Inverse Fourier Transform Gate").
     setBlurb("Transforms from/to phase frequency space.").
+    setDrawer(DRAW_GATE).
     setActualEffectToUpdateFunc(ctx => applyBackwardGradientShaders(ctx, span)).
     promiseEffectIsUnitary().
     setTooltipMatrixFunc(() => INVERSE_FOURIER_TRANSFORM_MATRIX_MAKER(span)));

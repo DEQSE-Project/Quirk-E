@@ -89,7 +89,7 @@ let _deinterleaveShadersForSize = Seq.range(Config.MAX_WIRE_COUNT + 1).
 let interleavePainter = reverse => args => {
     if (args.positionInCircuit !== undefined) {
         GatePainting.PERMUTATION_DRAWER(args);
-        let color = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT; // Assume this is "#FF0000" (red)
+        let color = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT; // Assume this is "#FF0000" (red)
         let alpha = 0.5; // Desired opacity (50% transparent)
 
         // Convert alpha to a two-digit hex value
@@ -102,11 +102,16 @@ let interleavePainter = reverse => args => {
             args.painter.fillRect(args.rect, colorWithTransparency, 2);
         }
         return;
-        return;
     }
 
-    GatePainting.paintBackground(args);
-    GatePainting.paintOutline(args);
+    // Fill the gate with the configured fill color
+    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+    
+    // Highlight the gate if needed (when `args.isHighlighted` is true)
+    if (args.isHighlighted) {
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+    }
+    args.painter.strokeRect(args.rect, 'black');
     GatePainting.paintResizeTab(args);
 
     let x1 = args.rect.x + 6;

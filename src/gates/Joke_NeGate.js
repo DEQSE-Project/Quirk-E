@@ -23,22 +23,37 @@ import {Config} from "../Config.js"
 const NeGate = new GateBuilder().
     setSerializedId("NeGate").
     setTitle("Ne-Gate").
+    setSymbol("—").
     setBlurb("Negates all amplitudes.").
     setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+        if (args.isInToolbox && !args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            GatePainting.paintOutline(args);
+            let {x, y} = args.rect.center();
+            args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
+            return;
         }
-        GatePainting.paintGateSymbol(args);
-        if (args.isInToolbox) {
-            let r = args.rect.shiftedBy(0.5, 0.5);
-            args.painter.strokeLine(r.topRight(), r.bottomRight());
-            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+        if (args.isInToolbox && args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT);
+            GatePainting.paintOutline(args);
+            let {x, y} = args.rect.center();
+            args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
+            return;
         }
-        args.painter.strokeRect(args.rect, 'black');
+        if (!args.isInToolbox && !args.isHighlighted) {
+            args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
+            thenFill(Config.MATH_COLOR).
+            thenStroke('black');
+            let {x, y} = args.rect.center();
+            args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
+        }
+        if (!args.isInToolbox && args.isHighlighted) {
+            args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
+            thenFill(Config.MATH_HIGHLIGHT).
+            thenStroke('black');
+            let {x, y} = args.rect.center();
+            args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
+        }
     }).
     setKnownEffectToMatrix(Matrix.square(-1, 0, 0, -1)).
     gate;

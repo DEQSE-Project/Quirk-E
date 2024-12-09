@@ -85,7 +85,77 @@ HalfTurnGates.X = new GateBuilder().
     setBlurb("The NOT gate.\nToggles between ON and OFF.").
     setActualEffectToShaderProvider(ctx => xShader.withArgs(...ketArgs(ctx))).
     setKnownEffectToMatrix(Matrix.PAULI_X).
-    setDrawer(NOT_DRAWER).
+    setDrawer(args => {
+        if(args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            GatePainting.paintGateSymbol(args);
+            args.painter.strokeRect(args.rect, 'black');
+            return;
+        }
+        // Show a box around the operation when it's not in the circuit.
+        if (args.positionInCircuit === undefined) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+            args.painter.strokeRect(args.rect, 'black');
+            let drawArea = args.rect.scaledOutwardBy(0.6);
+            args.painter.fillCircle(drawArea.center(), drawArea.w / 2, Config.ROTATION_AND_TURNS_COLOR);
+            args.painter.strokeCircle(drawArea.center(), drawArea.w / 2);
+        
+            // Vertical stroke(s).
+            let hasSingleWireControl =
+                args.positionInCircuit !== undefined &&
+                args.stats.circuitDefinition.colHasSingleWireControl(args.positionInCircuit.col);
+            let hasDoubleWireControl =
+                args.positionInCircuit !== undefined &&
+                args.stats.circuitDefinition.colHasDoubleWireControl(args.positionInCircuit.col);
+            if (hasSingleWireControl || !hasDoubleWireControl) {
+                args.painter.strokeLine(drawArea.topCenter(), drawArea.bottomCenter());
+            }
+            if (hasDoubleWireControl) {
+                args.painter.strokeLine(drawArea.topCenter().offsetBy(-1, 0), drawArea.bottomCenter().offsetBy(-1, 0));
+                args.painter.strokeLine(drawArea.topCenter().offsetBy(+1, 0), drawArea.bottomCenter().offsetBy(+1, 0));
+            }
+        
+            // Horizontal stroke(s).
+            let isMeasured = args.positionInCircuit !== undefined && args.stats.circuitDefinition.locIsMeasured(
+                new Point(args.positionInCircuit.col, args.positionInCircuit.row));
+            if (isMeasured) {
+                args.painter.strokeLine(drawArea.centerLeft().offsetBy(0, -1), drawArea.centerRight().offsetBy(0, -1));
+                args.painter.strokeLine(drawArea.centerLeft().offsetBy(0, +1), drawArea.centerRight().offsetBy(0, +1));
+            } else {
+                args.painter.strokeLine(drawArea.centerLeft(), drawArea.centerRight());
+            }
+        }
+        else {
+            let drawArea = args.rect.scaledOutwardBy(0.6);
+            args.painter.fillCircle(drawArea.center(), drawArea.w / 2);
+            args.painter.strokeCircle(drawArea.center(), drawArea.w / 2);
+        
+            // Vertical stroke(s).
+            let hasSingleWireControl =
+                args.positionInCircuit !== undefined &&
+                args.stats.circuitDefinition.colHasSingleWireControl(args.positionInCircuit.col);
+            let hasDoubleWireControl =
+                args.positionInCircuit !== undefined &&
+                args.stats.circuitDefinition.colHasDoubleWireControl(args.positionInCircuit.col);
+            if (hasSingleWireControl || !hasDoubleWireControl) {
+                args.painter.strokeLine(drawArea.topCenter(), drawArea.bottomCenter());
+            }
+            if (hasDoubleWireControl) {
+                args.painter.strokeLine(drawArea.topCenter().offsetBy(-1, 0), drawArea.bottomCenter().offsetBy(-1, 0));
+                args.painter.strokeLine(drawArea.topCenter().offsetBy(+1, 0), drawArea.bottomCenter().offsetBy(+1, 0));
+            }
+        
+            // Horizontal stroke(s).
+            let isMeasured = args.positionInCircuit !== undefined && args.stats.circuitDefinition.locIsMeasured(
+                new Point(args.positionInCircuit.col, args.positionInCircuit.row));
+            if (isMeasured) {
+                args.painter.strokeLine(drawArea.centerLeft().offsetBy(0, -1), drawArea.centerRight().offsetBy(0, -1));
+                args.painter.strokeLine(drawArea.centerLeft().offsetBy(0, +1), drawArea.centerRight().offsetBy(0, +1));
+            } else {
+                args.painter.strokeLine(drawArea.centerLeft(), drawArea.centerRight());
+            }
+        }
+    }).
     gate;
 
 let yShader = ketShader('', 'vec2 v = inp(1.0-out_id); return (out_id*2.0 - 1.0)*vec2(-v.y, v.x);', 1);

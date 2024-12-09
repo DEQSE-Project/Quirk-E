@@ -19,6 +19,7 @@ import {GatePainting} from "../draw/GatePainting.js"
 import {Matrix} from "../math/Matrix.js"
 import {Rect} from "../math/Rect.js"
 import {Seq} from "../base/Seq.js"
+import {Config} from "../Config.js"
 
 // Note: there is special code to handle swaps sprinkled everywhere, since it's the only gate with two paired sides.
 
@@ -33,15 +34,30 @@ let SwapGateHalf = new GateBuilder().
         0, 1, 0, 0,
         0, 0, 0, 1)).
     setDrawer(args => {
-        if (args.isInToolbox || args.isHighlighted) {
-            GatePainting.DEFAULT_DRAWER(args);
+        if (args.isInToolbox) {
+            // Fill the gate with the configured fill color
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        
+            // Highlight the gate if needed (when `args.isHighlighted` is true)
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            }
+            GatePainting.paintGateSymbol(args);
+            args.painter.strokeRect(args.rect, 'black');
             return;
         }
 
-        // A swap gate half is shown as a small X (joined by a line to the other half; that's handled elsewhere).
-        let swapRect = Rect.centeredSquareWithRadius(args.rect.center(), args.rect.w / 6);
-        args.painter.strokeLine(swapRect.topLeft(), swapRect.bottomRight());
-        args.painter.strokeLine(swapRect.topRight(), swapRect.bottomLeft());
+        if(args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.strokeRect(args.rect, 'black');
+            GatePainting.paintGateSymbol(args);
+        }
+        else {
+            let swapRect = Rect.centeredSquareWithRadius(args.rect.center(), args.rect.w / 6);
+            args.painter.strokeLine(swapRect.topLeft(), swapRect.bottomRight());
+            args.painter.strokeLine(swapRect.topRight(), swapRect.bottomLeft());
+        }
+
     }).
     setExtraDisableReasonFinder(args => {
         let col = args.innerColumn;

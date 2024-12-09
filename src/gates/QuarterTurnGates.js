@@ -16,6 +16,8 @@
 
 import {Gate, GateBuilder} from "../circuit/Gate.js"
 import {Matrix} from "../math/Matrix.js"
+import {Config} from "../Config.js"
+import {GatePainting} from "../draw/GatePainting.js"
 
 let QuarterTurnGates = {};
 
@@ -25,6 +27,18 @@ QuarterTurnGates.SqrtXForward = new GateBuilder().
     setTitle("√X Gate").
     setBlurb("Principle square root of Not.").
     setKnownEffectToMatrix(Matrix.fromPauliRotation(0.25, 0, 0)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 /** @type {!Gate} */
@@ -34,6 +48,18 @@ QuarterTurnGates.SqrtXBackward = new GateBuilder().
     setTitle("X^-½ Gate").
     setBlurb("Adjoint square root of Not.").
     setKnownEffectToMatrix(Matrix.fromPauliRotation(0.75, 0, 0)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 /** @type {!Gate} */
@@ -42,6 +68,18 @@ QuarterTurnGates.SqrtYForward = new GateBuilder().
     setTitle("√Y Gate").
     setBlurb("Principle square root of Y.").
     setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0.25, 0)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 /** @type {!Gate} */
@@ -51,6 +89,18 @@ QuarterTurnGates.SqrtYBackward = new GateBuilder().
     setTitle("Y^-½ Gate").
     setBlurb("Adjoint square root of Y.").
     setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0.75, 0)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 /** @type {!Gate} */
@@ -60,6 +110,18 @@ QuarterTurnGates.SqrtZForward = new GateBuilder().
     setTitle("√Z Gate").
     setBlurb("Principle square root of Z.\nAlso known as the 'S' gate.").
     setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 0.25)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 /** @type {!Gate} */
@@ -70,6 +132,18 @@ QuarterTurnGates.SqrtZBackward = new GateBuilder().
     setTitle("Z^-½ Gate").
     setBlurb("Adjoint square root of Z.").
     setKnownEffectToMatrix(Matrix.fromPauliRotation(0, 0, 0.75)).
+    setDrawer(args => {
+        
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+    
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+    }).
     gate;
 
 QuarterTurnGates.all = [

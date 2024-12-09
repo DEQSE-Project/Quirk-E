@@ -49,7 +49,7 @@ const makeCycleBitsMatrix = (shift, span) => Matrix.generateTransition(1<<span, 
 let cyclePainter = reverse => args => {
     if (args.positionInCircuit !== undefined) {
         GatePainting.PERMUTATION_DRAWER(args);
-        let color = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT; // Assume this is "#FF0000" (red)
+        let color = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT; // Assume this is "#FF0000" (red)
         let alpha = 0.5; // Desired opacity (50% transparent)
 
         // Convert alpha to a two-digit hex value
@@ -65,11 +65,11 @@ let cyclePainter = reverse => args => {
     }
 
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
     
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
     }
     args.painter.strokeRect(args.rect, 'black');
     GatePainting.paintResizeTab(args);

@@ -36,11 +36,11 @@ Controls.Control = new GateBuilder().
     setDrawer(args => {
         if(args.isInToolbox) {
              // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
         
             // Highlight the gate if needed (when `args.isHighlighted` is true)
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
             }
             GatePainting.paintGateSymbol(args);
             if (args.isInToolbox) {
@@ -52,6 +52,10 @@ Controls.Control = new GateBuilder().
             args.painter.fillCircle(args.rect.center(), 5, "black");
         }
         else {
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+                args.painter.strokeRect(args.rect, 'black');
+            }
             args.painter.fillCircle(args.rect.center(), 5, "black");
         }
        
@@ -69,16 +73,16 @@ Controls.AntiControl = new GateBuilder().
     setDrawer(args => {
         if(args.isInToolbox) {
              // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
             let p = args.rect.center();
-            args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_COLOR);
             args.painter.strokeCircle(p, 5);
         
             // Highlight the gate if needed (when `args.isHighlighted` is true)
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
                 let p = args.rect.center();
-            args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+            args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
             args.painter.strokeCircle(p, 5);
             }
             if (args.isInToolbox) {
@@ -89,9 +93,18 @@ Controls.AntiControl = new GateBuilder().
             args.painter.strokeRect(args.rect, 'black');
         }
         else {
-            let p = args.rect.center();
-            args.painter.fillCircle(p, 5);
-            args.painter.strokeCircle(p, 5);
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+                args.painter.strokeRect(args.rect, 'black');
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                args.painter.strokeCircle(p, 5);
+            }
+            else {
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5);
+                args.painter.strokeCircle(p, 5);
+            }
         }
     }).
     gate;
@@ -112,27 +125,37 @@ Controls.XAntiControl = new GateBuilder().
     setDrawer(args => {
         if(args.isInToolbox) {
              // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
             let p = args.rect.center();
-            args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_COLOR);
             args.painter.strokeCircle(p, 5);
             args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
         
             // Highlight the gate if needed (when `args.isHighlighted` is true)
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
                 let p = args.rect.center();
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
             }
             args.painter.strokeRect(args.rect, 'black');
         }
         else {
-            let p = args.rect.center();
-            args.painter.fillCircle(p, 5);
-            args.painter.strokeCircle(p, 5);
-            args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+                args.painter.strokeRect(args.rect, 'black');
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
+            else {
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
         }
        
     }).
@@ -155,18 +178,18 @@ Controls.XControl = new GateBuilder().
     setDrawer(args => {
         if(args.isInToolbox) {
             // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
             let p = args.rect.center();
-            args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_COLOR);
             args.painter.strokeCircle(p, 5);
             args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
             args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
         
             // Highlight the gate if needed (when `args.isHighlighted` is true)
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
                 let p = args.rect.center();
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
@@ -174,11 +197,22 @@ Controls.XControl = new GateBuilder().
             args.painter.strokeRect(args.rect, 'black');
         }
         else {
-            let p = args.rect.center();
-            args.painter.fillCircle(p, 5);
-            args.painter.strokeCircle(p, 5);
-            args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
-            args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+                args.painter.strokeRect(args.rect, 'black');
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
+            else {
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5);
+                args.painter.strokeCircle(p, 5);
+                args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
+                args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
+            }
         }
         
     }).
@@ -200,18 +234,18 @@ Controls.YAntiControl = new GateBuilder().
     setDrawer(args => {
         if(args.isInToolbox) {
              // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
             let p = args.rect.center();
-            args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+            args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_COLOR);
             args.painter.strokeCircle(p, 5);
             let r = 5*Math.sqrt(0.5)*1.1;
             args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
         
             // Highlight the gate if needed (when `args.isHighlighted` is true)
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
                 let p = args.rect.center();
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
                 args.painter.strokeCircle(p, 5);
                 let r = 5*Math.sqrt(0.5)*1.1;
                 args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
@@ -219,11 +253,22 @@ Controls.YAntiControl = new GateBuilder().
             args.painter.strokeRect(args.rect, 'black');
         }
         else {
-            let p = args.rect.center();
-            args.painter.fillCircle(p, 5);
-            args.painter.strokeCircle(p, 5);
-            let r = 5*Math.sqrt(0.5)*1.1;
-            args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+            if (args.isHighlighted) {
+                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+                args.painter.strokeRect(args.rect, 'black');
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                args.painter.strokeCircle(p, 5);
+                let r = 5*Math.sqrt(0.5)*1.1;
+                args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+            }
+            else {
+                let p = args.rect.center();
+                args.painter.fillCircle(p, 5);
+                args.painter.strokeCircle(p, 5);
+                let r = 5*Math.sqrt(0.5)*1.1;
+                args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+            }
         }
     }).
     gate;
@@ -243,18 +288,31 @@ Controls.YControl = new GateBuilder().
     promiseEffectIsStable().
     promiseEffectIsUnitary().
     setDrawer(ctx => {
-        if (ctx.isInToolbox || ctx.isHighlighted) {
-            GatePainting.paintBackground(ctx);
+        if (ctx.isInToolbox) {
+            ctx.painter.fillRect(ctx.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+            if(ctx.isHighlighted) {
+                ctx.painter.fillRect(ctx.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+            }
             GatePainting.paintOutline(ctx);
         }
         let p = ctx.rect.center();
-        ctx.painter.fillCircle(p, 5);
-        ctx.painter.strokeCircle(p, 5);
-        let r = 5*Math.sqrt(0.5);
-        ctx.painter.strokeLine(p.offsetBy(+r, +r), p.offsetBy(-r, -r));
-        ctx.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
-        if (ctx.isInToolbox || ctx.isHighlighted) {
+        if(ctx.isInToolbox) {
+            ctx.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_COLOR);
+        }
+        if(ctx.isHighlighted) {
+            ctx.painter.fillRect(ctx.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+            ctx.painter.fillCircle(p, 5, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
             GatePainting.paintOutline(ctx);
+            ctx.painter.strokeCircle(p, 5);
+            let r = 5*Math.sqrt(0.5);
+            ctx.painter.strokeLine(p.offsetBy(+r, +r), p.offsetBy(-r, -r));
+            ctx.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
+        }
+        else {
+            ctx.painter.strokeCircle(p, 5);
+            let r = 5*Math.sqrt(0.5);
+            ctx.painter.strokeLine(p.offsetBy(+r, +r), p.offsetBy(-r, -r));
+            ctx.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
         }
     }).
     gate;
@@ -303,16 +361,35 @@ function parityGatherScatter(ctx, order) {
  */
 function parityDrawer(name) {
     return args => {
-        if (args.isInToolbox || args.isHighlighted) {
-            GatePainting.paintBackground(args);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, Config.LOGICAL_AND_PARITY_HIGHLIGHT);
             GatePainting.paintOutline(args);
+            let center = args.rect.paddedBy(-10);
+            args.painter.fillRect(center, Config.LOGICAL_AND_PARITY_HIGHLIGHT);
+            args.painter.strokeRect(center);
+            args.painter.fillRect(center.paddedBy(-4).skipBottom(-6).skipTop(-6), Config.LOGICAL_AND_PARITY_HIGHLIGHT);
+            args.painter.printLine(name, center, 0.5, undefined, undefined, undefined, 0);
+            args.painter.printLine('par', center, 0.5, 'red', 10, undefined, 1);
         }
-        let center = args.rect.paddedBy(-10);
-        args.painter.fillRect(center);
-        args.painter.strokeRect(center);
-        args.painter.fillRect(center.paddedBy(-4).skipBottom(-6).skipTop(-6));
-        args.painter.printLine(name, center, 0.5, undefined, undefined, undefined, 0);
-        args.painter.printLine('par', center, 0.5, 'red', 10, undefined, 1);
+        else if (args.isInToolbox && !args.isHighlighted)
+        {
+            args.painter.fillRect(args.rect, Config.LOGICAL_AND_PARITY_COLOR);
+            GatePainting.paintOutline(args);
+            let center = args.rect.paddedBy(-10);
+            args.painter.fillRect(center, Config.LOGICAL_AND_PARITY_COLOR);
+            args.painter.strokeRect(center);
+            args.painter.fillRect(center.paddedBy(-4).skipBottom(-6).skipTop(-6), Config.LOGICAL_AND_PARITY_COLOR);
+            args.painter.printLine(name, center, 0.5, undefined, undefined, undefined, 0);
+            args.painter.printLine('par', center, 0.5, 'red', 10, undefined, 1);
+        }
+        else {
+            let center = args.rect.paddedBy(-10);
+            args.painter.fillRect(center);
+            args.painter.strokeRect(center);
+            args.painter.fillRect(center.paddedBy(-4).skipBottom(-6).skipTop(-6));
+            args.painter.printLine(name, center, 0.5, undefined, undefined, undefined, 0);
+            args.painter.printLine('par', center, 0.5, 'red', 10, undefined, 1);
+        }
     }
 }
 
