@@ -57,7 +57,7 @@ class MathPainter {
         let cen = drawArea.center();
         if (isNaN(probability)) {
             painter.fillPolygon([drawArea.bottomLeft(), drawArea.topLeft(), drawArea.topRight()], fillColor);
-            painter.print("NaN", cen.x, cen.y, 'center', 'middle', 'red', '9pt sans-serif', drawArea.w, drawArea.h);
+            painter.print("NaN", cen.x, cen.y, 'center', 'middle', Config.RED, '9pt sans-serif', drawArea.w, drawArea.h);
         } else {
             painter.fillRect(drawArea.takeBottomProportion(probability), fillColor);
             painter.print(
@@ -305,7 +305,7 @@ class MathPainter {
                 drawArea.y + drawArea.h/2,
                 'center',
                 'middle',
-                'red',
+                Config.RED,
                 '16px sans-serif',
                 drawArea.w,
                 drawArea.h);
@@ -615,7 +615,7 @@ class MathPainter {
                 drawArea.y + drawArea.h/2,
                 'center',
                 'middle',
-                'red',
+                Config.RED,
                 '16px sans-serif',
                 drawArea.w,
                 drawArea.h);

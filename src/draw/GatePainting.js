@@ -69,24 +69,39 @@ GatePainting.LABEL_DRAWER = args => {
 GatePainting.MAKE_HIGHLIGHTED_DRAWER =
     (toolboxFillColor = Config.GATE_FILL_COLOR, normalFillColor = Config.GATE_FILL_COLOR) => args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
-        if (toolboxFillColor == isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR) {
-            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
+        const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+        let usedColor = Config.VISUALIZATION_AND_PROBES_COLOR;
+        let usedHighLight = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT;
+        if(isColored && isYellowMode) {
+            usedColor = Config.YELLOW;
+            usedHighLight = Config.YELLOW_HIGHLIGHT;
+        }
+        if (toolboxFillColor == isColored ? usedColor : Config.DEFAULT_FILL_COLOR) {
+            args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+                args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 GatePainting.paintOutline(args);
                 GatePainting.paintGateSymbol(args);
             }
         }
         else {
-            args.painter.fillRect(args.rect, isColored ? Config.OTHER_COLOR : Config.DEFAULT_FILL_COLOR);
+            const isColored = localStorage.getItem('colored_ui') === 'true';
+            const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+            let usedColor = Config.OTHER_COLOR;
+            let usedHighLight = Config.OTHER_HIGHLIGHT;
+            if(isColored && isYellowMode) {
+                usedColor = Config.YELLOW;
+                usedHighLight = Config.YELLOW_HIGHLIGHT;
+            }
+            args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, isColored ? Config.OTHER_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+                args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 GatePainting.paintOutline(args);
                 GatePainting.paintGateSymbol(args);
             }
@@ -112,6 +127,9 @@ GatePainting.rectForResizeTab = gateRect => {
  * @param {!GateDrawParams} args
  */
 GatePainting.paintResizeTab = args => {
+    const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+    let bgColor = isDarkMode ? Config.BACKGROUND_COLOR_TOOLBOX : Config.BACKGROUND_COLOR_TOOLBOX;
+
     if (!args.isResizeShowing || !args.gate.canChangeInSize()) {
         return;
     }
@@ -120,7 +138,7 @@ GatePainting.paintResizeTab = args => {
     let rect = GatePainting.rectForResizeTab(args.rect);
     let trimRect = rect.skipLeft(2).skipRight(2);
     let {x: cx, y: cy} = trimRect.center();
-    let backColor = args.isResizeHighlighted ? Config.HIGHLIGHTED_GATE_FILL_COLOR : Config.GATE_FILL_COLOR;
+    let backColor = args.isResizeHighlighted ? bgColor : Config.GATE_FILL_COLOR;
     let foreColor = args.isResizeHighlighted ? '#222' : 'gray';
     args.painter.ctx.save();
     args.painter.ctx.globalAlpha *= args.isResizeHighlighted ? 1 : 0.7;
@@ -473,7 +491,7 @@ GatePainting.paintGateButton = args => {
 
     let buttonRect = GatePainting.gateButtonRect(args.rect);
     let buttonFocus = !args.focusPoints.every(pt => !buttonRect.containsPoint(pt));
-    args.painter.fillRect(buttonRect, buttonFocus ? 'red' : 'orange');
+    args.painter.fillRect(buttonRect, buttonFocus ? Config.RED : 'orange');
     args.painter.print(
         'change',
         buttonRect.center().x,
@@ -492,6 +510,7 @@ GatePainting.paintGateButton = args => {
  * @param {!GateDrawParams} args
  */
 function _eraseWiresForPermutation(args) {
+    const isDarkMode = localStorage.getItem('dark_mode') === 'true';
     for (let i = 0; i < args.gate.height; i++) {
         let y = _wireY(args, i);
         let p = new Point(args.rect.x, y);
@@ -502,10 +521,10 @@ function _eraseWiresForPermutation(args) {
         let isMeasured2 = args.stats.circuitDefinition.locIsMeasured(loc.offsetBy(1, 0));
 
         for (let dy of isMeasured1 ? [-1, +1] : [0]) {
-            args.painter.strokeLine(p.offsetBy(0, dy), c.offsetBy(1, dy), 'white');
+            args.painter.strokeLine(p.offsetBy(0, dy), c.offsetBy(1, dy), isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
         }
         for (let dy of isMeasured2 ? [-1, +1] : [0]) {
-            args.painter.strokeLine(c.offsetBy(-1, dy), q.offsetBy(0, dy), 'white');
+            args.painter.strokeLine(c.offsetBy(-1, dy), q.offsetBy(0, dy), isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
         }
     }
 }

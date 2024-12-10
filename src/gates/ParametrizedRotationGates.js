@@ -59,14 +59,21 @@ function configurableRotationDrawer(pattern, xyz, tScale) {
  */
 function exponent_to_A_len_painter(args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.LOGICAL_AND_PARITY_COLOR;
+    let usedHighLight = Config.LOGICAL_AND_PARITY_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
     let v = args.getGateContext('Input Range A');
     let denom_exponent = v === undefined ? 'ⁿ' : Util.digits_to_superscript_digits('' + v.length);
     let symbol = args.gate.symbol.replace('ⁿ', denom_exponent);
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, isColored ? Config.LOGICAL_AND_PARITY_COLOR : Config.DEFAULT_FILL_COLOR);
+    args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.LOGICAL_AND_PARITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
     }
     args.painter.strokeRect(args.rect, 'black');
     GatePainting.paintGateSymbol(args, symbol);
@@ -299,20 +306,27 @@ function angleClicker(quantityName) {
 
 function DRAW_GATE(args, x, y, textTemplate) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.LOGICAL_AND_PARITY_COLOR;
+    let usedHighLight = Config.LOGICAL_AND_PARITY_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
     let xScale = [1, 0.5, -1][x];
     let yScale = [1, 1, -0.5][y];
     if (args.isInToolbox) {
-        args.painter.fillRect(args.rect, isColored ? Config.LOGICAL_AND_PARITY_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         if(args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.LOGICAL_AND_PARITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         }
     }
     let text = textTemplate;
     if (!args.isInToolbox) {
         text = text.split('f(t)').join(args.gate.param);
-        args.painter.fillRect(args.rect, isColored ? Config.LOGICAL_AND_PARITY_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         if(args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.LOGICAL_AND_PARITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         }
     }
     GatePainting.paintOutline(args);

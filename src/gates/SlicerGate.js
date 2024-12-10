@@ -7,13 +7,20 @@ import {Config} from "../Config.js"
  */
 function drawSlicerGate(args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.OTHER_COLOR;
+    let usedHighLight = Config.OTHER_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
     GatePainting.paintResizeTab(args);
 
     // Drawn as box with a dashed line
     if (args.isInToolbox) {
-        let backColor = isColored ? Config.OTHER_COLOR : Config.DEFAULT_FILL_COLOR;
+        let backColor = isColored ? usedColor : Config.DEFAULT_FILL_COLOR;
         if (args.isHighlighted) {
-            backColor = isColored ? Config.OTHER_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR;
+            backColor = isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR;
         }
         args.painter.fillRect(args.rect, backColor);
         GatePainting.paintOutline(args)
@@ -26,7 +33,7 @@ function drawSlicerGate(args) {
 
     } else {
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.OTHER_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
             GatePainting.paintOutline(args);
         }
         args.painter.strokeDashedLine(

@@ -124,15 +124,24 @@ class Histogram {
                 painter.printLine(label, new Rect(0, 0, this.top + this.desiredHeight() - area.bottom() + 12, width), 0.5, undefined, undefined, undefined, 0.5);
                 painter.ctx.restore();
             }
-            
+
+            const isColored = localStorage.getItem('colored_ui') === 'true';
+            const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+            let usedColor = Config.SAMPLING_AND_PROBABILITY_COLOR;
+            let usedHighLight = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT;
+            if(isColored && isYellowMode) {
+                usedColor = Config.YELLOW;
+                usedHighLight = Config.YELLOW_HIGHLIGHT;
+            }
+
             if(probability > 0) { // do not draw empty bar
                 let height = probability * area.h;
                 let bar = new Rect(x, area.bottom() - height, width, height);
 
-                painter.fillRect(bar, Config.SAMPLING_AND_PROBABILITY_COLOR); 
+                painter.fillRect(bar, usedColor); 
 
                 if(hand.hoverPoints().some(point => bar.containsPoint(point))) {
-                    painter.fillRect(bar, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT); 
+                    painter.fillRect(bar, usedHighLight); 
                     painter.strokeRect(bar, 'orange', 2);
                     MathPainter.paintDeferredValueTooltip(painter, bar.x + bar.w, bar.y, 
                     `Measured chance of |${label}⟩ (decimal ${index})`,

@@ -96,7 +96,7 @@ function paintSampleDisplay(args) {
     let probabilities = args.customStats;
     let noData = probabilities === undefined || probabilities.hasNaN();
     if (noData) {
-        args.painter.printParagraph("NaN", args.rect, new Point(0.5, 0.5), 'red');
+        args.painter.printParagraph("NaN", args.rect, new Point(0.5, 0.5), Config.RED);
     } else {
         _paintSampleDisplay_result(args);
     }

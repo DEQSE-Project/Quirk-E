@@ -91,7 +91,7 @@ function initForge(revision, obsIsAnyOverlayShowing) {
                 undefined,
                 'transparent');
             if (!op.isUnitary(0.009)) {
-                painter.printParagraph('NOT UNITARY', rect2, new Point(0.5, 0.5), 'red', 24);
+                painter.printParagraph('NOT UNITARY', rect2, new Point(0.5, 0.5), Config.RED, 24);
             } else  if (op.width() !== 2) {
                 painter.printParagraph('(Not a 1-qubit rotation)', rect2, new Point(0.5, 0.5), '#666', 20);
             } else {
@@ -112,7 +112,7 @@ function initForge(revision, obsIsAnyOverlayShowing) {
                 ex+"",
                 new Rect(0, 0, canvas.width, canvas.height),
                 new Point(0.5, 0.5),
-                'red',
+                Config.RED,
                 24);
         }
     }
@@ -276,7 +276,7 @@ function initForge(revision, obsIsAnyOverlayShowing) {
                     ex+"",
                     new Rect(0, 0, circuitCanvas.width, circuitCanvas.height),
                     new Point(0.5, 0.5),
-                    'red',
+                    Config.RED,
                     24);
             }
         };

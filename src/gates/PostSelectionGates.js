@@ -24,26 +24,41 @@ let PostSelectionGates = {};
 
 let POST_SELECT_DRAWER = args => {
     const isColored = localStorage.getItem('colored_ui') === 'true';
-    if (args.isInToolbox  && !args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.VISUALIZATION_AND_PROBES_COLOR;
+    let usedHighLight = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
+    const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+    if (args.isInToolbox && !args.isHighlighted) {
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintResizeTab(args);
         GatePainting.paintGateSymbol(args);
-    } else if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
-        GatePainting.paintOutline(args);
-        GatePainting.paintResizeTab(args);
-        GatePainting.paintGateSymbol(args);
-    }
-    else {
-        args.painter.fillRect(args.rect, 'white');
-        GatePainting.paintGateSymbol(args);
-    }
 
-    if (!args.isInToolbox) {
+    } 
+    if (args.isInToolbox && args.isHighlighted) {
+        args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+        GatePainting.paintOutline(args);
+        GatePainting.paintResizeTab(args);
+        GatePainting.paintGateSymbol(args);
+    }
+    if (!args.isInToolbox && !args.isHighlighted) {
         let {x, y, w, h} = args.rect;
-        args.painter.print("post-", x + w / 2, y, 'center', 'hanging', 'red', '10px sans-serif', w, h / 2);
-        args.painter.print("select", x + w / 2, y + h, 'center', 'bottom', 'red', '10px sans-serif', w, h / 2);
+        args.painter.print("post-", x + w / 2, y, 'center', 'hanging', Config.RED, '10px sans-serif', w, h / 2);
+        args.painter.print("select", x + w / 2, y + h, 'center', 'bottom', Config.RED, '10px sans-serif', w, h / 2);
+        args.painter.fillRect(args.rect, isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
+        GatePainting.paintGateSymbol(args);
+    }
+    if (!args.isInToolbox && args.isHighlighted) {
+        let {x, y, w, h} = args.rect;
+        args.painter.print("post-", x + w / 2, y, 'center', 'hanging', Config.RED, '10px sans-serif', w, h / 2);
+        args.painter.print("select", x + w / 2, y + h, 'center', 'bottom', Config.RED, '10px sans-serif', w, h / 2);
+        args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+        GatePainting.paintGateSymbol(args);
+        GatePainting.paintOutline(args);
     }
 };
 

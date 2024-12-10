@@ -131,7 +131,7 @@ function paintBlochSphereDisplay(
 
     let [x, y, z] = [NaN, NaN, NaN];
     if (qubitDensityMatrix.hasNaN()) {
-        painter.printParagraph("NaN", drawArea, new Point(0.5, 0.5), 'red');
+        painter.printParagraph("NaN", drawArea, new Point(0.5, 0.5), Config.RED);
     } else {
         [x, y, z] = qubitDensityMatrix.qubitDensityMatrixToBlochVector();
         _paintBlochSphereDisplay_indicator(painter, x, y, z, drawArea, fillColor);
@@ -147,13 +147,20 @@ let BlochSphereDisplay = new GateBuilder().
     markAsDrawerNeedsSingleQubitDensityStats().
     setDrawer(args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
+        const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+        let usedColor = Config.VISUALIZATION_AND_PROBES_COLOR;
+        let usedHighLight = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT;
+        if(isColored && isYellowMode) {
+            usedColor = Config.YELLOW;
+            usedHighLight = Config.YELLOW_HIGHLIGHT;
+        }
         if (args.positionInCircuit === undefined) {
-            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+                args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 GatePainting.paintOutline(args);
                 GatePainting.paintGateSymbol(args);
             }

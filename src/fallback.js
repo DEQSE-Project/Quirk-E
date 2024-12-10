@@ -15,6 +15,7 @@
  */
 
 import {describe} from "./base/Describe.js"
+import {Config} from "./Config.js"
 
 /**
  * @type {!Array.<{regex: !Pattern, handler: !function()}>}
@@ -200,9 +201,9 @@ let drawErrorBox = msg => {
     ctx.globalAlpha = 0.9;
     ctx.fillRect(x-10, y-10, w+20, h+20);
     ctx.globalAlpha = 1.0;
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = Config.RED;
     ctx.strokeRect(x-10, y-10, w+20, h+20);
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = Config.RED;
     let dy = 0;
     for (let i = 0; i < lines.length; i++) {
         dy += 3;

@@ -27,15 +27,22 @@ const NeGate = new GateBuilder().
     setBlurb("Negates all amplitudes.").
     setDrawer(args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
+        const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+        let usedColor = Config.MATH_COLOR;
+        let usedHighLight = Config.MATH_HIGHLIGHT;
+        if(isColored && isYellowMode) {
+            usedColor = Config.YELLOW;
+            usedHighLight = Config.YELLOW_HIGHLIGHT;
+        }
         if (args.isInToolbox && !args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
             return;
         }
         if (args.isInToolbox && args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
             GatePainting.paintOutline(args);
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
@@ -43,14 +50,14 @@ const NeGate = new GateBuilder().
         }
         if (!args.isInToolbox && !args.isHighlighted) {
             args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
-            thenFill(isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR).
+            thenFill(isColored ? usedColor : Config.DEFAULT_FILL_COLOR).
             thenStroke('black');
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
         }
         if (!args.isInToolbox && args.isHighlighted) {
             args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
-            thenFill(isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR).
+            thenFill(isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR).
             thenStroke('black');
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);

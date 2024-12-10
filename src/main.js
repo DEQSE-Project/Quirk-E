@@ -57,8 +57,11 @@ initSerializer(
 const canvasDiv = document.getElementById("canvasDiv");
 
 const defaultState = true; // `true` for colored, `false` for non-colored
+const defaultStateForDarkMode = true;
+const defaultStateForYellowMode = false;
 const COLORED_UI_KEY = 'colored_ui';
 const DARK_MODE_KEY = 'dark_mode';
+const YELLOW_MODE_KEY = 'yellow_mode';
 
 function getToggleState() {
     const storedState = localStorage.getItem(COLORED_UI_KEY);
@@ -67,7 +70,12 @@ function getToggleState() {
 
 function getDarkModeToggleState() {
     const storedState = localStorage.getItem(DARK_MODE_KEY);
-    return storedState === null ? defaultState : storedState === 'true';
+    return storedState === null ? defaultStateForDarkMode : storedState === 'true';
+}
+
+function getYellowModeToggleState() {
+    const storedState = localStorage.getItem(YELLOW_MODE_KEY);
+    return storedState === null ? defaultStateForYellowMode : storedState === 'true';
 }
 
 function setToggleState(isColored) {
@@ -76,6 +84,10 @@ function setToggleState(isColored) {
 
 function setDarkModeToggleState(isDarkMode) {
     localStorage.setItem(DARK_MODE_KEY, isDarkMode);
+}
+
+function setYellowModeToggleState(isYellowMode) {
+    localStorage.setItem(YELLOW_MODE_KEY, isYellowMode);
 }
 
 function applyToggleState() {
@@ -87,6 +99,12 @@ function applyToggleState() {
 function applyDarkModeToggleState() {
     const isDarkMode = getDarkModeToggleState();
     document.body.classList.toggle('dark_mode', isDarkMode); // Example class toggling
+    // Other rendering logic adjustments can go here
+}
+
+function applyYellowModeToggleState() {
+    const isYellowMode = getYellowModeToggleState();
+    document.body.classList.toggle('yellow_mode', isYellowMode); // Example class toggling
     // Other rendering logic adjustments can go here
 }
 
@@ -120,6 +138,21 @@ function setupDarkModeToggle() {
     });
 }
 
+function setupYellowModeToggle() {
+    const toggle = document.getElementById('yellow-mode-toggle');
+    if (!toggle) return;
+
+    // Initialize the toggle based on the current state
+    toggle.checked = getYellowModeToggleState();
+
+    // Add event listener to handle state change
+    toggle.addEventListener('change', (event) => {
+        const isYellowMode = event.target.checked;
+        setYellowModeToggleState(isYellowMode);
+        location.reload(); // Reload page to apply changes
+    });
+}
+
 // On page load
 document.addEventListener('DOMContentLoaded', () => {
     applyToggleState();
@@ -129,6 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     applyDarkModeToggleState();
     setupDarkModeToggle();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyYellowModeToggleState();
+    setupYellowModeToggle();
 });
 
 //noinspection JSValidateTypes

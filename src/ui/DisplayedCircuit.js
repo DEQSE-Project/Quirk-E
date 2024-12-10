@@ -422,7 +422,7 @@ class DisplayedCircuit {
                 this.wireRect(Config.MAX_WIRE_COUNT).y,
                 'left',
                 'top',
-                'red',
+                Config.RED,
                 '16px bold monospace',
                 400,
                 Config.WIRE_SPACING);
@@ -498,11 +498,11 @@ class DisplayedCircuit {
         painter.fillRect(gateRect.paddedBy(5), 'yellow');
         painter.ctx.globalAlpha *= 2;
         painter.strokeLine(gateRect.topLeft(), gateRect.bottomRight(), 'orange', 3);
-        let r = painter.printParagraph(isDisabledReason, gateRect.paddedBy(5), new Point(0.5, 0.5), 'red');
+        let r = painter.printParagraph(isDisabledReason, gateRect.paddedBy(5), new Point(0.5, 0.5), Config.RED);
         painter.ctx.globalAlpha *= 0.5;
         painter.fillRect(r.paddedBy(2), 'yellow');
         painter.ctx.globalAlpha *= 2;
-        painter.printParagraph(isDisabledReason, gateRect.paddedBy(5), new Point(0.5, 0.5), 'red');
+        painter.printParagraph(isDisabledReason, gateRect.paddedBy(5), new Point(0.5, 0.5), Config.RED);
         painter.ctx.restore()
     }
 
@@ -593,7 +593,7 @@ class DisplayedCircuit {
             pt.y - 28,
             'center',
             'bottom',
-            'red',
+            Config.RED,
             '14px sans-serif',
             800,
             50);
@@ -603,7 +603,7 @@ class DisplayedCircuit {
             pt.y - 13,
             'center',
             'bottom',
-            'red',
+            Config.RED,
             '14px sans-serif',
             800,
             50);
@@ -1428,7 +1428,7 @@ class DisplayedCircuit {
                     100,
                     75),
                 new Point(0.5, 0),
-                'red');
+                Config.RED);
         }
 
         // Discard rate warning.
@@ -1451,7 +1451,7 @@ class DisplayedCircuit {
                 gridRect.bottom() + SUPERPOSITION_GRID_LABEL_SPAN,
                 'right',
                 'bottom',
-                'red',
+                Config.RED,
                 '14px sans-serif',
                 800,
                 50);

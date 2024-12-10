@@ -39,15 +39,22 @@ const POP_COUNT_SHADER = ketShaderPermute(
 
 function DRAW_GATE (args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
-            
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        args.painter.strokeRect(args.rect, 'black');
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.MATH_COLOR;
+    let usedHighLight = Config.MATH_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
+    // Fill the gate with the configured fill color
+    args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
+        
+    // Highlight the gate if needed (when `args.isHighlighted` is true)
+    if (args.isHighlighted) {
+        args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+    }
+    GatePainting.paintGateSymbol(args);
+    args.painter.strokeRect(args.rect, 'black');
 }
 
 BitCountGates.PlusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => builder.

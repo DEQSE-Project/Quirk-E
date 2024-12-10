@@ -88,6 +88,7 @@ HalfTurnGates.X = new GateBuilder().
     setKnownEffectToMatrix(Matrix.PAULI_X).
     setDrawer(args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
+        const isDarkMode = localStorage.getItem('dark_mode') === 'true';
         if(args.isHighlighted) {
             args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintGateSymbol(args);
@@ -127,9 +128,9 @@ HalfTurnGates.X = new GateBuilder().
                 args.painter.strokeLine(drawArea.centerLeft(), drawArea.centerRight());
             }
         }
-        else {
+        else if (args.positionInCircuit !== undefined) {
             let drawArea = args.rect.scaledOutwardBy(0.6);
-            args.painter.fillCircle(drawArea.center(), drawArea.w / 2);
+            args.painter.fillCircle(drawArea.center(), drawArea.w / 2, isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
             args.painter.strokeCircle(drawArea.center(), drawArea.w / 2);
         
             // Vertical stroke(s).

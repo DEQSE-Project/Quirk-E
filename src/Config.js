@@ -113,5 +113,7 @@ Config.DARK_BG = '#6d6d6d';
 Config.DARK_BG_CIRCUIT = '#6d6d6d';
 Config.DARK_BG_TOOLBOX = '#5d5c5c';
 Config.RED = '#762020';
+Config.YELLOW = '#efdd92';
+Config.YELLOW_HIGHLIGHT = '#edd265';
 
 export {Config}

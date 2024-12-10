@@ -173,17 +173,24 @@ function drawDetector(args, axis) {
  */
 function drawHighlight(args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.SAMPLING_AND_PROBABILITY_COLOR;
+    let usedHighLight = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
     // Can't use the typical highlight function because the detector has no box outline.
     if (args.isInToolbox) {
         args.painter.fillRect(
             args.rect,
-            isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
+            isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintOutline(args);
     }
     if (args.isHighlighted) {
         args.painter.fillRect(
             args.rect,
-            isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+            isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         GatePainting.paintOutline(args);
     }
 }
@@ -198,8 +205,15 @@ function addTransparencyToHex(hexColor, alpha) {
 }
 
 const isColored = localStorage.getItem('colored_ui') === 'true';
+const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+let usedColor = Config.SAMPLING_AND_PROBABILITY_COLOR;
+let usedHighLight = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT;
+if(isColored && isYellowMode) {
+    usedColor = Config.YELLOW;
+    usedHighLight = Config.YELLOW_HIGHLIGHT;
+}
 // Usage
-let color = isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR; 
+let color = isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR; 
 let transparentColor = addTransparencyToHex(color, 0.5);
 
 /**
@@ -273,24 +287,32 @@ function drawClick(args, axis) {
  */
 function drawControlBulb(args, axis) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.SAMPLING_AND_PROBABILITY_COLOR;
+    let usedHighLight = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
+    const isDarkMode = localStorage.getItem('dark_mode') === 'true';
     redrawControlWires(args);
     let p = args.rect.center();
     switch (axis) {
         case 'X':
             if (args.isHighlighted) {
-                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+                args.painter.fillCircle(p, 5, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
             }
             else if (args.isInToolbox && !args.isHighlighted) {
-                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
+                args.painter.fillCircle(p, 5, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
             }
             else {
-                args.painter.fillCircle(p, 5);
+                args.painter.fillCircle(p, 5, isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
@@ -298,21 +320,21 @@ function drawControlBulb(args, axis) {
             break;
         case 'Y':
             if (args.isHighlighted) {
-                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+                args.painter.fillCircle(p, 5, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 let r = 5*Math.sqrt(0.5)*1.1;
                 args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
                 args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
             }
             else if (args.isInToolbox && !args.isHighlighted) {
-                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
+                args.painter.fillCircle(p, 5, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 let r = 5*Math.sqrt(0.5)*1.1;
                 args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
                 args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
             }
             else {
-                args.painter.fillCircle(p, 5);
+                args.painter.fillCircle(p, 5, isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
                 args.painter.strokeCircle(p, 5);
                 let r = 5*Math.sqrt(0.5)*1.1;
                 args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
@@ -332,6 +354,8 @@ function drawControlBulb(args, axis) {
  * @param {!string} axis
  */
 function drawDetectClearReset(args, axis) {
+    const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+    
     let fullRect = args.rect;
     let detectorRect = fullRect.leftHalf();
     let resetRect = fullRect.rightHalf();
@@ -340,7 +364,7 @@ function drawDetectClearReset(args, axis) {
     let clearWireRect = fullRect.rightHalf();
     clearWireRect.y += clearWireRect.h / 2 - 2;
     clearWireRect.h = 5;
-    args.painter.fillRect(clearWireRect, 'white');
+    args.painter.fillRect(clearWireRect, isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
     drawHighlight(args);
 
     // Draw text elements.

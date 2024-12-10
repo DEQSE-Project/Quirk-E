@@ -55,22 +55,29 @@ const MODULAR_INCREMENT_SHADER = ketShaderPermute(
 
 function DRAW_GATE (args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.MATH_COLOR;
+    let usedHighLight = Config.MATH_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
     if (args.isInToolbox) {
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+            args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
 
         args.painter.strokeRect(args.rect, 'black');
         GatePainting.paintGateSymbol(args);
     }
     else {
-        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColor ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+            args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         args.painter.strokeRect(args.rect);
         GatePainting.paintResizeTab(args);

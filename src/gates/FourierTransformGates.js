@@ -83,27 +83,34 @@ function applyBackwardGradientShaders(ctx, span) {
 
 function DRAW_GATE (args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.VISUALIZATION_AND_PROBES_COLOR;
+    let usedHighLight = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT;
+    if(isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighLight = Config.YELLOW_HIGHLIGHT;
+    }
     if (args.isInToolbox && !args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintGateSymbol(args);
         return;
     }
     if (args.isInToolbox && args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintGateSymbol(args);
         return;
     }
     if (!args.isInToolbox && !args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintGateSymbol(args);
         GatePainting.paintResizeTab(args);
         return;
     }
     if (!args.isInToolbox && args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintGateSymbol(args);
         GatePainting.paintResizeTab(args);
