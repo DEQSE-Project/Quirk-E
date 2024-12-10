@@ -109,5 +109,9 @@ Config.SAMPLING_AND_PROBABILITY_COLOR = '#8acff8';
 Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT = '#43baff';
 Config.OTHER_COLOR = '#e3e1e1';
 Config.OTHER_HIGHLIGHT = '#bab7b7';
+Config.DARK_BG = '#6d6d6d';
+Config.DARK_BG_CIRCUIT = '#6d6d6d';
+Config.DARK_BG_TOOLBOX = '#5d5c5c';
+Config.RED = '#762020';
 
 export {Config}

@@ -204,7 +204,8 @@ class DisplayedToolbox {
      * @param {!Hand} hand
      */
     paint(painter, stats, hand) {
-        painter.fillRect(this.curArea(painter.canvas.width), Config.BACKGROUND_COLOR_TOOLBOX);
+        const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+        painter.fillRect(this.curArea(painter.canvas.width), isDarkMode ? Config.DARK_BG_TOOLBOX : Config.BACKGROUND_COLOR_TOOLBOX);
         this._standardApperance.paint(0, this.top, painter);
         this._paintDeviations(painter, stats, hand);
     }

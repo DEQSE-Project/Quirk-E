@@ -58,9 +58,15 @@ const canvasDiv = document.getElementById("canvasDiv");
 
 const defaultState = true; // `true` for colored, `false` for non-colored
 const COLORED_UI_KEY = 'colored_ui';
+const DARK_MODE_KEY = 'dark_mode';
 
 function getToggleState() {
     const storedState = localStorage.getItem(COLORED_UI_KEY);
+    return storedState === null ? defaultState : storedState === 'true';
+}
+
+function getDarkModeToggleState() {
+    const storedState = localStorage.getItem(DARK_MODE_KEY);
     return storedState === null ? defaultState : storedState === 'true';
 }
 
@@ -68,9 +74,19 @@ function setToggleState(isColored) {
     localStorage.setItem(COLORED_UI_KEY, isColored);
 }
 
+function setDarkModeToggleState(isDarkMode) {
+    localStorage.setItem(DARK_MODE_KEY, isDarkMode);
+}
+
 function applyToggleState() {
     const isColored = getToggleState();
     document.body.classList.toggle('colored-ui', isColored); // Example class toggling
+    // Other rendering logic adjustments can go here
+}
+
+function applyDarkModeToggleState() {
+    const isDarkMode = getDarkModeToggleState();
+    document.body.classList.toggle('dark_mode', isDarkMode); // Example class toggling
     // Other rendering logic adjustments can go here
 }
 
@@ -89,10 +105,30 @@ function setupToggle() {
     });
 }
 
+function setupDarkModeToggle() {
+    const toggle = document.getElementById('darkmode-toggle');
+    if (!toggle) return;
+
+    // Initialize the toggle based on the current state
+    toggle.checked = getDarkModeToggleState();
+
+    // Add event listener to handle state change
+    toggle.addEventListener('change', (event) => {
+        const isDarkMode = event.target.checked;
+        setDarkModeToggleState(isDarkMode);
+        location.reload(); // Reload page to apply changes
+    });
+}
+
 // On page load
 document.addEventListener('DOMContentLoaded', () => {
     applyToggleState();
     setupToggle();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyDarkModeToggleState();
+    setupDarkModeToggle();
 });
 
 //noinspection JSValidateTypes

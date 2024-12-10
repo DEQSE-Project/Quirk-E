@@ -26,6 +26,7 @@ let SpacerGate = new GateBuilder().
     markAsNotInterestedInControls().
     promiseHasNoNetEffectOnStateVector().
     setDrawer(args => {
+        const isDarkMode = localStorage.getItem('dark_mode') === 'true';
         const isColored = localStorage.getItem('colored_ui') === 'true';
         if (args.isInToolbox || args.isHighlighted) {
             let backColor = isColored ? Config.OTHER_COLOR : Config.DEFAULT_FILL_COLOR;
@@ -38,7 +39,7 @@ let SpacerGate = new GateBuilder().
             // Whitespace for the ellipsis.
             let {x, y} = args.rect.center();
             let r = new Rect(x - 14, y - 2, 28, 4);
-            args.painter.fillRect(r, Config.BACKGROUND_COLOR_CIRCUIT);
+            args.painter.fillRect(r, isDarkMode ? Config.DARK_BG_CIRCUIT : Config.BACKGROUND_COLOR_CIRCUIT);
         }
         args.painter.fillCircle(args.rect.center().offsetBy(7, 0), 2, "black");
         args.painter.fillCircle(args.rect.center(), 2, "black");

@@ -12,6 +12,23 @@
         <!-- End Analytics -->
     </head>
     <body style="margin: 0">
+        <script>
+            // Read the state from localStorage
+            const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+    
+            // Apply the initial state to the page
+            let bg_color = isDarkMode ? '#6d6d6d' : 'white';
+    
+            document.body.style.backgroundColor = bg_color;
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.style.backgroundColor = bg_color;
+            });
+    
+            bg_color = isDarkMode ? '#6d6d6d' : 'white';
+    
+            document.body.style.backgroundColor = bg_color;
+        </script>
         <!-- Primary content -->
         <div id="inspectorDiv" style="display: none">
             <!-- Buttons -->
@@ -37,6 +54,13 @@
                 &nbsp;
                 <input type="checkbox" id="ui-toggle">
                     Use colors in UI
+                </input>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <input type="checkbox" id="darkmode-toggle">
+                    Use dark mode in UI
                 </input>
                 &nbsp;
                 &nbsp;
@@ -72,7 +96,7 @@
                 -webkit-animation-name: delay-showing-before-hide-script-can-run-but-then-jump-in;
                      -o-animation-name: delay-showing-before-hide-script-can-run-but-then-jump-in;
                       background-color: white;
-                                border: 1px solid red;
+                                border: 1px solid '#a33c3c';
                                padding: 10px;">
             <style scoped>
                 @keyframes delay-showing-before-hide-script-can-run-but-then-jump-in {
