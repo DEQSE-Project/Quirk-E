@@ -172,11 +172,18 @@ function drawDetector(args, axis) {
  * @param {!GateDrawParams} args
  */
 function drawHighlight(args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     // Can't use the typical highlight function because the detector has no box outline.
-    if (args.isHighlighted || args.isInToolbox) {
+    if (args.isInToolbox) {
         args.painter.fillRect(
             args.rect,
-            args.isHighlighted ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.SAMPLING_AND_PROBABILITY_COLOR);
+            isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
+        GatePainting.paintOutline(args);
+    }
+    if (args.isHighlighted) {
+        args.painter.fillRect(
+            args.rect,
+            isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         GatePainting.paintOutline(args);
     }
 }
@@ -190,9 +197,10 @@ function addTransparencyToHex(hexColor, alpha) {
     return hexColor + alphaHex; // Append alpha to the hex color
 }
 
+const isColored = localStorage.getItem('colored_ui') === 'true';
 // Usage
-let color = Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT; // "#FF0000"
-let transparentColor = addTransparencyToHex(color, 0.5); // "#FF000080"
+let color = isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR; 
+let transparentColor = addTransparencyToHex(color, 0.5);
 
 /**
  * @param {!GateDrawParams} args
@@ -264,18 +272,19 @@ function drawClick(args, axis) {
  * @param {!string} axis
  */
 function drawControlBulb(args, axis) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     redrawControlWires(args);
     let p = args.rect.center();
     switch (axis) {
         case 'X':
             if (args.isHighlighted) {
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
             }
             else if (args.isInToolbox && !args.isHighlighted) {
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 args.painter.strokeLine(p.offsetBy(0, -5), p.offsetBy(0, +5));
                 args.painter.strokeLine(p.offsetBy(-5, 0), p.offsetBy(+5, 0));
@@ -289,14 +298,14 @@ function drawControlBulb(args, axis) {
             break;
         case 'Y':
             if (args.isHighlighted) {
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 let r = 5*Math.sqrt(0.5)*1.1;
                 args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));
                 args.painter.strokeLine(p.offsetBy(-r, -r), p.offsetBy(+r, +r));
             }
             else if (args.isInToolbox && !args.isHighlighted) {
-                args.painter.fillCircle(p, 5, Config.SAMPLING_AND_PROBABILITY_COLOR);
+                args.painter.fillCircle(p, 5, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
                 args.painter.strokeCircle(p, 5);
                 let r = 5*Math.sqrt(0.5)*1.1;
                 args.painter.strokeLine(p.offsetBy(+r, -r), p.offsetBy(-r, +r));

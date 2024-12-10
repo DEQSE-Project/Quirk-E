@@ -37,6 +37,19 @@ const POP_COUNT_SHADER = ketShaderPermute(
         float offset = mod(popcnt * factor, span);
         return mod(out_id + span - offset, span);`);
 
+function DRAW_GATE (args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+            
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        }
+        GatePainting.paintGateSymbol(args);
+        args.painter.strokeRect(args.rect, 'black');
+}
+
 BitCountGates.PlusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setSerializedIdAndSymbol("+cntA" + span).
     setSymbol("+1s(A)").
@@ -46,17 +59,7 @@ BitCountGates.PlusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => b
     setActualEffectToShaderProvider(ctx => POP_COUNT_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A']),
         WglArg.float("factor", +1))).
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     setKnownEffectToParametrizedPermutation((t, a) => (t + Util.numberOfSetBits(a)) & ((1 << span) - 1)));
 
 BitCountGates.MinusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
@@ -69,17 +72,7 @@ BitCountGates.MinusBitCountAFamily = Gate.buildFamily(1, 16, (span, builder) => 
     setActualEffectToShaderProvider(ctx => POP_COUNT_SHADER.withArgs(
         ...ketArgs(ctx, span, ['A']),
         WglArg.float("factor", -1))).
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     setKnownEffectToParametrizedPermutation((t, a) => (t - Util.numberOfSetBits(a)) & ((1 << span) - 1)));
 
 BitCountGates.all = [

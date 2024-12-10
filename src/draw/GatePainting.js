@@ -68,24 +68,25 @@ GatePainting.LABEL_DRAWER = args => {
  */
 GatePainting.MAKE_HIGHLIGHTED_DRAWER =
     (toolboxFillColor = Config.GATE_FILL_COLOR, normalFillColor = Config.GATE_FILL_COLOR) => args => {
-        if (toolboxFillColor == Config.VISUALIZATION_AND_PROBES_COLOR) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        if (toolboxFillColor == isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR) {
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 GatePainting.paintOutline(args);
                 GatePainting.paintGateSymbol(args);
             }
         }
         else {
-            args.painter.fillRect(args.rect, Config.OTHER_COLOR);
+            args.painter.fillRect(args.rect, isColored ? Config.OTHER_COLOR : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.OTHER_HIGHLIGHT);
+                args.painter.fillRect(args.rect, isColored ? Config.OTHER_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 GatePainting.paintOutline(args);
                 GatePainting.paintGateSymbol(args);
             }

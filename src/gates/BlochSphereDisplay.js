@@ -146,13 +146,14 @@ let BlochSphereDisplay = new GateBuilder().
     setBlurb("Shows a wire's local state as a point on the Bloch Sphere.\nUse controls to see conditional states.").
     markAsDrawerNeedsSingleQubitDensityStats().
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         if (args.positionInCircuit === undefined) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             GatePainting.paintResizeTab(args);
             GatePainting.paintGateSymbol(args);
             if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+                args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
                 GatePainting.paintOutline(args);
                 GatePainting.paintGateSymbol(args);
             }
@@ -169,7 +170,7 @@ let BlochSphereDisplay = new GateBuilder().
         args.painter.ctx.globalAlpha *= 0.25;
         GatePainting.paintResizeTab(args);
         args.painter.ctx.restore();
-        
+
         let {row, col} = args.positionInCircuit;
         let ρ = args.stats.qubitDensityMatrix(col, row);
         paintBlochSphereDisplay(args.painter, ρ, args.rect, args.focusPoints);

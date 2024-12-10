@@ -26,11 +26,11 @@ let SpacerGate = new GateBuilder().
     markAsNotInterestedInControls().
     promiseHasNoNetEffectOnStateVector().
     setDrawer(args => {
-        // Drawn as an ellipsis.
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         if (args.isInToolbox || args.isHighlighted) {
-            let backColor = Config.OTHER_COLOR;
+            let backColor = isColored ? Config.OTHER_COLOR : Config.DEFAULT_FILL_COLOR;
             if (args.isHighlighted) {
-                backColor = Config.OTHER_HIGHLIGHT;
+                backColor = isColored ? Config.OTHER_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR;
             }
             args.painter.fillRect(args.rect, backColor);
             GatePainting.paintOutline(args);

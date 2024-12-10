@@ -20,26 +20,29 @@ import {Complex} from "../math/Complex.js"
 import {GatePainting} from "../draw/GatePainting.js"
 import {Config} from "../Config.js"
 
+function DRAW_GATE (args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+    // Fill the gate with the configured fill color
+    args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+
+    // Highlight the gate if needed (when `args.isHighlighted` is true)
+    if (args.isHighlighted) {
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+    }
+    GatePainting.paintGateSymbol(args);
+    if (args.isInToolbox) {
+        let r = args.rect.shiftedBy(0.5, 0.5);
+        args.painter.strokeLine(r.topRight(), r.bottomRight());
+        args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
+    }
+    args.painter.strokeRect(args.rect, 'black');
+}
+
 const ImaginaryGate = new GateBuilder().
     setSerializedIdAndSymbol("i").
     setTitle("Imaginary Gate").
     setBlurb("Phases everything by i.").
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        if (args.isInToolbox) {
-            let r = args.rect.shiftedBy(0.5, 0.5);
-            args.painter.strokeLine(r.topRight(), r.bottomRight());
-            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
-        }
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     setKnownEffectToMatrix(Matrix.square(Complex.I, 0, 0, Complex.I)).
     gate;
 
@@ -48,22 +51,7 @@ const AntiImaginaryGate = new GateBuilder().
     setSerializedIdAndSymbol("-i").
     setTitle("Anti-Imaginary Gate").
     setBlurb("Phases everything by -i.").
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        if (args.isInToolbox) {
-            let r = args.rect.shiftedBy(0.5, 0.5);
-            args.painter.strokeLine(r.topRight(), r.bottomRight());
-            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
-        }
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     setKnownEffectToMatrix(Matrix.square(Complex.I.neg(), 0, 0, Complex.I.neg())).
     gate;
 
@@ -71,22 +59,7 @@ const SqrtImaginaryGate = new GateBuilder().
     setSerializedIdAndSymbol("√i").
     setTitle("Half Imaginary Gate").
     setBlurb("Phases everything by √i.").
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        if (args.isInToolbox) {
-            let r = args.rect.shiftedBy(0.5, 0.5);
-            args.painter.strokeLine(r.topRight(), r.bottomRight());
-            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
-        }
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     setKnownEffectToMatrix(Matrix.square(1, 0, 0, 1).times(new Complex(Math.sqrt(0.5), Math.sqrt(0.5)))).
     gate;
 
@@ -95,22 +68,7 @@ const AntiSqrtImaginaryGate = new GateBuilder().
     setSerializedIdAndSymbol("√-i").
     setTitle("Half Anti-Imaginary Gate").
     setBlurb("Phases everything by √-i.").
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        if (args.isInToolbox) {
-            let r = args.rect.shiftedBy(0.5, 0.5);
-            args.painter.strokeLine(r.topRight(), r.bottomRight());
-            args.painter.strokeLine(r.bottomLeft(), r.bottomRight());
-        }
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     setKnownEffectToMatrix(Matrix.square(1, 0, 0, 1).times(new Complex(Math.sqrt(0.5), -Math.sqrt(0.5)))).
     gate;
 

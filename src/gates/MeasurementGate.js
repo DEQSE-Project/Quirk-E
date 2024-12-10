@@ -22,9 +22,10 @@ import {GatePainting} from "../draw/GatePainting.js"
  * @param {!GateDrawParams} args
  */
 function drawMeasurementGate(args) {
-    let backColor = Config.VISUALIZATION_AND_PROBES_COLOR;
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+    let backColor = isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR;
     if (args.isHighlighted) {
-        backColor = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT;
+        backColor = isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR;
     }
     args.painter.fillRect(args.rect, backColor);
     GatePainting.paintOutline(args);

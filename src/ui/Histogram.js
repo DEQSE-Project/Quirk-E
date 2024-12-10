@@ -129,9 +129,10 @@ class Histogram {
                 let height = probability * area.h;
                 let bar = new Rect(x, area.bottom() - height, width, height);
 
-                painter.fillRect(bar, Config.SUPERPOSITION_MID_COLOR); // todo bar color
+                painter.fillRect(bar, Config.SAMPLING_AND_PROBABILITY_COLOR); 
 
                 if(hand.hoverPoints().some(point => bar.containsPoint(point))) {
+                    painter.fillRect(bar, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT); 
                     painter.strokeRect(bar, 'orange', 2);
                     MathPainter.paintDeferredValueTooltip(painter, bar.x + bar.w, bar.y, 
                     `Measured chance of |${label}⟩ (decimal ${index})`,

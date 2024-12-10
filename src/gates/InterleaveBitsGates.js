@@ -87,9 +87,10 @@ let _deinterleaveShadersForSize = Seq.range(Config.MAX_WIRE_COUNT + 1).
     toMap(k => k, k => shaderFromBitPermutation(k, deinterleaveBit));
 
 let interleavePainter = reverse => args => {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     if (args.positionInCircuit !== undefined) {
         GatePainting.PERMUTATION_DRAWER(args);
-        let color = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT; // Assume this is "#FF0000" (red)
+        let color = isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR; // Assume this is "#FF0000" (red)
         let alpha = 0.5; // Desired opacity (50% transparent)
 
         // Convert alpha to a two-digit hex value
@@ -105,11 +106,11 @@ let interleavePainter = reverse => args => {
     }
 
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+    args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
     }
     args.painter.strokeRect(args.rect, 'black');
     GatePainting.paintResizeTab(args);

@@ -23,13 +23,14 @@ import {Config} from "../Config.js"
 let PostSelectionGates = {};
 
 let POST_SELECT_DRAWER = args => {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     if (args.isInToolbox  && !args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintResizeTab(args);
         GatePainting.paintGateSymbol(args);
     } else if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         GatePainting.paintOutline(args);
         GatePainting.paintResizeTab(args);
         GatePainting.paintGateSymbol(args);

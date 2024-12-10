@@ -47,16 +47,17 @@ const makeCycleBitsPermutation = (shift, span) => e => {
 const makeCycleBitsMatrix = (shift, span) => Matrix.generateTransition(1<<span, makeCycleBitsPermutation(shift, span));
 
 let cyclePainter = reverse => args => {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     if (args.positionInCircuit !== undefined) {
         GatePainting.PERMUTATION_DRAWER(args);
-        let color = Config.VISUALIZATION_AND_PROBES_HIGHLIGHT; // Assume this is "#FF0000" (red)
+        let color = isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR; 
         let alpha = 0.5; // Desired opacity (50% transparent)
 
         // Convert alpha to a two-digit hex value
-        let alphaHex = Math.round(alpha * 255).toString(16).padStart(2, "0"); // E.g., 0.5 -> "80"
+        let alphaHex = Math.round(alpha * 255).toString(16).padStart(2, "0");
 
         // Add the alpha value to the color
-        let colorWithTransparency = color + alphaHex; // E.g., "#FF0000" -> "#FF000080"
+        let colorWithTransparency = color + alphaHex;
         
         if (args.isHighlighted) {
             args.painter.fillRect(args.rect, colorWithTransparency, 2);
@@ -65,11 +66,11 @@ let cyclePainter = reverse => args => {
     }
 
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+    args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
     }
     args.painter.strokeRect(args.rect, 'black');
     GatePainting.paintResizeTab(args);

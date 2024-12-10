@@ -27,7 +27,8 @@ let InputGates = {};
  * @param {!boolean} reverse
  */
 function drawInputGate(args, key, reverse) {
-    GatePainting.paintBackground(args, Config.SAMPLING_AND_PROBABILITY_COLOR, Config.SAMPLING_AND_PROBABILITY_COLOR);
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+    GatePainting.paintBackground(args, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
     GatePainting.paintOutline(args);
 
     if (args.isInToolbox) {
@@ -35,7 +36,7 @@ function drawInputGate(args, key, reverse) {
     }
     
     if(args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT);
+        args.painter.fillRect(args.rect, isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
         args.painter.strokeRect(args.rect, 'black');
     }
 
@@ -100,9 +101,10 @@ let makeSetInputGate = key => new GateBuilder().
         sticky: true
     }]).
     setDrawer(args => {
-        GatePainting.paintLocationIndependentFrame(args, Config.SAMPLING_AND_PROBABILITY_COLOR, Config.SAMPLING_AND_PROBABILITY_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        GatePainting.paintLocationIndependentFrame(args, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.SAMPLING_AND_PROBABILITY_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isInToolbox) {
             let r = args.rect.shiftedBy(0.5, 0.5);
             args.painter.strokeLine(r.topRight(), r.bottomRight());
@@ -118,7 +120,7 @@ let makeSetInputGate = key => new GateBuilder().
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             if (args.isInToolbox) {
                 let r = args.rect.shiftedBy(0.5, 0.5);
                 args.painter.strokeLine(r.topRight(), r.bottomRight());

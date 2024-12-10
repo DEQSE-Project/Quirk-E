@@ -85,12 +85,13 @@ let STAIRCASE_DRAWER = (timeOffset, steps, flip=false) => args => {
 };
 
 function COLOR_GATE(args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+    args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
     }
     GatePainting.paintGateSymbol(args);
     if (args.isInToolbox) {
@@ -132,12 +133,13 @@ CountingGates.ClockPulseGate = new GateBuilder().
     setEffectToTimeVaryingMatrix(t => (t % 1) < 0.5 ? Matrix.identity(2) : Matrix.PAULI_X).
     promiseEffectOnlyPermutesAndPhases().
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.MATH_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         GatePainting.paintGateSymbol(args);
         if (args.isInToolbox) {

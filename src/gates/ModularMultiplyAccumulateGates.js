@@ -51,6 +51,31 @@ const MODULAR_MULTIPLY_ACCUMULATE_SHADER = ketShaderPermute(
         return out_id >= r ? out_id : in_id;
     `);
 
+function DRAW_GATE (args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+    if (args.isInToolbox) {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+        
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        }
+
+        args.painter.strokeRect(args.rect, 'black');
+        GatePainting.paintGateSymbol(args);
+    }
+    else {
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        }
+        args.painter.strokeRect(args.rect);
+        GatePainting.paintResizeTab(args);
+        GatePainting.paintGateSymbol(args);
+    }
+}
+
 ModularMultiplyAccumulateGates.PlusABModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setSerializedId("+ABmodR" + span).
     setSymbol("+AB\nmod R").
@@ -62,30 +87,7 @@ ModularMultiplyAccumulateGates.PlusABModRFamily = Gate.buildFamily(1, 16, (span,
         ...ketArgs(ctx, span, ['A', 'B', 'R']),
         WglArg.float("factor", +1))).
     setKnownEffectToParametrizedPermutation((t, a, b, r) => t < r ? (t + a*b) % r : t).
-    setDrawer(args => {
-        if (args.isInToolbox) {
-            // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            
-            // Highlight the gate if needed (when `args.isHighlighted` is true)
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-    
-            args.painter.strokeRect(args.rect, 'black');
-            GatePainting.paintGateSymbol(args);
-        }
-        else {
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-            args.painter.strokeRect(args.rect);
-            GatePainting.paintResizeTab(args);
-            GatePainting.paintGateSymbol(args);
-        }
-        
-    }));
+    setDrawer(args => DRAW_GATE(args)));
 
 ModularMultiplyAccumulateGates.MinusABModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(ModularMultiplyAccumulateGates.PlusABModRFamily).
@@ -99,30 +101,7 @@ ModularMultiplyAccumulateGates.MinusABModRFamily = Gate.buildFamily(1, 16, (span
         ...ketArgs(ctx, span, ['A', 'B', 'R']),
         WglArg.float("factor", -1))).
     setKnownEffectToParametrizedPermutation((t, a, b, r) => t < r ? Util.properMod(t - a*b, r) : t).
-    setDrawer(args => {
-        if (args.isInToolbox) {
-            // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            
-            // Highlight the gate if needed (when `args.isHighlighted` is true)
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-    
-            args.painter.strokeRect(args.rect, 'black');
-            GatePainting.paintGateSymbol(args);
-        }
-        else {
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-            args.painter.strokeRect(args.rect);
-            GatePainting.paintResizeTab(args);
-            GatePainting.paintGateSymbol(args);
-        }
-        
-    }));
+    setDrawer(args => DRAW_GATE(args)));
 
 ModularMultiplyAccumulateGates.all = [
     ...ModularMultiplyAccumulateGates.PlusABModRFamily.all,

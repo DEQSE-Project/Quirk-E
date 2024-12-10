@@ -26,15 +26,16 @@ const NeGate = new GateBuilder().
     setSymbol("—").
     setBlurb("Negates all amplitudes.").
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         if (args.isInToolbox && !args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
             GatePainting.paintOutline(args);
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
             return;
         }
         if (args.isInToolbox && args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT);
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR);
             GatePainting.paintOutline(args);
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
@@ -42,14 +43,14 @@ const NeGate = new GateBuilder().
         }
         if (!args.isInToolbox && !args.isHighlighted) {
             args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
-            thenFill(Config.MATH_COLOR).
+            thenFill(isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR).
             thenStroke('black');
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);
         }
         if (!args.isInToolbox && args.isHighlighted) {
             args.painter.trace(tracer => GatePainting.traceLocationIndependentOutline(args, tracer)).
-            thenFill(Config.MATH_HIGHLIGHT).
+            thenFill(isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR).
             thenStroke('black');
             let {x, y} = args.rect.center();
             args.painter.strokeLine(new Point(x - 6, y), new Point(x + 6, y), 'black', 2);

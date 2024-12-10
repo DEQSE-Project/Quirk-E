@@ -53,6 +53,31 @@ const MODULAR_INCREMENT_SHADER = ketShaderPermute(
             // HACK: sometimes mod(value-equal-to-r, r) returns r instead of 0. The perturbation works around it.
             : floor(mod(out_id + r - amount, r - 0.000001));`);
 
+function DRAW_GATE (args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+    if (args.isInToolbox) {
+        // Fill the gate with the configured fill color
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+        
+        // Highlight the gate if needed (when `args.isHighlighted` is true)
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, isColored ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        }
+
+        args.painter.strokeRect(args.rect, 'black');
+        GatePainting.paintGateSymbol(args);
+    }
+    else {
+        args.painter.fillRect(args.rect, isColored ? Config.MATH_COLOR : Config.DEFAULT_FILL_COLOR);
+        if (args.isHighlighted) {
+            args.painter.fillRect(args.rect, isColor ? Config.MATH_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        }
+        args.painter.strokeRect(args.rect);
+        GatePainting.paintResizeTab(args);
+        GatePainting.paintGateSymbol(args);
+    }
+}
+
 ModularIncrementGates.IncrementModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setSerializedId("incmodR" + span).
     setSymbol("+1\nmod R").
@@ -65,30 +90,7 @@ ModularIncrementGates.IncrementModRFamily = Gate.buildFamily(1, 16, (span, build
         ...ketArgs(ctx, span, ['R']),
         WglArg.float("amount", +1))).
     setKnownEffectToParametrizedPermutation((t, a) => t < a ? (t + 1) % a : t).
-    setDrawer(args => {
-        if (args.isInToolbox) {
-            // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            
-            // Highlight the gate if needed (when `args.isHighlighted` is true)
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-    
-            args.painter.strokeRect(args.rect, 'black');
-            GatePainting.paintGateSymbol(args);
-        }
-        else {
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-            args.painter.strokeRect(args.rect);
-            GatePainting.paintResizeTab(args);
-            GatePainting.paintGateSymbol(args);
-        }
-        
-    }));
+    setDrawer(args => DRAW_GATE(args)));
 
 ModularIncrementGates.DecrementModRFamily = Gate.buildFamily(1, 16, (span, builder) => builder.
     setAlternateFromFamily(ModularIncrementGates.IncrementModRFamily).
@@ -103,30 +105,7 @@ ModularIncrementGates.DecrementModRFamily = Gate.buildFamily(1, 16, (span, build
         ...ketArgs(ctx, span, ['R']),
         WglArg.float("amount", -1))).
     setKnownEffectToParametrizedPermutation((t, a) => t < a ? Util.properMod(t - 1, a) : t).
-    setDrawer(args => {
-        if (args.isInToolbox) {
-            // Fill the gate with the configured fill color
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            
-            // Highlight the gate if needed (when `args.isHighlighted` is true)
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-    
-            args.painter.strokeRect(args.rect, 'black');
-            GatePainting.paintGateSymbol(args);
-        }
-        else {
-            args.painter.fillRect(args.rect, Config.MATH_COLOR);
-            if (args.isHighlighted) {
-                args.painter.fillRect(args.rect, Config.MATH_HIGHLIGHT, 2);
-            }
-            args.painter.strokeRect(args.rect);
-            GatePainting.paintResizeTab(args);
-            GatePainting.paintGateSymbol(args);
-        }
-        
-    }));
+    setDrawer(args => DRAW_GATE(args)));
 
 ModularIncrementGates.all = [
     ...ModularIncrementGates.IncrementModRFamily.all,

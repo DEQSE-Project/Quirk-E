@@ -47,12 +47,13 @@ let ReverseBitsGateFamily = Gate.buildFamily(2, 16, (span, builder) => builder.
     setTitle("Reverse Order").
     setBlurb("Swaps bits into the opposite order.").
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');

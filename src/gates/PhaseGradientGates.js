@@ -57,12 +57,13 @@ PhaseGradientGates.PhaseGradientFamily = Gate.buildFamily(1, 16, (span, builder)
         WglArg.float("factor", Math.PI / (1 << span)))).
     setKnownEffectToPhaser(k => k / (2 << span)).
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');
@@ -80,12 +81,13 @@ PhaseGradientGates.PhaseDegradientFamily = Gate.buildFamily(1, 16, (span, builde
         WglArg.float("factor", -Math.PI / (1 << span)))).
     setKnownEffectToPhaser(k => -k / (2 << span)).
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');
@@ -105,12 +107,13 @@ PhaseGradientGates.DynamicPhaseGradientFamily = Gate.buildFamily(1, 16, (span, b
         k => Complex.polar(1, t * 2 * Math.PI * k))).
     promiseEffectOnlyPhases().
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, -1, -Math.PI / 2);
         }
         GatePainting.paintGateSymbol(args);
@@ -137,12 +140,13 @@ PhaseGradientGates.DynamicPhaseDegradientFamily = Gate.buildFamily(1, 16, (span,
     promiseEffectOnlyPhases().
     setDrawer(GatePainting.makeCycleDrawer(1, -1, 1, Math.PI / 2)).
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.VISUALIZATION_AND_PROBES_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.VISUALIZATION_AND_PROBES_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, -1, Math.PI / 2);
         }
         GatePainting.paintGateSymbol(args);

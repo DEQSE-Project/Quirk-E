@@ -26,9 +26,10 @@ VariousZGates.Z3 = new GateBuilder().
     setTitle("Z^⅓ Gate").
     setBlurb("Principle third root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -45,9 +46,10 @@ VariousZGates.Z3i = new GateBuilder().
     setTitle("Z^-⅓ Gate").
     setBlurb("Adjoint third root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -65,9 +67,10 @@ VariousZGates.Z4 = new GateBuilder().
     setTitle("Z^¼ Gate").
     setBlurb("Principle fourth root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -84,9 +87,10 @@ VariousZGates.Z4i = new GateBuilder().
     setTitle("Z^-¼ Gate").
     setBlurb("Adjoint fourth root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -104,9 +108,10 @@ VariousZGates.Z8 = new GateBuilder().
     setTitle("Z^⅛ Gate").
     setBlurb("Principle eighth root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -123,9 +128,10 @@ VariousZGates.Z8i = new GateBuilder().
     setTitle("Z^-⅛ Gate").
     setBlurb("Adjoint eighth root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -143,9 +149,10 @@ VariousZGates.Z16 = new GateBuilder().
     setTitle("Z^⅟₁₆ Gate").
     setBlurb("Principle sixteenth root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -162,9 +169,10 @@ VariousZGates.Z16i = new GateBuilder().
     setTitle("Z^-⅟₁₆ Gate").
     setBlurb("Adjoint sixteenth root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -182,9 +190,10 @@ VariousZGates.Z32 = new GateBuilder().
     setTitle("Z^⅟₃₂ Gate").
     setBlurb("Principle 32'nd root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -201,9 +210,10 @@ VariousZGates.Z64 = new GateBuilder().
     setTitle("Z^⅟₆₄ Gate").
     setBlurb("Principle 64'th root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);
@@ -220,9 +230,10 @@ VariousZGates.Z128 = new GateBuilder().
     setTitle("Z^⅟₁₂₈ Gate").
     setBlurb("Principle 128'th root of Z.").
     setDrawer(args => {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        const isColored = localStorage.getItem('colored_ui') === 'true';
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0, 0, 1);
         }
         GatePainting.paintGateSymbol(args);

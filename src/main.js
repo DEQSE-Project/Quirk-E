@@ -56,6 +56,45 @@ initSerializer(
 
 const canvasDiv = document.getElementById("canvasDiv");
 
+const defaultState = true; // `true` for colored, `false` for non-colored
+const COLORED_UI_KEY = 'colored_ui';
+
+function getToggleState() {
+    const storedState = localStorage.getItem(COLORED_UI_KEY);
+    return storedState === null ? defaultState : storedState === 'true';
+}
+
+function setToggleState(isColored) {
+    localStorage.setItem(COLORED_UI_KEY, isColored);
+}
+
+function applyToggleState() {
+    const isColored = getToggleState();
+    document.body.classList.toggle('colored-ui', isColored); // Example class toggling
+    // Other rendering logic adjustments can go here
+}
+
+function setupToggle() {
+    const toggle = document.getElementById('ui-toggle');
+    if (!toggle) return;
+
+    // Initialize the toggle based on the current state
+    toggle.checked = getToggleState();
+
+    // Add event listener to handle state change
+    toggle.addEventListener('change', (event) => {
+        const isColored = event.target.checked;
+        setToggleState(isColored);
+        location.reload(); // Reload page to apply changes
+    });
+}
+
+// On page load
+document.addEventListener('DOMContentLoaded', () => {
+    applyToggleState();
+    setupToggle();
+});
+
 //noinspection JSValidateTypes
 /** @type {!HTMLCanvasElement} */
 const canvas = document.getElementById("drawCanvas");

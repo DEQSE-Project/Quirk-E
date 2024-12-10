@@ -31,9 +31,10 @@ let HalfTurnGates = {};
  * @param {!GateDrawParams} args
  */
 function NOT_DRAWER(args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
     if(args.isHighlighted) {
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');
@@ -41,7 +42,7 @@ function NOT_DRAWER(args) {
     }
     // Show a box around the operation when it's not in the circuit.
     if (args.positionInCircuit === undefined) {
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');
         return;
@@ -86,18 +87,19 @@ HalfTurnGates.X = new GateBuilder().
     setActualEffectToShaderProvider(ctx => xShader.withArgs(...ketArgs(ctx))).
     setKnownEffectToMatrix(Matrix.PAULI_X).
     setDrawer(args => {
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         if(args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintGateSymbol(args);
             args.painter.strokeRect(args.rect, 'black');
             return;
         }
         // Show a box around the operation when it's not in the circuit.
         if (args.positionInCircuit === undefined) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
             args.painter.strokeRect(args.rect, 'black');
             let drawArea = args.rect.scaledOutwardBy(0.6);
-            args.painter.fillCircle(drawArea.center(), drawArea.w / 2, Config.ROTATION_AND_TURNS_COLOR);
+            args.painter.fillCircle(drawArea.center(), drawArea.w / 2, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
             args.painter.strokeCircle(drawArea.center(), drawArea.w / 2);
         
             // Vertical stroke(s).
@@ -158,6 +160,19 @@ HalfTurnGates.X = new GateBuilder().
     }).
     gate;
 
+function DRAW_GATE (args) {
+    const isColored = localStorage.getItem('colored_ui') === 'true';
+    // Fill the gate with the configured fill color
+    args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
+
+    // Highlight the gate if needed (when `args.isHighlighted` is true)
+    if (args.isHighlighted) {
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+    }
+    GatePainting.paintGateSymbol(args);
+    args.painter.strokeRect(args.rect, 'black');
+}
+
 let yShader = ketShader('', 'vec2 v = inp(1.0-out_id); return (out_id*2.0 - 1.0)*vec2(-v.y, v.x);', 1);
 /** @type {!Gate} */
 HalfTurnGates.Y = new GateBuilder().
@@ -166,17 +181,7 @@ HalfTurnGates.Y = new GateBuilder().
     setBlurb("A combination of the X and Z gates.").
     setActualEffectToShaderProvider(ctx => yShader.withArgs(...ketArgs(ctx))).
     setKnownEffectToMatrix(Matrix.PAULI_Y).
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     gate;
 
 let zShader = ketShader('', 'return amp*(1.0 - out_id*2.0);', 1);
@@ -187,17 +192,7 @@ HalfTurnGates.Z = new GateBuilder().
     setBlurb("The phase flip gate.\nNegates phases when the qubit is ON.").
     setActualEffectToShaderProvider(ctx => zShader.withArgs(...ketArgs(ctx))).
     setKnownEffectToMatrix(Matrix.PAULI_Z).
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     gate;
 
 let hShader = ketShader('', 'return 0.7071067811865476*(amp*(1.0-2.0*out_id) + inp(1.0-out_id));', 1);
@@ -210,17 +205,7 @@ HalfTurnGates.H = new GateBuilder().
         "Maps OFF to ON - OFF.").
     setActualEffectToShaderProvider(ctx => hShader.withArgs(...ketArgs(ctx))).
     setKnownEffectToMatrix(Matrix.HADAMARD).
-    setDrawer(args => {
-        // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
-    
-        // Highlight the gate if needed (when `args.isHighlighted` is true)
-        if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
-        }
-        GatePainting.paintGateSymbol(args);
-        args.painter.strokeRect(args.rect, 'black');
-    }).
+    setDrawer(args => DRAW_GATE(args)).
     gate;
 
 HalfTurnGates.all = [

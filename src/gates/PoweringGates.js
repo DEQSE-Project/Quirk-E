@@ -43,13 +43,13 @@ PoweringGates.XForward = new GateBuilder().
     setTitle("X-Raising Gate (forward)").
     setBlurb("Right-handed cycle from no-op to X.").
     setDrawer(args => {
-        
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, 1, 0);
         }
         GatePainting.paintGateSymbol(args);
@@ -69,13 +69,13 @@ PoweringGates.XBackward = new GateBuilder().
     setTitle("X-Raising Gate (backward)").
     setBlurb("Left-handed cycle from no-op to X.").
     setDrawer(args => {
-        
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, 1, 0);
         }
         GatePainting.paintGateSymbol(args);
@@ -94,13 +94,13 @@ PoweringGates.YForward = new GateBuilder().
     setTitle("Y-Raising Gate (forward)").
     setBlurb("Right-handed cycle from no-op to Y.").
     setDrawer(args => {
-        
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 0.5, 1, 0);
         }
         GatePainting.paintGateSymbol(args);
@@ -120,13 +120,13 @@ PoweringGates.YBackward = new GateBuilder().
     setTitle("Y-Raising Gate (backward)").
     setBlurb("Left-handed cycle from no-op to Y.").
     setDrawer(args => {
-        
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -0.5, 1, 0);
         }
         GatePainting.paintGateSymbol(args);
@@ -145,13 +145,13 @@ PoweringGates.ZForward = new GateBuilder().
     setTitle("Z-Raising Gate (forward)").
     setBlurb("Right-handed cycle from no-op to Z.").
     setDrawer(args => {
-        
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, -1, -0.5, 0);
         }
         GatePainting.paintGateSymbol(args);
@@ -171,13 +171,13 @@ PoweringGates.ZBackward = new GateBuilder().
     setTitle("Z-Raising Gate (backward)").
     setBlurb("Left-handed cycle from no-op to Z.").
     setDrawer(args => {
-        
+        const isColored = localStorage.getItem('colored_ui') === 'true';
         // Fill the gate with the configured fill color
-        args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_COLOR);
+        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
     
         // Highlight the gate if needed (when `args.isHighlighted` is true)
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, Config.ROTATION_AND_TURNS_HIGHLIGHT, 2);
+            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintCycleState(args, args.stats.time * 2 * Math.PI * 1, 1, -0.5, 0);
         }
         GatePainting.paintGateSymbol(args);
