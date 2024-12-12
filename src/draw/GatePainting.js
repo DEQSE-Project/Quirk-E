@@ -491,7 +491,7 @@ GatePainting.paintGateButton = args => {
 
     let buttonRect = GatePainting.gateButtonRect(args.rect);
     let buttonFocus = !args.focusPoints.every(pt => !buttonRect.containsPoint(pt));
-    args.painter.fillRect(buttonRect, buttonFocus ? Config.RED : 'orange');
+    args.painter.fillRect(buttonRect, buttonFocus ? Config.RED : 'black');
     args.painter.print(
         'change',
         buttonRect.center().x,

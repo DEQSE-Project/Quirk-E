@@ -244,7 +244,7 @@ const DENSITY_MATRIX_DRAWER_FROM_CUSTOM_STATS = GatePainting.makeDisplayDrawer(a
     let n = args.gate.height;
     let ρ = args.customStats || Matrix.zero(1<<n, 1<<n).times(NaN);
     MathPainter.paintDensityMatrix(args.painter, ρ, args.rect, args.focusPoints);
-    if (args.isHighlighted) {
+    if (args.isHighlighted && args.positionInCircuit === undefined) {
         args.painter.fillRect(args.rect, isColored ? usedHighLight : Config.HIGHLIGHTED_GATE_FILL_COLOR);
     }
 });

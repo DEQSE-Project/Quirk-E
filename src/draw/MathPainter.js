@@ -77,7 +77,7 @@ class MathPainter {
 
         // Tool tips.
         if (seq(focusPoints).any(pt => drawArea.containsPoint(pt))) {
-            painter.strokeRect(drawArea, 'orange', 2);
+            painter.strokeRect(drawArea, 'black', 2);
             MathPainter.paintDeferredValueTooltip(
                 painter,
                 drawArea.right(),
@@ -112,7 +112,7 @@ class MathPainter {
             let c = Math.floor((pt.x - x) / diam);
             let r = Math.floor((pt.y - y) / diam);
             if (c >= 0 && c < matrix.width() && r >= 0 && r < matrix.height()) {
-                painter.strokeRect(new Rect(x + diam*c, y + diam*r, diam, diam), 'orange', 2);
+                painter.strokeRect(new Rect(x + diam*c, y + diam*r, diam, diam), 'black', 2);
                 let v = matrix.cell(c, r);
                 MathPainter.paintDeferredValueTooltip(
                     painter,

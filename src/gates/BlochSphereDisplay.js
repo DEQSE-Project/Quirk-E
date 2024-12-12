@@ -49,7 +49,7 @@ function _paintBlochSphereDisplay_tooltips(
     let d = Math.sqrt(x*x + y*y + z*z);
     let ϕ = Math.atan2(y, -x);
     let θ = Math.max(0, Math.PI/2 - Math.atan2(-z, Math.sqrt(y*y + x*x)));
-    painter.strokeCircle(c, u, 'orange', 2);
+    painter.strokeCircle(c, u, 'black', 2);
     MathPainter.paintDeferredValueTooltip(
         painter,
         c.x+u*Math.sqrt(0.5),

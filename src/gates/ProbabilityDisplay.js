@@ -205,7 +205,7 @@ function _paintMultiProbabilityDisplay_tooltips(args) {
         let k = Math.floor((pt.y - y) / d);
         if (args.rect.containsPoint(pt) && k >= 0 && k < n) {
             let p = probabilities === undefined ? NaN : probabilities.rawBuffer()[k * 2];
-            painter.strokeRect(new Rect(x, y + k * d, w, d), 'orange', 2);
+            painter.strokeRect(new Rect(x, y + k * d, w, d), 'black', 2);
             MathPainter.paintDeferredValueTooltip(
                 painter,
                 x + w,

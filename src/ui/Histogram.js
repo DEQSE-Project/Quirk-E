@@ -26,7 +26,7 @@ class Histogram {
     }
 
     desiredHeight() {
-        return 360;
+        return 500;
     }
     
     desiredWidth() {
@@ -142,7 +142,7 @@ class Histogram {
 
                 if(hand.hoverPoints().some(point => bar.containsPoint(point))) {
                     painter.fillRect(bar, usedHighLight); 
-                    painter.strokeRect(bar, 'orange', 2);
+                    painter.strokeRect(bar, 'black', 2);
                     MathPainter.paintDeferredValueTooltip(painter, bar.x + bar.w, bar.y, 
                     `Measured chance of |${label}⟩ (decimal ${index})`,
                     `raw: ${(probability * 100).toFixed(4)}%`,

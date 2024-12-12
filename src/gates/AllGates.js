@@ -202,7 +202,7 @@ Gates.TopToolboxGroups = [
     {
         hint: "Displays",
         gates: [
-            undefined, undefined,
+            SpacerGate, SlicerGate.ofSize(2),
             DensityMatrixDisplayFamily.ofSize(1), BlochSphereDisplay,
             ProbabilityDisplayFamily.ofSize(1),   AmplitudeDisplayFamily.ofSize(2)
         ]
@@ -344,10 +344,10 @@ Gates.TopToolboxGroups = [
     {
         hint: 'Scalar',
         gates: [
-            SpacerGate, ZeroGate,
-            NeGate, SlicerGate.ofSize(2),
+            ZeroGate, NeGate,
             ImaginaryGate, AntiImaginaryGate,
             SqrtImaginaryGate, AntiSqrtImaginaryGate,
+            undefined, undefined,
         ]
     },
 ];

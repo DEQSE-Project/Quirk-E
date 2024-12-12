@@ -497,7 +497,7 @@ class DisplayedCircuit {
         painter.ctx.globalAlpha *= 0.5;
         painter.fillRect(gateRect.paddedBy(5), 'yellow');
         painter.ctx.globalAlpha *= 2;
-        painter.strokeLine(gateRect.topLeft(), gateRect.bottomRight(), 'orange', 3);
+        painter.strokeLine(gateRect.topLeft(), gateRect.bottomRight(), 'black', 3);
         let r = painter.printParagraph(isDisabledReason, gateRect.paddedBy(5), new Point(0.5, 0.5), Config.RED);
         painter.ctx.globalAlpha *= 0.5;
         painter.fillRect(r.paddedBy(2), 'yellow');

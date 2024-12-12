@@ -57,7 +57,7 @@ initSerializer(
 const canvasDiv = document.getElementById("canvasDiv");
 
 const defaultState = true; // `true` for colored, `false` for non-colored
-const defaultStateForDarkMode = true;
+const defaultStateForDarkMode = false;
 const defaultStateForYellowMode = false;
 const COLORED_UI_KEY = 'colored_ui';
 const DARK_MODE_KEY = 'dark_mode';
@@ -445,9 +445,7 @@ setTimeout(() => {
     redrawNow();
     document.getElementById("loading-div").style.display = 'none';
     document.getElementById("close-menu-button").style.display = 'block';
-    if (!displayed.get().displayedCircuit.circuitDefinition.isEmpty()) {
-        closeMenu();
-    }
+    closeMenu();
 
     try {
         initializedWglContext().onContextRestored = () => redrawThrottle.trigger();
