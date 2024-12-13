@@ -22,13 +22,16 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const uiSettingsButton = document.getElementById('ui-settings-button');
                 const uiSettingsMenu = document.getElementById('ui-settings-menu');
-                const coloredUIToggle = document.getElementById('ui-toggle');
-                const yellowModeToggle = document.getElementById('yellow-mode-toggle');
-                const yellowModeContainer = document.getElementById('yellow-mode-container');
                 const moonButton = document.getElementById('moon-button');
                 const sunButton = document.getElementById('sun-button');
+                const colorButton = document.getElementById('color-button');
+                const bwButton = document.getElementById('bw-button');
+                const yellowButton = document.getElementById('yellow-button');
                 const moonImage = document.getElementById('moon-image');
                 const sunImage = document.getElementById('sun-image');
+                const colorImage = document.getElementById('color-image');
+                const bwImage = document.getElementById('bw-image');
+                const yellowImage = document.getElementById('yellow-image');
         
                 // Toggle the visibility of the settings menu
                 uiSettingsButton.addEventListener('click', () => {
@@ -43,18 +46,7 @@
                     }
                 });
         
-                // Enable or disable the "One-color UI" toggle based on "Colored UI"
-                const updateYellowModeState = () => {
-                    const isColored = coloredUIToggle.checked;
-                    yellowModeToggle.disabled = !isColored;
-                    yellowModeContainer.style.opacity = isColored ? '1' : '0.5';
-                };
-        
-                // Initialize state for Colored UI
-                coloredUIToggle.addEventListener('change', updateYellowModeState);
-                updateYellowModeState();
-        
-                // Function to update dark mode
+                // Function to update Dark Mode
                 const updateDarkModeState = () => {
                     const isDarkMode = localStorage.getItem('dark_mode') === 'true';
                     if (isDarkMode) {
@@ -68,23 +60,67 @@
                     }
                 };
         
-                // Add click handlers for the dark mode buttons
+                // Function to update UI Color Mode
+                const updateColorModeState = () => {
+                    const isColored = localStorage.getItem('colored_ui') === 'true';
+                    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+        
+                    if (isYellowMode) {
+                        yellowImage.style.opacity = '1'; // Highlight Yellow Mode icon
+                        colorImage.style.opacity = '0.5'; // Dim Color icon
+                        bwImage.style.opacity = '0.5'; // Dim BW icon
+                    } else if (isColored) {
+                        colorImage.style.opacity = '1'; // Highlight Color icon
+                        yellowImage.style.opacity = '0.5'; // Dim Yellow icon
+                        bwImage.style.opacity = '0.5'; // Dim BW icon
+                    } else {
+                        bwImage.style.opacity = '1'; // Highlight BW icon
+                        yellowImage.style.opacity = '0.5'; // Dim Yellow icon
+                        colorImage.style.opacity = '0.5'; // Dim Color icon
+                    }
+                };
+        
+                // Add click handlers for Dark Mode buttons
                 moonButton.addEventListener('click', () => {
                     localStorage.setItem('dark_mode', 'true');
                     updateDarkModeState();
-                    uiSettingsMenu.style.display = 'none'; // Close the popup menu
+                    location.reload(); // Reload UI
                 });
         
                 sunButton.addEventListener('click', () => {
                     localStorage.setItem('dark_mode', 'false');
                     updateDarkModeState();
-                    uiSettingsMenu.style.display = 'none'; // Close the popup menu
+                    location.reload(); // Reload UI
                 });
         
-                // Apply the initial state for Dark Mode
+                // Add click handlers for Color Mode buttons
+                colorButton.addEventListener('click', () => {
+                    localStorage.setItem('colored_ui', 'true');
+                    localStorage.setItem('yellow_mode', 'false');
+                    updateColorModeState();
+                    location.reload(); // Reload UI
+                });
+        
+                bwButton.addEventListener('click', () => {
+                    localStorage.setItem('colored_ui', 'false');
+                    localStorage.setItem('yellow_mode', 'false');
+                    updateColorModeState();
+                    location.reload(); // Reload UI
+                });
+        
+                // Add click handler for Yellow Mode button
+                yellowButton.addEventListener('click', () => {
+                    localStorage.setItem('colored_ui', 'true');
+                    localStorage.setItem('yellow_mode', 'true');
+                    updateColorModeState();
+                    location.reload(); // Reload UI
+                });
+        
+                // Apply the initial states
                 updateDarkModeState();
+                updateColorModeState();
             });
-        </script>        
+        </script>                    
         <!-- Primary content -->
         <div id="inspectorDiv" style="display: none">
             <!-- Buttons -->
@@ -111,16 +147,20 @@
                         box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
                         z-index: 100;
                     ">
-                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; width: 100%;">
-                            <span>Colored UI</span>
-                            <input type="checkbox" id="ui-toggle" style="accent-color: black;">
-                        </label>
-                        <label id="yellow-mode-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; width: 100%; opacity: 1;">
-                            <span>One-color UI</span>
-                            <input type="checkbox" id="yellow-mode-toggle" style="accent-color: black;">
-                        </label>
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; width: 100%; gap: 10px;">
-                            <span>UI mode</span>
+                        <span>UI coloring</span>
+                        <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px; width: 100%; gap: 20px;">
+                            <button id="color-button" style="background: none; border: none; padding: 0;">
+                                <img id="color-image" src="../doc/color.png" alt="Color" style="width: 30px; height: 30px; cursor: pointer; opacity: 0.5;">
+                            </button>
+                            <button id="yellow-button" style="background: none; border: none; padding: 0;">
+                                <img id="yellow-image" src="../doc/yellow.png" alt="Yellow" style="width: 30px; height: 30px; cursor: pointer; opacity: 0.5;">
+                            </button>
+                            <button id="bw-button" style="background: none; border: none; padding: 0;">
+                                <img id="bw-image" src="../doc/bw.png" alt="Black and White" style="width: 30px; height: 30px; cursor: pointer; opacity: 0.5;">
+                            </button>
+                        </div>
+                        <span>UI mode</span>
+                        <div style="display: flex; align-items: center; margin-top: 10px; width: 100%; gap: 20px;">
                             <button id="moon-button" style="background: none; border: none; padding: 0;">
                                 <img id="moon-image" src="../doc/moon.png" alt="Moon" style="width: 20px; height: 20px; cursor: pointer; opacity: 0.5;">
                             </button>
@@ -235,9 +275,7 @@ document.DEFAULT_CIRCUIT = undefined;
 
         </script>
         <div style="padding-left: 10px; padding-top: 50px;">
-            <p>This work has been supported by the Academy of Finland (project DEQSE 349945). Source code can be found <a href="https://github.com/DEQSE-Project/Quirk-E" target="_blank">in this Github repository</a>. 
-                Quirk-E is based on <a href="https://algassert.com/quirk" target="_blank">Quirk</a>. The source code of Quirk is available at <a href="https://github.com/Strilanc/Quirk" target="_blank">this github repostory</a>.
-            </p>
+            <a href="https://github.com/DEQSE-Project/Quirk-E" target="_blank">Quirk-E</a> is an extension of the <a href="https://algassert.com/quirk" target="_blank">Quirk</a>. quantum circuit simulator, developed as part of the <a href="https://github.com/DEQSE-Project" target="_blank">DEQSE project</a>.
         </div>
     </body>
 </html>
