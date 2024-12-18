@@ -68,7 +68,7 @@ class Histogram {
         let margin = (numWires > 5) ? 80 : 40;
         let titleY = area.bottom() + margin; 
         let titleArea = new Rect(area.x, titleY, area.w, 12);
-        painter.printLine("Computational basis", titleArea, 0.5, 'black', 12);
+        painter.printLine("Computational basis states", titleArea, 0.5, 'black', 12);
     }
     
     
@@ -166,7 +166,7 @@ class Histogram {
      * @param {!Number} num_wires
      */
     outputStateArea(painter, stats, area, hand, numWires) {
-        let margin = (numWires > 5) ? 100 : 60;
+        let margin = (numWires > 5) ? 112 : 80;
         let boxWidth = area.w * 0.96;
         let boxHeight = 55;
     
@@ -175,8 +175,8 @@ class Histogram {
     
         // Text box
         let textBoxRect = new Rect(boxX, boxY, boxWidth, boxHeight);
-        painter.fillRect(textBoxRect, 'rgba(156, 156, 156, 0.56)');
-        painter.strokeRect(textBoxRect, '#333333');
+        painter.fillRect(textBoxRect, 'rgba(223, 223, 223, 0.66)');
+        painter.strokeRect(textBoxRect, 'black');
     
         let titleMargin = 10;
         painter.ctx.save();
@@ -261,7 +261,7 @@ class Histogram {
                 navigator.clipboard.writeText(formattedState)
                     .then(() => {
                         console.log('Output state copied to clipboard.');
-                        painter.fillRect(buttonRect, 'rgba(112, 112, 112, 0.56)');
+                        painter.fillRect(buttonRect, 'rgba(136, 136, 136, 0.56)');
                         painter.ctx.strokeRect(buttonRect.x + 8, buttonRect.y + 8, 14, 18); 
                         painter.ctx.beginPath();
                         painter.ctx.arc(buttonRect.x + 15, buttonRect.y + 10, 4, Math.PI, 0); 

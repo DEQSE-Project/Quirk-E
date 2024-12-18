@@ -32,20 +32,28 @@
                 const colorImage = document.getElementById('color-image');
                 const bwImage = document.getElementById('bw-image');
                 const yellowImage = document.getElementById('yellow-image');
-        
+
                 // Toggle the visibility of the settings menu
                 uiSettingsButton.addEventListener('click', () => {
                     const isMenuVisible = uiSettingsMenu.style.display === 'block';
-                    uiSettingsMenu.style.display = isMenuVisible ? 'none' : 'block';
+
+                    if (!isMenuVisible) {
+                        const buttonRect = uiSettingsButton.getBoundingClientRect();
+                        uiSettingsMenu.style.top = `${buttonRect.bottom + 5}px`; // Position below the button
+                        uiSettingsMenu.style.left = `${buttonRect.left}px`; // Align to the button's left
+                        uiSettingsMenu.style.display = 'block';
+                    } else {
+                        uiSettingsMenu.style.display = 'none';
+                    }
                 });
-        
+
                 // Close the menu if the user clicks outside of it
                 document.addEventListener('click', (event) => {
                     if (!uiSettingsButton.contains(event.target) && !uiSettingsMenu.contains(event.target)) {
                         uiSettingsMenu.style.display = 'none';
                     }
                 });
-        
+
                 // Function to update Dark Mode
                 const updateDarkModeState = () => {
                     const isDarkMode = localStorage.getItem('dark_mode') === 'true';
@@ -59,12 +67,12 @@
                         moonImage.style.opacity = '0.5'; // Dim moon
                     }
                 };
-        
+
                 // Function to update UI Color Mode
                 const updateColorModeState = () => {
                     const isColored = localStorage.getItem('colored_ui') === 'true';
                     const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
-        
+
                     if (isYellowMode) {
                         yellowImage.style.opacity = '1'; // Highlight Yellow Mode icon
                         colorImage.style.opacity = '0.5'; // Dim Color icon
@@ -79,20 +87,20 @@
                         colorImage.style.opacity = '0.5'; // Dim Color icon
                     }
                 };
-        
+
                 // Add click handlers for Dark Mode buttons
                 moonButton.addEventListener('click', () => {
                     localStorage.setItem('dark_mode', 'true');
                     updateDarkModeState();
                     location.reload(); // Reload UI
                 });
-        
+
                 sunButton.addEventListener('click', () => {
                     localStorage.setItem('dark_mode', 'false');
                     updateDarkModeState();
                     location.reload(); // Reload UI
                 });
-        
+
                 // Add click handlers for Color Mode buttons
                 colorButton.addEventListener('click', () => {
                     localStorage.setItem('colored_ui', 'true');
@@ -100,14 +108,14 @@
                     updateColorModeState();
                     location.reload(); // Reload UI
                 });
-        
+
                 bwButton.addEventListener('click', () => {
                     localStorage.setItem('colored_ui', 'false');
                     localStorage.setItem('yellow_mode', 'false');
                     updateColorModeState();
                     location.reload(); // Reload UI
                 });
-        
+
                 // Add click handler for Yellow Mode button
                 yellowButton.addEventListener('click', () => {
                     localStorage.setItem('colored_ui', 'true');
@@ -115,7 +123,7 @@
                     updateColorModeState();
                     location.reload(); // Reload UI
                 });
-        
+
                 // Apply the initial states
                 updateDarkModeState();
                 updateColorModeState();
@@ -135,17 +143,18 @@
                 &nbsp;
                 <button id="menu-button" style="min-width: 50px; min-height: 30px;">Menu</button>
                 &nbsp;
-                <div style="margin: 5px; height: auto; overflow: hidden; display: flex; align-items: center;">
+                <div style="position: relative;">
                     <button id="ui-settings-button" style="min-width: 50px; min-height: 30px;">
                         UI Settings
                     </button>
                     <div id="ui-settings-menu" style="
                         display: none;
+                        position: fixed; /* Ensure it overlays other elements */
                         background-color: white;
                         border: 1px solid #ccc;
-                        padding: 10px;
+                        padding: 20px;
                         box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-                        z-index: 100;
+                        z-index: 1000; /* Ensure it overlays other elements */
                     ">
                         <span>UI coloring</span>
                         <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px; width: 100%; gap: 20px;">
@@ -169,7 +178,7 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>                
                 &nbsp;
                 &nbsp;
                 <span style="color:#BBB">Quirk-E Version 3.0.0</span>
