@@ -26,7 +26,7 @@ class Histogram {
     }
 
     desiredHeight() {
-        return 500;
+        return 600;
     }
     
     desiredWidth() {
@@ -40,7 +40,7 @@ class Histogram {
     histogramArea(painter, num_wires) {
         let margin_top = 10;
         let margin_X = Config.TOOLBOX_MARGIN_X;
-        let margin_bottom = 48 + 12;
+        let margin_bottom = 170;
 
         let width = num_wires < 5 ? this.desiredWidth() - margin_X : painter.canvas.width - margin_X * 2;
         let height = this.desiredHeight() - margin_top - margin_bottom;
@@ -64,11 +64,13 @@ class Histogram {
     /**
      * @param {!Painter} painter   
      */
-    drawXAxisTitle(painter, area, numWires) {
-        let margin = (numWires < 6) ? 36 : 12;
-        let belowBars = area.withY(this.top + this.desiredHeight() - margin).withH(12);
-        painter.printLine("Computational basis", belowBars, 0.5, 'black', 12);
+    drawXAxisTitle(painter, area, numWires, stats) {
+        let margin = (numWires > 5) ? 80 : 40;
+        let titleY = area.bottom() + margin; 
+        let titleArea = new Rect(area.x, titleY, area.w, 12);
+        painter.printLine("Computational basis", titleArea, 0.5, 'black', 12);
     }
+    
     
     /**
      * @param {!Painter} painter   
@@ -108,7 +110,6 @@ class Histogram {
         stats.finalState.getColumn(0).forEach((amplitude, index) => {
             let padding = bar_count < 32 ? area.w / (3 * bar_count) : 0;
 
-            // squared euclidean length, coincidentally the probability.
             let probability = amplitude.norm2(); 
             let label = `${Util.bin(index, Util.bitSize(bar_count - 1))}`;
 
@@ -119,9 +120,13 @@ class Histogram {
                 painter.printLine(label, new Rect(x, area.bottom(), width, 24), 0.5);
             } else {
                 painter.ctx.save();
-                painter.ctx.translate(x, this.top + this.desiredHeight());
-                painter.ctx.rotate(-Math.PI/2);
+                
+                let labelYOffset = 0.46 * (this.top + this.desiredHeight());  // Almost half the original translation distance
+
+                painter.ctx.translate(x, this.top + labelYOffset);  
+                painter.ctx.rotate(-Math.PI / 2);
                 painter.printLine(label, new Rect(0, 0, this.top + this.desiredHeight() - area.bottom() + 12, width), 0.5, undefined, undefined, undefined, 0.5);
+                
                 painter.ctx.restore();
             }
 
@@ -151,6 +156,123 @@ class Histogram {
             } 
         });
     }
+    
+
+    /**
+     * @param {!Painter} painter
+     * @param {!CircuitStats} stats
+     * @param {!Rect} area
+     * @param {!Hand} hand
+     * @param {!Number} num_wires
+     */
+    outputStateArea(painter, stats, area, hand, numWires) {
+        let margin = (numWires > 5) ? 100 : 60;
+        let boxWidth = area.w * 0.96;
+        let boxHeight = 55;
+    
+        let boxX = area.center().x - boxWidth / 2;
+        let boxY = area.bottom() + margin;
+    
+        // Text box
+        let textBoxRect = new Rect(boxX, boxY, boxWidth, boxHeight);
+        painter.fillRect(textBoxRect, 'rgba(156, 156, 156, 0.56)');
+        painter.strokeRect(textBoxRect, '#333333');
+    
+        let titleMargin = 10;
+        painter.ctx.save();
+        painter.ctx.fillStyle = 'black';
+        painter.ctx.font = 'bold 12px sans-serif';
+        painter.ctx.fillText('Output state', textBoxRect.x + titleMargin, textBoxRect.y + titleMargin + 4);
+        painter.ctx.restore();
+    
+        // Formatted string anbd outputstate value as text
+        let outputState = stats.finalState
+            .getColumn(0)
+            .map((amplitude, index) => `${amplitude.toString(new Format(false, 0, 5, ''))}`)
+            .join(', ');
+        let formattedState = `[ ${outputState} ]`;
+    
+        painter.ctx.save();
+        painter.ctx.fillStyle = 'black';
+        painter.ctx.font = '12px monospace'; 
+        let textY = textBoxRect.y + 30; 
+        let textX = textBoxRect.x + 10;
+    
+        let lineHeight = 16; 
+        let maxLines = 2; 
+        let words = formattedState.split(' ');
+        let currentLine = '';
+        let lineCount = 0;
+    
+        for (let word of words) {
+            let testLine = currentLine + word + ' ';
+            let testWidth = painter.ctx.measureText(testLine).width;
+            if (testWidth > boxWidth - 20) { 
+                painter.ctx.fillText(currentLine, textX, textY);
+                currentLine = word + ' ';
+                textY += lineHeight;
+                lineCount++;
+    
+                if (lineCount === maxLines - 1) {
+                    painter.ctx.fillText(currentLine.trim() + ' ...', textX, textY); 
+                    break;
+                }
+            } else {
+                currentLine = testLine;
+            }
+        }
+    
+        if (lineCount < maxLines) {
+            painter.ctx.fillText(currentLine.trim(), textX, textY); 
+        }
+    
+        painter.ctx.restore();
+    
+        // Copy button
+        let buttonWidth = 30;
+        let buttonHeight = 30;
+        let buttonX = textBoxRect.right() - buttonWidth - 10;
+        let buttonY = textBoxRect.y + 5;
+    
+        let buttonRect = new Rect(buttonX, buttonY, buttonWidth, buttonHeight);
+        painter.fillRect(buttonRect, 'transparent'); 
+        painter.ctx.save();
+        painter.ctx.strokeStyle = 'black';
+        painter.ctx.lineWidth = 1.5;
+    
+        painter.ctx.strokeRect(buttonRect.x + 8, buttonRect.y + 8, 14, 18); 
+        painter.ctx.beginPath();
+        painter.ctx.arc(buttonRect.x + 15, buttonRect.y + 10, 4, Math.PI, 0); 
+        painter.ctx.stroke();
+    
+        painter.ctx.restore();
+    
+        painter.canvas.addEventListener('click', (event) => {
+            const rect = painter.canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+    
+            if (
+                mouseX >= buttonX &&
+                mouseX <= buttonX + buttonWidth &&
+                mouseY >= buttonY &&
+                mouseY <= buttonY + buttonHeight
+            ) {
+                navigator.clipboard.writeText(formattedState)
+                    .then(() => {
+                        console.log('Output state copied to clipboard.');
+                        painter.fillRect(buttonRect, 'rgba(112, 112, 112, 0.56)');
+                        painter.ctx.strokeRect(buttonRect.x + 8, buttonRect.y + 8, 14, 18); 
+                        painter.ctx.beginPath();
+                        painter.ctx.arc(buttonRect.x + 15, buttonRect.y + 10, 4, Math.PI, 0); 
+                        painter.ctx.stroke();
+                    })
+                    .catch((err) => {
+                        console.error('Failed to copy output state: ', err);
+                    });
+            }
+        });
+    }
 
     /**
      * @param {!Painter} painter
@@ -160,18 +282,24 @@ class Histogram {
     paint(painter, stats, hand) {
         let { numWires } = stats.circuitDefinition;
         let area = this.histogramArea(painter, numWires);
-
+    
         this.drawYAxisTitle(painter, area);
-        this.drawXAxisTitle(painter, area, numWires);
-        this.drawAxeNumbers(painter, area);
         this.drawAxes(painter, area);
-        if(numWires <= 7) { // don't draw bars with more than 7 wires
+        this.drawAxeNumbers(painter, area);
+    
+        if (numWires <= 7) {
             this.drawBars(painter, hand, stats, area);
         } else {
             painter.printLine("Histogram not available for more than 7 wires.", area, 0.5, undefined, 16, undefined, 0.5);
         }
-        painter.strokeRect(area); // stroke the rect last so everything appears below it
+    
+        this.outputStateArea(painter, stats, area, hand, numWires);
+    
+        this.drawXAxisTitle(painter, area, numWires, stats);
+    
+        painter.strokeRect(area);
     }
+    
 }
 
 export {Histogram}
