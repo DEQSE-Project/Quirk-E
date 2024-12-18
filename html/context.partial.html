@@ -1,4 +1,52 @@
+<script>
+    const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+
+    const setButtonStyles = () => {
+        const deleteButton = document.getElementById('delete-gate-button');
+        const duplicateButton = document.getElementById('duplicate-gate-button');
+        const trashImage = document.getElementById('trash-image');
+        const duplicateImage = document.getElementById('duplicate-image');
+
+        let btns = [deleteButton, duplicateButton];
+
+        if (isDarkMode) {
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].style.border = '1px solid #2e2d2d';
+                btns[i].style.backgroundColor = '#303030';
+                btns[i].style.color = 'white';
+                btns[i].onmouseover = () => {
+                    btns[i].style.backgroundColor = '#242424';
+                };
+                btns[i].onmouseout = () => {
+                    btns[i].style.backgroundColor = '#303030';
+                };
+            }
+        } else {
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].style.border = '1px solid #777777';
+                btns[i].style.backgroundColor = '#7e7e7e';
+                btns[i].style.color = 'white';
+                btns[i].onmouseover = () => {
+                    btns[i].style.backgroundColor = '#6e6e6e';
+                };
+                btns[i].onmouseout = () => {
+                    btns[i].style.backgroundColor = '#7e7e7e';
+                };
+            }
+        }
+    }
+
+    window.onload = setButtonStyles;
+</script>
 <div id="gate-context-menu" style="position: absolute; display: none;">
-    <button id="delete-gate-button">Delete</button>
-    <button id="duplicate-gate-button">Duplicate</button>
+    <div style="position: absolute; display: none; display: flex; align-items: center; flex-direction: row; gap: 5px;">
+        <button id="delete-gate-button" style="cursor: pointer; border-radius: 10px; display: flex; align-items: center;">
+            <img id="trash-image" src="../doc/trash.png" alt="Trash can" style="width: 15px; height: 15px; filter: invert(100%); padding: 5px; display: flex; align-items: center;">
+            Delete
+        </button>
+        <button id="duplicate-gate-button" style="cursor: pointer; border-radius: 10px; display: flex; align-items: center;">
+            <img id="duplicate-image" src="../doc/duplicate.png" alt="Duplicate" style="width: 15px; height: 15px; filter: invert(100%); padding: 5px; display: flex; align-items: center;">
+            Duplicate
+        </button>
+    </div>
 </div>

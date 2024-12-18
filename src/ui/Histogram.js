@@ -193,8 +193,8 @@ class Histogram {
         let formattedState = `[ ${outputState} ]`;
     
         painter.ctx.save();
-        painter.ctx.fillStyle = 'black';
-        painter.ctx.font = '12px monospace'; 
+        painter.ctx.fillStyle = 'black'; 
+        painter.ctx.font = '12px arial'; 
         let textY = textBoxRect.y + 30; 
         let textX = textBoxRect.x + 10;
     

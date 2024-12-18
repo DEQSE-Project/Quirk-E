@@ -32,6 +32,15 @@
                 const colorImage = document.getElementById('color-image');
                 const bwImage = document.getElementById('bw-image');
                 const yellowImage = document.getElementById('yellow-image');
+                const exportButton = document.getElementById('export-button');
+                const clearCircuitButton = document.getElementById('clear-circuit-button');
+                const menuButton = document.getElementById('menu-button');
+                const clearAllButton = document.getElementById('clear-all-button');
+                const undoButton = document.getElementById('undo-button');
+                const redoButton = document.getElementById('redo-button');
+                const gateForgeButton = document.getElementById('gate-forge-button');
+
+                let btns = [uiSettingsButton, exportButton, clearAllButton, clearCircuitButton, menuButton, undoButton, redoButton, gateForgeButton];
 
                 // Toggle the visibility of the settings menu
                 uiSettingsButton.addEventListener('click', () => {
@@ -61,10 +70,37 @@
                         document.body.style.backgroundColor = '#6d6d6d'; // Dark mode background
                         moonImage.style.opacity = '1'; // Highlight moon
                         sunImage.style.opacity = '0.5'; // Dim sun
+
+                        for (let i = 0; i < btns.length; i++) {
+                            btns[i].style.border = '1px solid #2e2d2d';
+                            btns[i].style.backgroundColor = '#303030';
+                            btns[i].style.color = 'white';
+                            btns[i].onmouseover = () => {
+                                btns[i].style.backgroundColor = '#242424';
+                            };
+                            btns[i].onmouseout = () => {
+                                btns[i].style.backgroundColor = '#303030';
+                            };
+                        }
+
+                        uiSettingsMenu.style.backgroundColor = '#bbbbbb';
+                        uiSettingsMenu.style.border = '1px solid #aaaaaa'
                     } else {
                         document.body.style.backgroundColor = 'white'; // Light mode background
                         sunImage.style.opacity = '1'; // Highlight sun
                         moonImage.style.opacity = '0.5'; // Dim moon
+
+                        for (let i = 0; i < btns.length; i++) {
+                            btns[i].style.border = '1px solid #777777';
+                            btns[i].style.backgroundColor = '#7e7e7e';
+                            btns[i].style.color = 'white';
+                            btns[i].onmouseover = () => {
+                                btns[i].style.backgroundColor = '#6e6e6e';
+                            };
+                            btns[i].onmouseout = () => {
+                                btns[i].style.backgroundColor = '#7e7e7e';
+                            };
+                        }
                     }
                 };
 
@@ -141,10 +177,10 @@
                     </a>
                 </div>
                 &nbsp;
-                <button id="menu-button" style="min-width: 50px; min-height: 30px;">Menu</button>
+                <button id="menu-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Menu</button>
                 &nbsp;
                 <div style="position: relative;">
-                    <button id="ui-settings-button" style="min-width: 50px; min-height: 30px;">
+                    <button id="ui-settings-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">
                         UI Settings
                     </button>
                     <div id="ui-settings-menu" style="
@@ -155,6 +191,7 @@
                         padding: 20px;
                         box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
                         z-index: 1000; /* Ensure it overlays other elements */
+                        border-radius: 10px;
                     ">
                         <span>UI coloring</span>
                         <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px; width: 100%; gap: 20px;">
@@ -186,20 +223,20 @@
                 &nbsp;
                 &nbsp;
                 &nbsp;
-                <button id="export-button" style="min-width: 50px; min-height: 30px;">Export</button>
+                <button id="export-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Export</button>
                 &nbsp;
                 &nbsp;
-                <button id="clear-circuit-button" style="min-width: 50px; min-height: 30px;">Clear Circuit</button>
+                <button id="clear-circuit-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Clear Circuit</button>
                 &nbsp;
-                <button id="clear-all-button" style="min-width: 50px; min-height: 30px;">Clear ALL</button>
-                &nbsp;
-                &nbsp;
-                <button id="undo-button" style="min-width: 50px; min-height: 30px;">Undo</button>
-                &nbsp;
-                <button id="redo-button" style="min-width: 50px; min-height: 30px;">Redo</button>
+                <button id="clear-all-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Clear ALL</button>
                 &nbsp;
                 &nbsp;
-                <button id="gate-forge-button" style="min-width: 50px; min-height: 30px;">Make Gate</button>                
+                <button id="undo-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Undo</button>
+                &nbsp;
+                <button id="redo-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Redo</button>
+                &nbsp;
+                &nbsp;
+                <button id="gate-forge-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">Make Gate</button>                
             </div>
 
             <!-- Circuit drawing area -->
