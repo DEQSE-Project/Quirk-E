@@ -3,30 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Use</title>
+    <title>Quirk-E User Guide</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --bg-color-dark: #242424;
+            --text-color-dark: white;
+            --header-bg-dark:  #303030;
+            --section-bg-dark: #5d5c5c;
+            --highlight-color-dark: #edd265;
+
+            --bg-color-light: #ccc;
+            --text-color-light: black;
+            --header-bg-light: #6e6e6e;
+            --section-bg-light:  white;
+            --highlight-color-light: #ffcc00;
+
+            --link-color-dark: #edd265;
+            --visited-link-color-dark: #303030;
+            --hover-link-color-dark:  #efdd92;
+
+            --link-color-light: #edd265;
+            --visited-link-color-light: #6e6e6e;
+            --hover-link-color-light: #efdd92;
+        }
+
         body {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f9f9f9;
-            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        a {
+            color: var(--link-color-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:visited {
+            color: var(--visited-link-color-dark);
+        }
+        a:hover {
+            color: var(--hover-link-color-dark);
+        }
+        .header {
+            background-color: var(--header-bg-dark);
+            padding: 20px;
             text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            color: var(--highlight-color-dark);
         }
         .content {
-            max-width: 600px;
             padding: 20px;
+        }
+        .intro {
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+        .columns {
+            display: flex;
+            gap: 20px;
+        }
+        .column {
+            flex: 2;
+            background-color: var(--section-bg-dark);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .images {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .images img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .section {
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--highlight-color-dark);
+            font-family: 'Roboto', sans-serif;
+        }
+        .section-content {
+            background-color: var(--section-bg-dark);
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .button {
+            background-color: var(--highlight-color-dark);
+            color: var(--text-color-dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .button:hover {
+            background-color: #e6b800;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .theme-toggle button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--highlight-color-dark);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .theme-toggle button.active {
+            opacity: 1;
+        }
+        .theme-toggle button:hover {
+            color: #e6b800;
+        }
+        .theme-toggle button img {
+            opacity: 0.5;
+        }
+
+        .theme-toggle button.active img {
+            opacity: 1;
+        }
+
+        .light-mode {
+            --bg-color-dark: var(--bg-color-light);
+            --text-color-dark: var(--text-color-light);
+            --header-bg-dark: var(--header-bg-light);
+            --section-bg-dark: var(--section-bg-light);
+            --highlight-color-dark: var(--highlight-color-light);
+            --link-color-dark: var(--link-color-light);
+            --visited-link-color-dark: var(--visited-link-color-light);
+            --hover-link-color-dark: var(--hover-link-color-light);
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>How to Use Quirk-E</h1>
-        <p>Work in progress...</p>
+    <div class="header">Quirk-E User Guide</div>
+    <div class="theme-toggle">
+        <button id="darkModeButton" title="Dark Mode">
+            <img id="moon-image" src="../doc/moon.png" alt="Moon" style="width: 30px; height: 30px; cursor: pointer;">
+        </button>
+        <button id="lightModeButton" title="Light Mode">
+            <img id="sun-image" src="../doc/sun.png" alt="Sun" style="width: 30px; height: 30px; cursor: pointer;">
+        </button>
     </div>
+     
+
+    <div class="content">
+        <div class="columns">
+            <div class="column">
+                <div class="section">
+                    <p>
+                        <a href="https://quirk-e.dev/" target="_blank">Quirk-E</a> is an open-source quantum circuit simulator built as an extension of the original <a href="https://github.com/Strilanc/Quirk" target="_blank">Quirk</a> platform. 
+                        Quirk-E has been developed as part of the <strong>Developer Experience in Iterative Quantum Software Engineering (DEQSE)</strong> project by the <a href="https://www.jyu.fi/en/research-groups/empirical-software-engineering-research" target="_blank">Empirical Software Engineering Research Team</a> 
+                        and the <a href="https://www.jyu.fi/en/research-groups/quantum-information-and-computation-team" target="_blank">QIC Team</a> at the <a href="https://www.jyu.fi/en" target="_blank">University of Jyväskylä</a>, Finland.
+                    </p>
+                    <p>
+                        The Quirk-E tool adds more functionalities to the Quirk quantum circuit simulator.
+                        The Quirk-E is free to use and modify. However, you must add reference in case of any publication.
+                        Quirk-E is also embedded in the DEQSE Visual Studio Code Extension, designed to enhance the quantum software development experience. 
+                        The extension is available for download from <a href="https://github.com/DEQSE-Project/deqse-vscode-extension" target="_blank">GitHub</a> and <a href="https://marketplace.visualstudio.com/publishers/jyuqicteam" target="_blank">Microsoft Marketplace</a>.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Quirk User Guide</div>
+                    <p>
+                        As Quirk-E is developed on top of original Quirk, the Quirk User Guide is fully applicable to Quirk-E as well. Quirk user guide can be found in <a href="https://github.com/Strilanc/Quirk/wiki/How-to-use-Quirk" target="_blank">this GitHub wiki</a>.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Right click menu</div>
+                    <p>
+                        By right clicking a gate on a circuit, you will open a context menu. In that menu, you have two options: duplicate gate and delete gate. When you press the Duplicate button, same gate appears next to the current gate. When you press Delete button, the gate is deleted from the circuit.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Probability distribution histogram</div>
+                    <p>Below the circuit, there is a probability distribution histogram. The histogram shows the computational basis states, the probability for each possible state. It is updated in real time.</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Output state</div>
+                    <p>Below the histogram, a text box for output state is available. It shows the complete output state as an array. In the box top right corner there an icon button for copying the output state. The output state is copied in the clipboard in the same format as it is shown in the text box.</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">UI customization</div>
+                    <p>
+                        For UI customization, light and dark modes are available. The dark mode is grey and muted, being comfortable and less straining for the eyes to look at. The light mode is classic and bright. This UI mode can be changed in the UI Settings menu, using the sun and moon icon buttons. 
+                        The UI is updated as the icons are clicked.
+                    </p>
+                    <p>
+                        In the same UI Settings menu, there are UI coloring options available. Three coloring modes are implemented: multi-colored UI, yellow UI and black and white UI. 
+                        In multi-colored UI, multiple colors are used and gates are colored based on groups. 
+                        In yellow UI, all the gates and the histogram bars are yellow.
+                        In black and white UI, only greyscale is used.
+                        Overall, there are six different UI options: dark and multi-colored, dark and yellow-colored, dark and greyscale, light and multi-colored, light and yellow-colored, light and greyscale.
+                    </p>
+                    <p>
+                        Other UI improvements are also made. 
+                        From Quirk to Quirk-E, the UI is enhanced with sans-serif font, updated button design, DEQSE project logo and combined toolboxes to the top toolbox place.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Slicer / barrier</div>
+                    <p>Slicer gate is added in order to make the circuit editing visually better. With slicer gate, circuit can be divided into steps or parts, making the circuit more readable.</p>
+                </div>
+            </div>
+            <div class="images">
+                <img id="darkUI" src="../doc/quirk-e-dark.png" alt="dark user interface">
+                <br>
+                <br>
+                <br>
+                <img id="lightUI" src="../doc/quirk-e-light.png" alt="light user interface">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const darkModeButton = document.getElementById('darkModeButton');
+        const lightModeButton = document.getElementById('lightModeButton');
+        darkModeButton.classList.add('active');
+
+        darkModeButton.addEventListener('click', () => {
+            document.body.classList.remove('light-mode');
+            darkModeButton.classList.add('active');
+            lightModeButton.classList.remove('active');
+        });
+
+        lightModeButton.addEventListener('click', () => {
+            document.body.classList.add('light-mode');
+            lightModeButton.classList.add('active');
+            darkModeButton.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
