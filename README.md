@@ -25,7 +25,9 @@ This work has been supported by the Academy of Finland (project DEQSE 349945).
 - **Drag and Drop Barrier (Slicer)** for quantum circuits, enabling precise control over circuit execution flow by defining explicit synchronization points.
 
 
-![Drag and Drop Barrier (Slicer) Feature](https://github.com/DEQSE-Project/Quirk-E/blob/main/Quirk-E.jpg)
+![Added features showed in light, multi-colored UI](https://github.com/DEQSE-Project/Quirk-E/blob/main/quirk-e-light.jpg)
+
+![Additional added features showed in dark, yellow-colored UI](https://github.com/DEQSE-Project/Quirk-E/blob/main/quirk-e-dark.jpg)
 
 
 # Known issues
