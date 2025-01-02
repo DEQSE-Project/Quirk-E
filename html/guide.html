@@ -152,10 +152,27 @@
             --visited-link-color-dark: var(--visited-link-color-light);
             --hover-link-color-dark: var(--hover-link-color-light);
         }
+
+        .logo-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="header">Quirk-E User Guide</div>
+    <div class="logo-button">
+        <div style="position: relative; top: 2px;">
+            <a href="https://quirk-e.dev/about.html" target="_blank">
+                <img id="logo-button" src="../doc/DEQSE16x16White.svg" alt="DEQSE logo" style="min-width: 50px; min-height: 30px; max-width: 50px; max-height: 50px;">
+            </a>
+        </div>
+    </div>
+    <div class="header">
+        Quirk-E User Guide
+    </div>
     <div class="theme-toggle">
         <button id="darkModeButton" title="Dark Mode">
             <img id="moon-image" src="../doc/moon.png" alt="Moon" style="width: 30px; height: 30px; cursor: pointer;">
