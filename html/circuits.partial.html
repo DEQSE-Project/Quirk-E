@@ -1,60 +1,25 @@
-<div id="menu-div" style="display:block;">
-    <div id="menu-overlay" style="position:fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: rgba(0, 0, 0, 0.8);">
+<div id="circuits-div" style="display:block;">
+    <div id="circuits-overlay" style="position:fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: rgba(0, 0, 0, 0.8);">
     </div>
     <div style="position:absolute; top:20px; left:50px; margin:0;">
-        <div style="display:inline-block; padding:20px; background-color:white; border:1px solid black; text-align:center; min-width: 250px; min-height: 303px;">
-            <div style="font-size: 32px;">
-                <img style="vertical-align: sub;"
+        <div style="display:flex; flex-direction: column; line-height:1.8; padding:16px 18px 16px 8px; background-color:#DDD; border:1px solid gray; margin:0 0 0 -5px; min-width: 100px; min-height: 324px; align-items: center;">
+            <div style="font-size: 32px; padding-left: 5px;">
+                <img style="vertical-align: sub; padding-bottom: 3px;"
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAxnpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjabVBRDsMgCP3nFDuC+tDicezaJbvBjj8Q2rTLXuITeOSJ0P55v+hhKJmJ6yKtt5YU3LmXoYEkx5icE0+eKCFpfqvTKRQtQW94Ki36j3o+DfwaGtWLkTxDWO9C5/CXH6N4CDaRTbGFUQ8jFBdyGAz/VmpdlusX1j3dIX7ISPqcxcxc+8l50e1tVd9BKTsykjIg3gM7TBgaNGXAGjNYY0adlWMSXci/PR2gL+kXWS8h2NEKAAABhGlDQ1BJQ0MgcHJvZmlsZQAAeJx9kT1Iw0AcxV9btaIVB4uIiGSoTu2iIo6likWwUNoKrTqYXPoFTRqSFBdHwbXg4Mdi1cHFWVcHV0EQ/ABxdnBSdJES/5cUWsR4cNyPd/ced+8Ab6PCFKMrCiiqqafiMSGbWxX8r+jBOPoRxrDIDC2RXszAdXzdw8PXuwjPcj/35xiQ8wYDPAJxlGm6SbxBPLtpapz3iYOsJMrE58RhnS5I/Mh1yeE3zkWbvTwzqGdS88RBYqHYwVIHs5KuEM8Qh2RFpXxv1mGZ8xZnpVJjrXvyFwby6kqa6zTHEMcSEkhCgIQayqjARIRWlRQDKdqPufhHbX+SXBK5ymDkWEAVCkTbD/4Hv7s1CtNTTlIgBnS/WNbHBODfBZp1y/o+tqzmCeB7Bq7Utr/aAOY+Sa+3tdARMLgNXFy3NWkPuNwBRp40URdtyUfTWygA72f0TTlg6BboW3N6a+3j9AHIUFfLN8DBITBZpOx1l3f3dvb275lWfz/YUXLPi95fbwAADXZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDQuNC4wLUV4aXYyIj4KIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgIHhtbG5zOkdJTVA9Imh0dHA6Ly93d3cuZ2ltcC5vcmcveG1wLyIKICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIKICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICB4bXBNTTpEb2N1bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6ZjM1ZjM5OTMtNGUwNC00YzI4LWI1MTgtNjZhNjExNDk4YzEwIgogICB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdlMjEwYTkwLTA0MTUtNGU4My1hODhmLTlmNWQ4ZmNmNGRkNCIKICAgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjhlOTlkNjc3LWE5ZjMtNGMyNi1hMGYwLTlmNzYxZjg5ZThhMyIKICAgR0lNUDpBUEk9IjIuMCIKICAgR0lNUDpQbGF0Zm9ybT0iV2luZG93cyIKICAgR0lNUDpUaW1lU3RhbXA9IjE3MTk3NDc5MzU3NjU0MjIiCiAgIEdJTVA6VmVyc2lvbj0iMi4xMC4zOCIKICAgZGM6Rm9ybWF0PSJpbWFnZS9wbmciCiAgIHRpZmY6T3JpZW50YXRpb249IjEiCiAgIHhtcDpDcmVhdG9yVG9vbD0iR0lNUCAyLjEwIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI0OjA2OjMwVDE0OjQ1OjM0KzAzOjAwIgogICB4bXA6TW9kaWZ5RGF0ZT0iMjAyNDowNjozMFQxNDo0NTozNCswMzowMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjgyNDY0ZDNmLWJhNGQtNDI3ZS1hODc1LWYyODFlYmE4MmU5OCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR2ltcCAyLjEwIChXaW5kb3dzKSIKICAgICAgc3RFdnQ6d2hlbj0iMjAyNC0wNi0zMFQxNDo0NTozNSIvPgogICAgPC9yZGY6U2VxPgogICA8L3htcE1NOkhpc3Rvcnk+CiAgPC9yZGY6RGVzY3JpcHRpb24+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz40M8h9AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH6AYeCy0jh10iPwAABQtJREFUWMPtV2tQlFUYft5vl0s5qUCmRqOjlrmGeA91UDBTRBxNUlc0NS+0rCgo0qiEowkqeJ0gJYRAsFAIHE3FKzE4CmOZMm6JTs3YZcSUXXYXlouynLcfwLqsC+JMaj98Z74f55znO8/zXs57vg94Yc/ZyHZCGqh0Egw/AJ3/Y656Ak5zWXZ1mwLkA+fIzMwFAHyeksPXCfDismyTxWHrVTPz8KdIDgADGZjSKuI2gFeeQdo7tSegzUJxkqjDDI4SgToIlz8OsMzfk9esWsRuri6NBqNRfk1zk5P2H6VjpbdbUYzu7cKR6hk8YqgHXFy7CpOpVkpJy6ENB85T+84plMkAujWPuwHwtgbc/D5O3L2nRebBfGmwRz/xno8X+vbpRYVFJRwRk0G6mgeUEDVXTPX3pb/+LuczBcW4XHqTJo0fKSZPHCv18F1OzGy95RUAf1oL+ANA77YU3ju/15yS/p38s/RCy1xk4Lscrp7Lcrmcauvq4OTkiISkLN6We8mS0oBBPUXO/ji8MWYJ6e+bqb0ULATwUvN4CICt1oAKbaVM8XZfARRaNt9x+EdydnbEhrUhENwV8btSW5EDwNhRHjAYjLBDvhvAmYcCyrKLLEsKZYOtwpJLpTzV3xddHCQYG0STgBA/Dlk6h1MzclGh1SNMPZ+6dO4kwhNPWET4TRiDK6W/2nNag7LsUw8FKJQXAbg3j51t0XHJx6XA6ZM4LmyaUO88Im1XTRLq4CDa/WUGotOaolKhM4qY6FAAEOGJJ6Rl/p6i/1t9KCp2nz0B26FQbrBOgXt7NfC7oR45h09y0KwA0uqMQh0cRF/szeTyf3R06/TORgcHOVLSc2l97B7ERC8nXWWVWDhvGgoKi/nkL3fsHXO35qepCEmhdGnpBwyMA3D4kfuBAE1erBjQv5+UdiBPBMfnSjeObGnUVupJr6/CyOGe6OkbKsV8PF6sDl9ElZUGeM/4lG5V3bfnUxgBWU/YiAhEBIBZJjW9wi0tyqrjyGQPt5N1sHFJDFxlQMuA1p73AJAUOUP07PEaYrYl8+wP/Sn+k4kiMfmQ5P56dx7qqeCk1ENYOX04q4ODKHZbMtfW1WNX9ALRBmdCCx8DWjmA21aLzgC6W6MHuL2MWYH+yMo5jo2ZRZKTo1ysUH2ExORvuI/fahkArJw+jDdGqTktMw+bD16UtDoj79oaSVMGHed8TbltKHQATPa/BxTKCQDOWU+lrpkpAib74M2J4VKNucmp+OD3RahqHmXlHOOKCj1CVfMoLTOPI/aetOTgctZ6cfeuFgGrkmzTvBhl2enWx9DHphG1stFeQ1By6SpayAFgTco5qaq6ljdGhRIz0+Yd+8TnB863Ijp19gKWLAi0l4JBUCgnWx/DjPaOYbdX3RqPHCtwsJ5bO3uUUAcrca9Ch7q6elYtmomGB2ax5VCx1BLTkp/KKGJFZ+HmLGddfatuuKr5sQg43d5lVKk3SOO8RzSqyrXS4Hf68vhxXujdy50KCos5bNN+yVhnRsI6pVi3einND5oqzv5QjFLNb+TjPUxUV5tIf7/RtgZsLqPH1ECInwevjVjMbq4uwmA0Stc0N7An7Sjla+48ch1HqD7gkcM84OrqIkymGumrr7Ox6dsL7dbAYwW0gBwkwgPBHTrbDhLBLBhtoG2KsAPGQIfJAaDhCbC24al+Bt+ENW0KkBP9DKDoKZJfJyD/f/Vj8sKeu/0LzLoS2dxbsIsAAAAASUVORK5CYII="/>
-                Welcome to Quirk-E
+                Example circuits
             </div>
-
-            A drag-and-drop quantum circuit simulator.
-
-            <div style="margin:20px;">
-                <div id="loading-div" style="color:#D90; font-size:40px; display:block; height:120px; width:410px;">
-                    Loading...
-                </div>
-            </div>
-
-             <div style="display:flex; flex-direction: row; align-items: center; justify-content: center; text-align:center;">
-                <div style="display:inline-block; text-align:center; padding:2px; width:120px; height:120px; display:flex; flex-direction: column; align-items: center; justify-content: center; text-align:center;">
-                    <a tabindex="51" href="https://quirk-e.dev/guide.html">
-                        <div style="width:128px;">
-                            <svg version="1.1" viewBox="0 0 20 25" width="48" height="48">
-                              <text x="5" y="9" style="font-size: 8px;">???</text>
-                              <path d="M0 0 h20 v25 h-20 v-25 M3 13 h14 M3 17 h14 M3 21 h14" stroke="black" fill="transparent"></path>
-                            </svg>
-                            <div>How to Use</div>
-                        </div>
-                    </a>
-                </div>
-    
-                <div style="display:inline-block; text-align:center; padding:2px;">
-                    <button tabindex="50" id="close-menu-button" style="width:120px; height:120px; font-size:20px; display:none;">Edit Circuit</button>
-                </div>
-    
-    
-                <div style="display:inline-block; text-align:center; padding:2px; width:120px; height:120px; display:flex; flex-direction: column; align-items: center; justify-content: center; text-align:center;">
-                    <a tabindex="53" href="https://github.com/DEQSE-Project/Quirk-E">
-                        <div style="width:128px;">
-                            <svg version="1.1" viewBox="0 0 16 16" width="48" height="48">
-                                <path fill-rule="evenodd"
-                                      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
-                                </path>
-                            </svg>
-                            <div>Source Code</div>
-                        </div>
-                    </a>
-                </div>
-             </div>
-
-            <div style="width:410px; display:flex; flex-direction: column; align-items: center; justify-content: center; text-align:center; padding:2px;">
-                <p>
-                    <a href="https://github.com/DEQSE-Project/Quirk-E" target="_blank">Quirk-E</a> is an extension of the <a href="https://algassert.com/quirk" target="_blank">Quirk</a> quantum circuit simulator. 
-                    Quirk-E has been developed as part of the <a href="https://github.com/DEQSE-Project" target="_blank">DEQSE project</a>.
-                    DEQSE project has been supported by the Academy of Finland (project DEQSE 349945). <br>
-                </p>
+            <a id="example-anchor-grover">Grover Search</a><br>
+            <a id="example-anchor-shor">Shor Period Finding</a><br>
+            <a id="example-chsh-test">Bell Inequality Test (CHSH)</a><br>
+            <a id="example-anchor-teleport">Quantum Teleportation</a><br>
+            <a id="example-superdense-coding">Superdense Coding</a><br>
+            <a id="example-anchor-delayed-eraser">Delayed Choice Eraser</a><br>
+            <a id="example-symmetry-break">Symmetry Breaking</a><br>
+            <a id="example-qft">Quantum Fourier Transform</a><br>
+            <a id="example-addition">Reversible Addition</a><br>
+            <a id="example-anchor-distill">Magic State Distillation</a><br>
+            <div style="display:inline-block; text-align:center; padding:6px; padding-top: 20px;">
+                <button tabindex="50" id="close-circuits-button" style="width:240px; height:30px; font-size:20px; display:none;">Close gallery</button>
             </div>
         </div>
     </div>

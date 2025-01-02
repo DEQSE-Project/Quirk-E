@@ -36,6 +36,7 @@
                 const exportButton = document.getElementById('export-button');
                 const clearCircuitButton = document.getElementById('clear-circuit-button');
                 const menuButton = document.getElementById('menu-button');
+                const circuitsButton = document.getElementById('circuits-button');
                 const clearAllButton = document.getElementById('clear-all-button');
                 const undoButton = document.getElementById('undo-button');
                 const redoButton = document.getElementById('redo-button');
@@ -43,7 +44,7 @@
                 const aboutButton = document.getElementById('about-button');
                 const guideButton = document.getElementById('guide-button');
 
-                let btns = [uiSettingsButton, exportButton, clearAllButton, clearCircuitButton, menuButton, undoButton, redoButton, gateForgeButton, aboutButton, guideButton];
+                let btns = [uiSettingsButton, exportButton, clearAllButton, clearCircuitButton, menuButton, undoButton, redoButton, gateForgeButton, aboutButton, guideButton, circuitsButton];
 
                 // Toggle the visibility of the settings menu
                 uiSettingsButton.addEventListener('click', () => {
@@ -203,6 +204,13 @@
                     </div>
                 </button>
                 &nbsp;
+                <button id="circuits-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">
+                    <div style="padding: 2px;">
+                        <i class="fa-solid fa-list" style="padding: 2px;"></i>
+                        Circuit gallery
+                    </div>
+                </button>
+                &nbsp;
                 <div style="position: relative;">
                     <button id="ui-settings-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">
                         <div style="padding: 2px;">
@@ -307,6 +315,8 @@
         </div>
 
         <!-- INCLUDE MENU PART -->
+
+        <!-- INCLUDE CIRCUITS PART -->
 
         <!-- INCLUDE ERROR PART -->
 

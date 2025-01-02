@@ -39,6 +39,7 @@ import {ContextMenu} from "./ui/ContextMenu.js"
 import {initExports, obsExportsIsShowing} from "./ui/exports.js"
 import {initForge, obsForgeIsShowing} from "./ui/forge.js"
 import {initMenu, obsMenuIsShowing, closeMenu} from "./ui/menu.js"
+import {initGallery, obsGalleryIsShowing, closeGallery} from "./ui/circuits.js"
 import {initUndoRedo} from "./ui/undo.js"
 import {initClear} from "./ui/clear.js"
 import {initUrlCircuitSync} from "./ui/url.js"
@@ -428,10 +429,12 @@ initForge(revision, obsIsAnyOverlayShowing.observable());
 initUndoRedo(revision, obsIsAnyOverlayShowing.observable());
 initClear(revision, obsIsAnyOverlayShowing.observable());
 initMenu(revision, obsIsAnyOverlayShowing.observable());
+initGallery(revision, obsIsAnyOverlayShowing.observable());
 initTitleSync(revision);
 obsForgeIsShowing.
     zipLatest(obsExportsIsShowing, (e1, e2) => e1 || e2).
     zipLatest(obsMenuIsShowing, (e1, e2) => e1 || e2).
+    zipLatest(obsGalleryIsShowing, (e1, e2) => e1 || e2).
     whenDifferent().
     subscribe(e => {
         obsIsAnyOverlayShowing.send(e);
@@ -446,6 +449,8 @@ setTimeout(() => {
     document.getElementById("loading-div").style.display = 'none';
     document.getElementById("close-menu-button").style.display = 'block';
     closeMenu();
+    document.getElementById("close-circuits-button").style.display = 'block';
+    closeGallery();
 
     try {
         initializedWglContext().onContextRestored = () => redrawThrottle.trigger();
