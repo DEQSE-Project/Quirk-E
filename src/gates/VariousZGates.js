@@ -63,8 +63,8 @@ VariousZGates.Z3i = new GateBuilder().
     gate;
 
 VariousZGates.Z4 = new GateBuilder().
-    setSerializedIdAndSymbol("Z^¼").
-    setTitle("Z^¼ Gate").
+    setSerializedIdAndSymbol("T").
+    setTitle("T Gate").
     setBlurb("Principle fourth root of Z.").
     setDrawer(args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
@@ -83,8 +83,8 @@ VariousZGates.Z4 = new GateBuilder().
     gate;
 
 VariousZGates.Z4i = new GateBuilder().
-    setSerializedIdAndSymbol("Z^-¼").
-    setTitle("Z^-¼ Gate").
+    setSerializedIdAndSymbol("T^-1").
+    setTitle("T^-1 Gate").
     setBlurb("Adjoint fourth root of Z.").
     setDrawer(args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
