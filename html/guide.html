@@ -114,7 +114,7 @@
 
         .theme-toggle {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 10px;
             display: flex;
             gap: 10px;
@@ -168,6 +168,14 @@
             <a href="https://quirk-e.dev/about.html" target="_blank">
                 <img id="logo-button" src="../doc/DEQSE16x16White.svg" alt="DEQSE logo" style="min-width: 50px; min-height: 30px; max-width: 50px; max-height: 50px;">
             </a>
+        </div>
+        <div style="position: relative; padding-top: 12px;">
+            <button id="toEditorButton" style="min-width: 50px; min-height: 30px; border-radius: 10px;" onclick="window.open('https://quirk-e.dev/quirk-e.html', '_blank');">
+                <div style="padding: 2px;">
+                    <i class="fa-solid fa-circle-play"></i>
+                    To Quirk-E editor
+                </div>
+            </button>            
         </div>
     </div>
     <div class="header">
@@ -261,19 +269,52 @@
     <script>
         const darkModeButton = document.getElementById('darkModeButton');
         const lightModeButton = document.getElementById('lightModeButton');
+        const toEditorButton = document.getElementById('toEditorButton');
         darkModeButton.classList.add('active');
-
+    
+        const updateButtonStyles = () => {
+            if (document.body.classList.contains('light-mode')) {
+                toEditorButton.style.border = '1px solid #2e2d2d';
+                toEditorButton.style.backgroundColor = '#303030';
+                toEditorButton.style.color = 'white';
+                toEditorButton.style.cursor = 'pointer';
+                toEditorButton.onmouseover = () => {
+                    toEditorButton.style.backgroundColor = '#242424';
+                };
+                toEditorButton.onmouseout = () => {
+                    toEditorButton.style.backgroundColor = '#303030';
+                };
+            } else {
+                toEditorButton.style.border = '1px solid #777777';
+                toEditorButton.style.backgroundColor = '#7e7e7e';
+                toEditorButton.style.color = 'white';
+                toEditorButton.style.cursor = 'pointer';
+                toEditorButton.onmouseover = () => {
+                    toEditorButton.style.backgroundColor = '#6e6e6e';
+                };
+                toEditorButton.onmouseout = () => {
+                    toEditorButton.style.backgroundColor = '#7e7e7e';
+                };
+            }
+        };
+    
         darkModeButton.addEventListener('click', () => {
             document.body.classList.remove('light-mode');
             darkModeButton.classList.add('active');
             lightModeButton.classList.remove('active');
+            updateButtonStyles();
         });
-
+    
         lightModeButton.addEventListener('click', () => {
             document.body.classList.add('light-mode');
             lightModeButton.classList.add('active');
             darkModeButton.classList.remove('active');
+            updateButtonStyles();
         });
+    
+        // Initialize styles on page load
+        updateButtonStyles();
     </script>
+    
 </body>
 </html>
