@@ -63,7 +63,8 @@ VariousZGates.Z3i = new GateBuilder().
     gate;
 
 VariousZGates.Z4 = new GateBuilder().
-    setSerializedIdAndSymbol("T").
+    setSerializedId("Z^¼").
+    setSymbol("T").
     setTitle("T Gate").
     setBlurb("Principle fourth root of Z.").
     setDrawer(args => {
@@ -83,7 +84,8 @@ VariousZGates.Z4 = new GateBuilder().
     gate;
 
 VariousZGates.Z4i = new GateBuilder().
-    setSerializedIdAndSymbol("T^-1").
+    setSerializedId("Z^-¼").
+    setSymbol("T^-1").
     setTitle("T^-1 Gate").
     setBlurb("Adjoint fourth root of Z.").
     setDrawer(args => {
