@@ -1,23 +1,31 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
 <div id="import-div" style="display:none;">
-    <div id="import-overlay" style="position:fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: rgba(0, 0, 0, 0.7);">
+    <div id="import-overlay" style="position:fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: rgba(0, 0, 0, 0.7); z-index: 1000;">
     </div>
-    <div style="position: absolute; top: 20px; left: 50px; padding: 20px; background-color: white; border: 1px solid black;">
-              <strong>Import circuit</strong> - Select a format to import circuit from.
-        <div style="margin: 10px 0 0 20px;">
-            <select id="import-circuit-type">
+    <div id="import-dialog" style="position: absolute; top: 20px; left: 50px; padding: 20px; background-color: #CCCCCC; color: black; border: 1px solid #CCCCCC; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); z-index: 1001;">
+        <strong id="import-title" style="color: black">Import circuit</strong> - Select a format to import circuit from.
+        <div style="margin: 10px 0 30px 20px;">
+            <select id="import-format-select" style="cursor: pointer; background-color: #a1a1a1; color: black; border: 1px solid #a1a1a1; border-radius: 10px; padding: 5px; min-width: 50px; min-height: 30px;">
                 <option value="quirk-json">Quirk-E JSON</option>
                 <option value="QASM2.0">QASM 2.0</option>
                 <option value="QUIL2.0">QUIL 2.0</option>
                 <option value="Qobj">Qiskit Qobj</option>
                 <option value="IONQ">IONQ (JSON)</option>
             </select>
-            <br>
-            <textarea tabindex="104" id="import-circuit-textarea" style="overflow:auto; resize: none; width:600px; height:60px; border: 1px solid black; padding:5px;"></textarea>
-            <br>
-            <button tabindex="103" id="import-circuit-button">Import circuit</button>
-            <br>
+            <div id="text-box" style="margin-top: 10px; margin-bottom: 10px;">
+                <textarea tabindex="104" id="import-circuit-textarea" style="overflow:auto; word-wrap:break-word; resize: none; width:600px; height:60px; border: 1px solid black; padding:5px; background-color: #a1a1a1; color: black;"></textarea>
+            </div>
+            <button tabindex="103" id="import-circuit-button" style="cursor: pointer; min-width: 50px; min-height: 30px; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';">
+                <div style="padding: 2px;">
+                    <i class="fa-solid fa-copy"></i>
+                    Import circuit
+                </div>
+            </button>
             <span style="color: red; display: none;" id="import-error-message">Ran into an error while importing. Check developer console for details.</span>
-            <strong>Warning</strong> - Imported circuit will override your current circuit.
+            <div style="margin-top: 10px;">
+                <strong>Warning</strong> - Imported circuit will override your current circuit.
+            </div>
         </div>
     </div>
 </div>

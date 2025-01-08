@@ -1,7 +1,7 @@
 <div id="gate-forge-div" style="display:none">
     <div id="gate-forge-overlay" style="position:fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: rgba(0, 0, 0, 0.7);">
     </div>
-    <div style="position: absolute; top: 20px; left: 50px; padding: 20px; background-color: white; border: 1px solid black;">
+    <div style="position: absolute; top: 20px; left: 50px; padding: 20px; background-color: #CCCCCC; border-radius: 10px; border: 1px solid black;">
         <style scoped>
             th {
                 font-size: 20px;
@@ -9,11 +9,11 @@
         </style>
         <table cellspacing="0">
             <colgroup>
-                <col style="background-color:#EEE;"/>
                 <col/>
-                <col style="background-color:#EEE;"/>
                 <col/>
-                <col style="background-color:#EEE;"/>
+                <col/>
+                <col/>
+                <col/>
             </colgroup>
             <tr>
                 <th>From Rotation</th>
@@ -39,7 +39,7 @@
 
                     <textarea tabindex="200" id="gate-forge-matrix" cols="25" rows="5" placeholder="1, i,  i, 1"></textarea><br/>
 
-                    <input tabindex="201" id="gate-forge-matrix-fix" type="checkbox" checked>
+                    <input tabindex="201" id="gate-forge-matrix-fix" type="checkbox" checked style="accent-color: black;">
                     <label for="gate-forge-matrix-fix">ensure unitary (by SVD)</label>
                 </td>
                 <td></td>
@@ -78,15 +78,30 @@
             </tr>
             <tr>
                 <td>
-                    <button tabindex="120" id="gate-forge-rotation-button" style="width:100%;height:30px;">Create Rotation Gate</button>
+                    <button tabindex="120" id="gate-forge-rotation-button" style="cursor: pointer; min-width: 100%; min-height: 30px; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';">
+                        <div style="padding: 2px;">
+                            <i class="fa-solid fa-square-plus"></i>
+                            Create Rotation Gate
+                        </div>
+                    </button>
                 </td>
                 <td></td>
                 <td>
-                    <button tabindex="220" id="gate-forge-matrix-button" style="width:100%;height:30px;">Create Matrix Gate</button>
+                    <button tabindex="220" id="gate-forge-matrix-button" style="cursor: pointer; min-width: 100%; min-height: 30px; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';">
+                        <div style="padding: 2px;">
+                            <i class="fa-solid fa-square-plus"></i>
+                            Create Matrix Gate
+                        </div>
+                    </button>
                 </td>
                 <td></td>
                 <td>
-                    <button tabindex="320" id="gate-forge-circuit-button" style="width:100%;height:30px;">Create Circuit Gate</button>
+                    <button tabindex="320" id="gate-forge-circuit-button" style="cursor: pointer; min-width: 100%; min-height: 30px; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';">
+                        <div style="padding: 2px;">
+                            <i class="fa-solid fa-square-plus"></i>
+                            Create Circuit Gate
+                        </div>
+                    </button>
                 </td>
             </tr>
         </table>
