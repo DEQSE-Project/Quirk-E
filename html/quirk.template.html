@@ -19,12 +19,15 @@
         <!-- End Analytics -->
     </head>
     <body style="margin: 0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const uiSettingsButton = document.getElementById('ui-settings-button');
                 const uiSettingsMenu = document.getElementById('ui-settings-menu');
                 const moonButton = document.getElementById('moon-button');
                 const sunButton = document.getElementById('sun-button');
+                const downloadOptionsButton = document.getElementById('download-options-button');
+                const downloadOptionsMenu = document.getElementById('download-options-menu');
                 const colorButton = document.getElementById('color-button');
                 const bwButton = document.getElementById('bw-button');
                 const yellowButton = document.getElementById('yellow-button');
@@ -44,8 +47,33 @@
                 const gateForgeButton = document.getElementById('gate-forge-button');
                 const aboutButton = document.getElementById('about-button');
                 const guideButton = document.getElementById('guide-button');
+                const exportJpgButton = document.getElementById('export-jpg-button');
+                const exportPngButton = document.getElementById('export-png-button');
+                const exportWebpButton = document.getElementById('export-webp-button');
+                const exportSvgButton = document.getElementById('export-svg-button');
+                const exportPdfButton = document.getElementById('export-pdf-button');
 
-                let btns = [uiSettingsButton, importButton, exportButton, clearAllButton, clearCircuitButton, menuButton, undoButton, redoButton, gateForgeButton, aboutButton, guideButton, circuitsButton];
+                let btns = [uiSettingsButton, downloadOptionsButton, importButton, exportButton, clearAllButton, clearCircuitButton, menuButton, undoButton, redoButton, gateForgeButton, aboutButton, guideButton, circuitsButton, exportJpgButton, exportPngButton, exportWebpButton, exportSvgButton, exportPdfButton];
+
+                downloadOptionsButton.addEventListener('click', () => {
+                    const isDownloadOptionsVisible = downloadOptionsMenu.style.display === 'block';
+
+                    if (!isDownloadOptionsVisible) {
+                        const buttonRectDownloadOptions = downloadOptionsButton.getBoundingClientRect();
+                        downloadOptionsMenu.style.top = `${buttonRectDownloadOptions.bottom + 5}px`; // Position below the button
+                        downloadOptionsMenu.style.left = `${buttonRectDownloadOptions.left}px`; // Align to the button's left
+                        downloadOptionsMenu.style.display = 'block';
+                    } else {
+                        downloadOptionsMenu.style.display = 'none';
+                    }
+                });
+
+                // Close the menu if the user clicks outside of it
+                document.addEventListener('click', (event) => {
+                    if (!downloadOptionsButton.contains(event.target) && !downloadOptionsMenu.contains(event.target)) {
+                        downloadOptionsMenu.style.display = 'none';
+                    }
+                });
 
                 // Toggle the visibility of the settings menu
                 uiSettingsButton.addEventListener('click', () => {
@@ -91,6 +119,8 @@
 
                         uiSettingsMenu.style.backgroundColor = '#bbbbbb';
                         uiSettingsMenu.style.border = '1px solid #aaaaaa'
+                        downloadOptionsMenu.style.backgroundColor = '#bbbbbb';
+                        downloadOptionsMenu.style.border = '1px solid #aaaaaa'
                     } else {
                         document.body.style.backgroundColor = 'white'; // Light mode background
                         sunImage.style.opacity = '1'; // Highlight sun
@@ -267,6 +297,91 @@
                         Export
                     </div>
                 </button>
+                &nbsp;
+                <div style="position: relative;">
+                    <button id="download-options-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">
+                        <div style="padding: 2px;">
+                            <i class="fa-solid fa-image"></i>
+                            Download circuit
+                        </div>
+                    </button>
+                    <div id="download-options-menu" style="
+                        display: none;
+                        position: fixed; /* Ensure it overlays other elements */
+                        background-color: white;
+                        border: 1px solid #ccc;
+                        padding: 20px;
+                        box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+                        z-index: 1000; /* Ensure it overlays other elements */
+                        border-radius: 10px;
+                    ">
+                        <button id="export-jpg-button" style="
+                            display: block;
+                            width: 100%;
+                            min-width: 50px;
+                            min-height: 30px;
+                            margin-bottom: 10px; /* Add spacing between buttons */
+                            border-radius: 10px;
+                        ">
+                            <div style="padding: 2px;">
+                                <i class="fa-solid fa-image"></i>
+                                Download as JPG
+                            </div>
+                        </button>
+                        <button id="export-png-button" style="
+                            display: block;
+                            width: 100%;
+                            min-width: 50px;
+                            min-height: 30px;
+                            margin-bottom: 10px; /* Add spacing between buttons */
+                            border-radius: 10px;
+                        ">
+                            <div style="padding: 2px;">
+                                <i class="fa-solid fa-image"></i>
+                                Download as PNG
+                            </div>
+                        </button>
+                        <button id="export-webp-button" style="
+                            display: block;
+                            width: 100%;
+                            min-width: 50px;
+                            min-height: 30px;
+                            margin-bottom: 10px; /* Add spacing between buttons */
+                            border-radius: 10px;
+                        ">
+                            <div style="padding: 2px;">
+                                <i class="fa-solid fa-file"></i>
+                                Download as WEBP
+                            </div>
+                        </button>
+                        <button id="export-svg-button" style="
+                            display: block;
+                            width: 100%;
+                            min-width: 50px;
+                            min-height: 30px;
+                            margin-bottom: 10px; /* Add spacing between buttons */
+                            border-radius: 10px;
+                        ">
+                            <div style="padding: 2px;">
+                                <i class="fa-solid fa-file"></i>
+                                Download as SVG
+                            </div>
+                        </button>
+                        <button id="export-pdf-button" style="
+                            display: block;
+                            width: 100%;
+                            min-width: 50px;
+                            min-height: 30px;
+                            border-radius: 10px;
+                        ">
+                            <div style="padding: 2px;">
+                                <i class="fa-solid fa-file"></i>
+                                Download as PDF
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                         
                 &nbsp;
                 &nbsp;
                 <button id="clear-circuit-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">
