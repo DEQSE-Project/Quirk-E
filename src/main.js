@@ -207,10 +207,10 @@ exportJpgButton.addEventListener('click', () => {
     let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING + 30;
     let circuitAreaWidth = 0;
     if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-        circuitAreaWidth = 300;
-        circuitAreaHeight = 200;
+        circuitAreaWidth = 700;
+        circuitAreaHeight = 150;
     }
-    if(cur.displayedCircuit.circuitDefinition.numWires === 2) {
+    if(cur.displayedCircuit.circuitDefinition.numWires === 2 && cur.displayedCircuit.circuitDefinition.columns.length != 0) {
         if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
             circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 600;
         }
