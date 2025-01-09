@@ -6,6 +6,7 @@
     <div id="import-dialog" style="position: absolute; top: 20px; left: 50px; padding: 20px; background-color: #CCCCCC; color: black; border: 1px solid #CCCCCC; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); z-index: 1001;">
         <strong id="import-title" style="color: black">Import circuit</strong> - Select a format to import circuit from.
         <div style="margin: 10px 0 30px 20px;">
+            <span>Import from: </span>
             <select id="import-format-select" style="cursor: pointer; background-color: #a1a1a1; color: black; border: 1px solid #a1a1a1; border-radius: 10px; padding: 5px; min-width: 50px; min-height: 30px;">
                 <option value="quirk-json">Quirk-E JSON</option>
                 <option value="QASM2.0">QASM 2.0</option>
@@ -14,7 +15,7 @@
                 <option value="IONQ">IONQ (JSON)</option>
             </select>
             <div id="text-box" style="margin-top: 10px; margin-bottom: 10px;">
-                <textarea tabindex="104" id="import-circuit-textarea" style="overflow:auto; word-wrap:break-word; resize: none; width:600px; height:60px; border: 1px solid black; padding:5px; background-color: #a1a1a1; color: black;"></textarea>
+                <textarea tabindex="104" id="import-circuit-textarea" style="overflow:auto; word-wrap:break-word; resize: none; width:550px; height:600px; border: 1px solid black; padding:5px; background-color: #a1a1a1; color: black;"></textarea>
             </div>
             <button tabindex="103" id="import-circuit-button" style="cursor: pointer; min-width: 50px; min-height: 30px; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';">
                 <div style="padding: 2px;">

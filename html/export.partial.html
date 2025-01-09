@@ -4,8 +4,9 @@
     <div id="export-overlay" style="position:fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: rgba(0, 0, 0, 0.7); z-index: 1000;">
     </div>
     <div id="export-dialog" style="position: absolute; top: 20px; left: 50px; padding: 20px; background-color: #CCCCCC; color: black; border: 1px solid #CCCCCC; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); z-index: 1001;">
-        <strong id="export-title" style="color: black;">Other formats</strong> - Export to be used in another application.
+        <strong id="export-title" style="color: black;">Other formats</strong> - Export from Quirk-E to other formats
         <div style="margin: 10px 0 30px 20px;">
+            <span>Export to: </span>
             <select id="export-format-select" style="cursor: pointer; background-color: #a1a1a1; color: black; border: 1px solid #a1a1a1; border-radius: 10px; padding: 5px; min-width: 50px; min-height: 30px;">
                 <option value="QASM2.0">OpenQASM 2.0</option>
                 <option value="Qiskit">Qiskit</option>
@@ -25,7 +26,7 @@
                 </div>
             </button>
             <span id="export-format-result"></span>
-            <pre tabindex="104" id="export-circuit-formats-pre" style="overflow:auto; max-width:600px; max-height:60px; border: 1px solid black; padding: 5px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;"></pre>
+            <pre tabindex="104" id="export-circuit-formats-pre" style="overflow:auto; max-width:600px; max-height:600px; border: 1px solid black; padding: 5px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;"></pre>
             <span id="export-format-error" style="color: #ff6f61;"></span>
             Please note: only a <a id="gates-link" href="https://www.npmjs.com/package/quantum-circuit#implemented-gates" style="color: #20709e;">limited section of gates</a> is currently supported.
         </div>
@@ -39,14 +40,14 @@
                 </div>
             </button>
             <span id="export-link-copy-result"></span>
-            <div id="link-box" style="overflow:auto; word-wrap:break-word; max-height:60px; max-width:600px; border: 1px solid #666; padding: 10px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;">
+            <div id="link-box" style="overflow:auto; word-wrap:break-word; max-height:30px; max-width:600px; border: 1px solid #666; padding: 10px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;">
                 <a tabindex="101" id="export-escaped-anchor" style="color: #20709e"></a>
             </div>
         </div>
 
         <strong id="offline-title" style="color: black;">Offline Copy</strong> - Html file containing Quirk and the current circuit.
         <div style="margin: 10px 0 30px 20px;">
-            <button tabindex="102" id="download-offline-copy-button" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';" style="cursor: pointer; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; width: 600px; height: 60px;">
+            <button tabindex="102" id="download-offline-copy-button" onmouseover="this.style.backgroundColor='#919191';" onmouseout="this.style.backgroundColor='#a1a1a1';" style="cursor: pointer; background-color: #a1a1a1; color: black; border: none; border-radius: 10px; width: 600px; height: 30px;">
                 Download ...
             </button>
         </div>
@@ -61,7 +62,7 @@
             </button>
             <span id="export-json-copy-result"></span>
             <br>
-            <pre tabindex="104" id="export-circuit-json-pre" style="overflow:auto; max-width:600px; max-height:60px; border: 1px solid #666; padding: 5px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;"></pre>
+            <pre tabindex="104" id="export-circuit-json-pre" style="overflow:auto; max-width:600px; max-height:600px; border: 1px solid #666; padding: 5px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;"></pre>
         </div>
 
         <br>
@@ -77,7 +78,7 @@
             <input type="checkbox" tabindex="106" id="export-amplitudes-use-amps" style="float: right; margin-right: 10px; cursor: pointer; accent-color: black;">
             <label style="float: right; color: black;" for="export-amplitudes-use-amps">Skip output amplitudes</label>
             <br>
-            <pre tabindex="107" id="export-amplitudes-pre" style="overflow:auto; max-width:600px; max-height:60px; border: 1px solid #666; padding: 5px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;"></pre>
+            <pre tabindex="107" id="export-amplitudes-pre" style="overflow:auto; max-width:600px; max-height:600px; border: 1px solid #666; padding: 5px; margin-top: 10px; margin-bottom: 10px; background-color: #a1a1a1; color: black;"></pre>
         </div>
     </div>
 </div>
