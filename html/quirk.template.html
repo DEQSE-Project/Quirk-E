@@ -39,7 +39,6 @@
                 const exportButton = document.getElementById('export-button');
                 const importButton = document.getElementById('import-button');
                 const clearCircuitButton = document.getElementById('clear-circuit-button');
-                const menuButton = document.getElementById('menu-button');
                 const circuitsButton = document.getElementById('circuits-button');
                 const clearAllButton = document.getElementById('clear-all-button');
                 const undoButton = document.getElementById('undo-button');
@@ -53,7 +52,7 @@
                 const exportSvgButton = document.getElementById('export-svg-button');
                 const exportPdfButton = document.getElementById('export-pdf-button');
 
-                let btns = [uiSettingsButton, downloadOptionsButton, importButton, exportButton, clearAllButton, clearCircuitButton, menuButton, undoButton, redoButton, gateForgeButton, aboutButton, guideButton, circuitsButton, exportJpgButton, exportPngButton, exportWebpButton, exportSvgButton, exportPdfButton];
+                let btns = [uiSettingsButton, downloadOptionsButton, importButton, exportButton, clearAllButton, clearCircuitButton, undoButton, redoButton, gateForgeButton, aboutButton, guideButton, circuitsButton, exportJpgButton, exportPngButton, exportWebpButton, exportSvgButton, exportPdfButton];
 
                 downloadOptionsButton.addEventListener('click', () => {
                     const isDownloadOptionsVisible = downloadOptionsMenu.style.display === 'block';
@@ -225,13 +224,6 @@
                     <div style="padding: 2px;">
                         <i class="fa-solid fa-book-open"></i>
                         User Guide
-                    </div>
-                </button>
-                &nbsp;
-                <button id="menu-button" style="min-width: 50px; min-height: 30px; border-radius: 10px;">
-                    <div style="padding: 2px;">
-                        <i class="fa-solid fa-bars" style="padding: 2px;"></i>
-                        Menu
                     </div>
                 </button>
                 &nbsp;
@@ -438,8 +430,6 @@
             
             <!-- INCLUDE CONTEXT PART -->
         </div>
-
-        <!-- INCLUDE MENU PART -->
 
         <!-- INCLUDE CIRCUITS PART -->
 
