@@ -166,15 +166,15 @@
 <body>
     <div class="logo-button">
         <div style="position: relative; top: 2px;">
-            <a href="https://quirk-e.dev/about.html" target="_blank">
+            <a href="https://quirk-e.dev/about" target="_blank">
                 <img id="logo-button" src="../doc/DEQSE16x16White.svg" alt="DEQSE logo" style="min-width: 50px; min-height: 30px; max-width: 50px; max-height: 50px;">
             </a>
         </div>
         <div style="position: relative; padding-top: 12px;">
-            <button id="toEditorButton" style="min-width: 50px; min-height: 30px; border-radius: 10px;" onclick="window.open('https://quirk-e.dev/quirk-e.html', '_blank');">
+            <button id="toEditorButton" style="min-width: 50px; min-height: 30px; border-radius: 10px;" onclick="window.open('https://quirk-e.dev', '_blank');">
                 <div style="padding: 2px;">
                     <i class="fa-solid fa-circle-play"></i>
-                    To Quirk-E editor
+                    To Quirk-E Tool
                 </div>
             </button>            
         </div>
@@ -284,8 +284,13 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-title" id="download">Download circuit</div>
+                    <div class="section-title">Download circuit</div>
                     <p>Download circuit -button opens a pop up menu, where user can choose the format in which a picture of the circuit area is downloaded on the user's device. Currently, supported formats are png, jpg, svg, webp, and pdf. </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Inspector</div> 
+                    <p>Insepctor allows user to go through a circuit step by step by using singular arrows, skipping to first or last step using double arrows or watching the steps move using the play/pause button. This controller opens up when clicking the Inspector button in the menu bar. </p>
                 </div>
 
                 <div class="section">
@@ -350,7 +355,6 @@
             updateButtonStyles();
         });
     
-        // Initialize styles on page load
         updateButtonStyles();
     </script>
     
