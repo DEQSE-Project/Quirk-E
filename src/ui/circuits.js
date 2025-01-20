@@ -270,6 +270,102 @@ const distillLink = {
         ["Amps1","|0⟩⟨0|","|0⟩⟨0|","|0⟩⟨0|","|0⟩⟨0|"]
     ]
 };
+const schrodingerLink = {
+    "cols": [
+        ["H"],
+        ["•","X"],
+        [1,"•","X"],
+        [1,1,"•","X"],
+        [1,1,1,"•","X"],
+        [1,1,1,1,"•","X"]
+    ]
+};
+
+const eprPairDetailedLink = {
+    "cols":[
+        ["Bloch","Bloch"],
+        ["H"],
+        ["Bloch","Bloch"],
+        ["•","X"],
+        ["Bloch","Bloch"],
+        ["Density2"],
+        [],
+        ["Measure"],
+        ["Density2"],
+        [],
+        ["Chance2"],
+        ["Bloch","Bloch"]
+    ]
+};
+
+const eprPairLink = {
+    "cols":[
+        ["H",1],
+        ["•","X"]
+    ],
+    "gates":[]
+};
+
+const ccnotToffoliLink = {
+    "cols":[
+        ["•","•","X"]
+    ]
+};
+
+const ccnotToffoliDecompositionLink = {
+    "cols":[
+        [1,1,"H"],
+        [1,"•","Z^½"],
+        ["•","X",1],
+        [1,"•","Z^½"],
+        [1,"•","Z^½"],
+        [1,"•","Z^½"],
+        ["•","X",1],
+        ["•",1,"Z^½"],
+        [1,1,"H"]
+    ],
+    "gates":[]
+};
+
+const TwoQubitQftLink = {
+    "cols":[
+        ["H",1],
+        ["Z^½","•"],
+        [1,"H"],
+        ["Swap","Swap"]
+    ],
+    "gates":[]
+};
+
+const ThreeQubitQftLink = {
+    "cols":[
+        ["H"],
+        ["Z^½","•"],
+        ["Z^¼",1,"•"],
+        [1,"H"],
+        [1,"Z^½","•"],
+        [1,1,"H"],
+        ["Swap",1,"Swap"]
+    ]
+};
+
+const FourQubitQftLink = {
+    "cols":[
+        ["H",1,1,1],
+        ["Z^½","•",1,1],
+        ["Z^¼",1,"•",1],
+        ["Z^⅛",1,1,"•"],
+        [1,"H",1,1],
+        [1,"Z^½","•",1],
+        [1,"Z^¼",1,"•"],
+        [1,1,"H",1],
+        [1,1,"Z^½","•"],
+        [1,1,1,"H"],
+        [1,"Swap","Swap",1],
+        ["Swap",1,1,"Swap"]
+    ],
+    "gates":[]
+};
 
 /**
  * @param {!Revision} revision
@@ -310,6 +406,14 @@ function initGallery(revision, obsIsAnyOverlayShowing) {
     const qftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-qft');
     const shorAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-anchor-shor');
     const distillAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-anchor-distill');
+    const schrodingerAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-schrodingers-cat');
+    const eprPairDetailedAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-epr-pair-detailed');
+    const eprPairAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-epr-pair');
+    const ccnotAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-ccnot');
+    const ccnotDecompositionAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-ccnot-decomposition');
+    const twoQubitQftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-two-qubit-qft');
+    const threeQubitQftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-three-qubit-qft');
+    const fourQubitQftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-four-qubit-qft');
 
     for (let [a, t] of [[groverAnchor, groverLink],
                         [shorAnchor, shorLink],
@@ -320,7 +424,15 @@ function initGallery(revision, obsIsAnyOverlayShowing) {
                         [symmetryBreakAnchor, symmetryBreakingLink],
                         [chshTestAnchor, chshTestLink],
                         [qftAnchor, qftLink],
-                        [distillAnchor, distillLink]]) {
+                        [distillAnchor, distillLink],
+                        [schrodingerAnchor, schrodingerLink],
+                        [eprPairDetailedAnchor, eprPairDetailedLink],
+                        [eprPairAnchor, eprPairLink],
+                        [ccnotAnchor, ccnotToffoliLink],
+                        [ccnotDecompositionAnchor, ccnotToffoliDecompositionLink],
+                        [twoQubitQftAnchor, TwoQubitQftLink],
+                        [threeQubitQftAnchor, ThreeQubitQftLink],
+                        [fourQubitQftAnchor, FourQubitQftLink]]) {
         let text = JSON.stringify(t);
         a.href = "#circuit=" + text;
         a.onclick = ev => {
