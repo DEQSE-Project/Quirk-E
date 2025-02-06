@@ -32,9 +32,16 @@ let HalfTurnGates = {};
  */
 function NOT_DRAWER(args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.ROTATION_AND_TURNS_COLOR;
+    let usedHighlight = Config.ROTATION_AND_TURNS_HIGHLIGHT;
+    if (isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighlight = Config.YELLOW_HIGHLIGHT;
+    }
     if(args.isHighlighted) {
         if (args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+            args.painter.fillRect(args.rect, isColored ? usedHighlight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
         }
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');
@@ -42,7 +49,7 @@ function NOT_DRAWER(args) {
     }
     // Show a box around the operation when it's not in the circuit.
     if (args.positionInCircuit === undefined) {
-        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
+        args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
         GatePainting.paintGateSymbol(args);
         args.painter.strokeRect(args.rect, 'black');
         return;
@@ -90,18 +97,25 @@ HalfTurnGates.X = new GateBuilder().
     setDrawer(args => {
         const isColored = localStorage.getItem('colored_ui') === 'true';
         const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+        const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+        let usedColor = Config.ROTATION_AND_TURNS_COLOR;
+        let usedHighlight = Config.ROTATION_AND_TURNS_HIGHLIGHT;
+        if (isColored && isYellowMode) {
+            usedColor = Config.YELLOW;
+            usedHighlight = Config.YELLOW_HIGHLIGHT;
+        }
         if(args.isHighlighted) {
-            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+            args.painter.fillRect(args.rect, isColored ? usedHighlight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
             GatePainting.paintGateSymbol(args);
             args.painter.strokeRect(args.rect, 'black');
             return;
         }
         // Show a box around the operation when it's not in the circuit.
         if (args.positionInCircuit === undefined) {
-            args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
+            args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
             args.painter.strokeRect(args.rect, 'black');
             let drawArea = args.rect.scaledOutwardBy(0.6);
-            args.painter.fillCircle(drawArea.center(), drawArea.w / 2, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
+            args.painter.fillCircle(drawArea.center(), drawArea.w / 2, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
             args.painter.strokeCircle(drawArea.center(), drawArea.w / 2);
         
             // Vertical stroke(s).
@@ -164,12 +178,19 @@ HalfTurnGates.X = new GateBuilder().
 
 function DRAW_GATE (args) {
     const isColored = localStorage.getItem('colored_ui') === 'true';
+    const isYellowMode = localStorage.getItem('yellow_mode') === 'true';
+    let usedColor = Config.ROTATION_AND_TURNS_COLOR;
+    let usedHighlight = Config.ROTATION_AND_TURNS_HIGHLIGHT;
+    if (isColored && isYellowMode) {
+        usedColor = Config.YELLOW;
+        usedHighlight = Config.YELLOW_HIGHLIGHT;
+    }
     // Fill the gate with the configured fill color
-    args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_COLOR : Config.DEFAULT_FILL_COLOR);
+    args.painter.fillRect(args.rect, isColored ? usedColor : Config.DEFAULT_FILL_COLOR);
 
     // Highlight the gate if needed (when `args.isHighlighted` is true)
     if (args.isHighlighted) {
-        args.painter.fillRect(args.rect, isColored ? Config.ROTATION_AND_TURNS_HIGHLIGHT : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
+        args.painter.fillRect(args.rect, isColored ? usedHighlight : Config.HIGHLIGHTED_GATE_FILL_COLOR, 2);
     }
     GatePainting.paintGateSymbol(args);
     args.painter.strokeRect(args.rect, 'black');

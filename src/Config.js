@@ -21,6 +21,8 @@ class Config {}
 
 Config.EMPTY_CIRCUIT_TITLE = 'Quirk-E: Quantum Circuit Simulator';
 
+const isDarkMode = localStorage.getItem('dark_mode') === 'true';
+
 // Each qubit (when actually used) doubles the cost of simulating each gate applied to the circuit.
 // Also each qubit tends to increase the amount of accuracy required.
 // I see obvious errors when I set this to 20, and things get pretty laggy past 16.
@@ -39,17 +41,17 @@ Config.TIME_DEPENDENT_HIGHLIGHT_COLOR = '#ece8e8';
 
 // Mixed-state displays are green.
 Config.DISPLAY_GATE_IN_TOOLBOX_FILL_COLOR = '#d2d8c1';
-Config.DISPLAY_GATE_BACK_COLOR = '#eafaea';
-Config.DISPLAY_GATE_FORE_COLOR = '#91be91';
+Config.DISPLAY_GATE_BACK_COLOR = isDarkMode ? '#EAFAF2' : '#F2FAEA';
+Config.DISPLAY_GATE_FORE_COLOR = isDarkMode ? '#90BDA6' : '#A9BE91';
 
 // Changes are yellow.
-Config.OPERATION_BACK_COLOR = '#f5f5e8';
-Config.OPERATION_FORE_COLOR = '#e7e792';
+Config.OPERATION_BACK_COLOR = isDarkMode ? '#F2FAEA' : '#F2FAEA';
+Config.OPERATION_FORE_COLOR = isDarkMode ? '#FF6809' : '#FFFF06';
 
 // Pure-state displays are cyan.
-Config.SUPERPOSITION_BACK_COLOR = '#deecec';
-Config.SUPERPOSITION_MID_COLOR = '#b7e7e7';
-Config.SUPERPOSITION_FORE_COLOR = '#659696';
+Config.SUPERPOSITION_BACK_COLOR = isDarkMode ? '#DEECEC' : '#DEE3EC';
+Config.SUPERPOSITION_MID_COLOR = isDarkMode ? '#B6E7E7' : '#B6C9E6';
+Config.SUPERPOSITION_FORE_COLOR = isDarkMode ? '#639394' : '#637694';
 
 // Time constants.
 Config.CYCLE_DURATION_MS = 8000; // How long it takes for evolving gates to cycle, in milliseconds.
@@ -61,11 +63,11 @@ Config.REDRAW_COOLDOWN_MILLIS = 10; // Milliseconds. Rate-limit on redraws. Long
 Config.GATE_RADIUS = 20;
 Config.WIRE_SPACING = 50;
 
-Config.BACKGROUND_COLOR = 'white';
-Config.BACKGROUND_COLOR_CIRCUIT = 'white';
+Config.BACKGROUND_COLOR = '#FFFFFF';
+Config.BACKGROUND_COLOR_CIRCUIT = '#FFFFFF';
 
 // Toolbox layout.
-Config.BACKGROUND_COLOR_TOOLBOX = '#CCC';
+Config.BACKGROUND_COLOR_TOOLBOX = '#CCCCCC';
 Config.TOOLBOX_GATE_SPACING = 6;
 Config.TOOLBOX_GROUP_SPACING = 24 - Config.TOOLBOX_GATE_SPACING;
 Config.TOOLBOX_GATE_SPAN = Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING;
@@ -97,21 +99,21 @@ Config.SEMI_STABLE_RANDOM_VALUE_LIFETIME_MILLIS = 300;
 Config.IGNORED_WEBGL_INFO_TERMS = [];
 
 // Colored version color codes.
-Config.ROTATION_AND_TURNS_COLOR = '#efdd92';
-Config.ROTATION_AND_TURNS_HIGHLIGHT = '#edd265';
-Config.LOGICAL_AND_PARITY_COLOR ='#f8aa79';
-Config.LOGICAL_AND_PARITY_HIGHLIGHT ='#e68c54';
-Config.MATH_COLOR = '#b782c6';
-Config.MATH_HIGHLIGHT = '#a360b5';
-Config.VISUALIZATION_AND_PROBES_COLOR = '#82d48a';
-Config.VISUALIZATION_AND_PROBES_HIGHLIGHT = '#5ecf6a';
-Config.SAMPLING_AND_PROBABILITY_COLOR = '#8acff8';
-Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT = '#43baff';
-Config.OTHER_COLOR = '#e3e1e1';
-Config.OTHER_HIGHLIGHT = '#bab7b7';
+Config.ROTATION_AND_TURNS_COLOR = isDarkMode ? '#EFAA92' : '#EFDC92';
+Config.ROTATION_AND_TURNS_HIGHLIGHT = isDarkMode ? '#cf9480' : '#edd265';
+Config.LOGICAL_AND_PARITY_COLOR = isDarkMode ? '#F8AB78' : '#F8AB78';
+Config.LOGICAL_AND_PARITY_HIGHLIGHT = isDarkMode ? '#cb8d64' : '#db996e';
+Config.MATH_COLOR = isDarkMode ? '#C681AC' : '#B681C6';
+Config.MATH_HIGHLIGHT = isDarkMode ? '#a86f93' : '#9d71ab';
+Config.VISUALIZATION_AND_PROBES_COLOR = isDarkMode ? '#81D4B0' : '#A8D481';
+Config.VISUALIZATION_AND_PROBES_HIGHLIGHT = isDarkMode ? '#69ad90' : '#8db26d';
+Config.SAMPLING_AND_PROBABILITY_COLOR = isDarkMode ? '#8ACFF8' : '#899BF7';
+Config.SAMPLING_AND_PROBABILITY_HIGHLIGHT = isDarkMode ? '#74afd1' : '#7786d4';
+Config.OTHER_COLOR = isDarkMode ? '#E3E1E1' : '#E1E0DF';
+Config.OTHER_HIGHLIGHT = isDarkMode ? '#bfbdbd' : '#c2c0bf';
 Config.DARK_BG = '#6d6d6d';
 Config.DARK_BG_CIRCUIT = '#6d6d6d';
-Config.DARK_BG_TOOLBOX = '#5d5c5c';
+Config.DARK_BG_TOOLBOX = '#5D5B5B';
 Config.RED = '#762020';
 Config.YELLOW = '#efdd92';
 Config.YELLOW_HIGHLIGHT = '#edd265';
