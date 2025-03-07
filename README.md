@@ -31,9 +31,9 @@ This work was supported by the Research Council of Finland [grant number [349945
 - **Export** functionality for exporting circuits to other formats is added. Export currently supports OpenQASM 2.0, Qiskit, PyQuil, Quil, Cirq, QuEST, QSharp, Qobj, Tensorflow Quantum, and Braket.
 - **Inspector** allows user to control the flow of the circuit by playing it step by stepping, stepping between individual steps, and skipping to the beginning or end state of the circuit.
 
-![Added features showed in light, multi-colored UI](doc/README_quirk-e-light.png)
+![Added features showed in light, multi-colored UI](doc/README-light.png)
 
-![Additional added features showed in dark, yellow-colored UI](doc/README_quirk-e-dark.png)
+![Additional added features showed in dark, yellow-colored UI](doc/README-dark.png)
 
 # Known issues
 

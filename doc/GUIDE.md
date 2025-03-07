@@ -57,8 +57,8 @@ The **Slicer gate** is added to enhance circuit readability. With the slicer gat
 
 **Dark Mode UI:**
 
-![Dark UI](../doc/README_quirk-e-dark.png)
+![Dark UI](../doc/README-dark.png)
 
 **Light Mode UI:**
 
-![Light UI](../doc/README_quirk-e-light.png)
+![Light UI](../doc/README-light.png)
