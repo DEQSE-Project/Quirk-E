@@ -367,6 +367,83 @@ const FourQubitQftLink = {
     "gates":[]
 };
 
+const RightShiftLink = {
+    "cols":[
+        ["•","•","•","•","X"],
+        ["•","•","•","X"],
+        ["•","•","X"],
+        ["•","X"],
+        ["X"]
+    ]
+};
+
+const LeftShiftLink = {
+    "cols":[
+        ["◦","◦","◦","◦","X"],
+        ["◦","◦","◦","X"],
+        ["◦","◦","X"],
+        ["◦","X"],
+        ["X"]
+    ]
+};
+
+const OptimizedState5QubitsLink = {
+    "cols":[
+        ["•",1,1,1,1,"X"],
+        [1,1,1,1,"•","X"],
+        ["Slicer6"],
+        [1,"X",1,1,1,"•"],
+        [1,"X",1,1,"◦","•"],
+        [1,1,"X",1,"•","•"],
+        [1,"•","•","X",1,"•"],
+        [1,1,"X",1,"•","•"],
+        [1,"X",1,1,"◦","•"],
+        [1,"◦","X",1,"◦","•"],
+        [1,"•","X",1,"•","•"],
+        ["Slicer6"],
+        ["X"],
+        ["Slicer6"],
+        [1,1,1,1,"•","X"],
+        ["•",1,1,1,1,"X"],
+        [1,1,1,1,1,"X"],
+        ["Slicer6"]
+    ]
+};
+
+const OptimizedState6QubitsLink = {
+    "cols":[
+        ["•",1,1,1,1,1,"X"],
+        [1,1,1,1,1,"•","X"],
+        ["Slicer7"],
+        [1,"X",1,1,1,1,"•"],
+        [1,"X",1,1,1,"◦","•"],
+        [1,1,"X",1,1,"•","•"],
+        [1,"•","•","X",1,1,"•"],
+        [1,1,"X",1,1,"•","•"],
+        [1,"X",1,1,1,"◦","•"],
+        [1,"◦","X",1,1,"◦","•"],
+        [1,"•","X",1,1,"•","•"],
+        ["Slicer7"],
+        ["X"],
+        ["Slicer7"],
+        ["X",1,1,1,1,"◦"],
+        [1,"X",1,1,1,"◦"],
+        [1,1,"X",1,1,"◦"],
+        [1,1,1,"X",1,"◦"],
+        ["•","•","•","•","X"],
+        [1,1,1,"X",1,"◦"],
+        [1,1,"X",1,1,"◦"],
+        [1,"X",1,1,1,"◦"],
+        ["X",1,1,1,1,"◦"],
+        ["Slicer7"],
+        [1,1,1,1,1,"•","X"],
+        ["•",1,1,1,1,1,"X"],
+        [1,1,1,1,1,1,"X"],
+        ["Slicer7"]
+    ]
+};
+
+
 /**
  * @param {!Revision} revision
  * @param {!Observable.<!boolean>} obsIsAnyOverlayShowing
@@ -414,6 +491,10 @@ function initGallery(revision, obsIsAnyOverlayShowing) {
     const twoQubitQftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-two-qubit-qft');
     const threeQubitQftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-three-qubit-qft');
     const fourQubitQftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-four-qubit-qft');
+    const rightShiftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-right-shift');
+    const leftShiftAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-left-shift');
+    const optimizedState5QubitsAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-optimized-state-5-qubits');
+    const optimizedState6QubitsAnchor = /** @type {!HTMLAnchorElement} */ document.getElementById('example-optimized-state-6-qubits');
 
     for (let [a, t] of [[groverAnchor, groverLink],
                         [shorAnchor, shorLink],
@@ -432,7 +513,11 @@ function initGallery(revision, obsIsAnyOverlayShowing) {
                         [ccnotDecompositionAnchor, ccnotToffoliDecompositionLink],
                         [twoQubitQftAnchor, TwoQubitQftLink],
                         [threeQubitQftAnchor, ThreeQubitQftLink],
-                        [fourQubitQftAnchor, FourQubitQftLink]]) {
+                        [fourQubitQftAnchor, FourQubitQftLink],
+                        [rightShiftAnchor, RightShiftLink],
+                        [leftShiftAnchor, LeftShiftLink],
+                        [optimizedState5QubitsAnchor, OptimizedState5QubitsLink],
+                        [optimizedState6QubitsAnchor, OptimizedState6QubitsLink]]) {
         let text = JSON.stringify(t);
         a.href = "#circuit=" + text;
         a.onclick = ev => {
