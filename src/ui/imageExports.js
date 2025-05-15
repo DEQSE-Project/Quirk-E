@@ -68,7 +68,7 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 100;
+            circuitAreaWidth = 50;
             circuitAreaHeight = 130;
         }
         if(cur.displayedCircuit.circuitDefinition.columns.length != 0) {
@@ -118,7 +118,7 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 100;
+            circuitAreaWidth = 50;
             circuitAreaHeight = 130;
         }
         if(cur.displayedCircuit.circuitDefinition.columns.length != 0) {
@@ -168,7 +168,7 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 100;
+            circuitAreaWidth = 50;
             circuitAreaHeight = 130;
         }
         if(cur.displayedCircuit.circuitDefinition.columns.length != 0) {
@@ -225,7 +225,7 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 100;
+            circuitAreaWidth = 50;
             circuitAreaHeight = 130;
         }
         if(cur.displayedCircuit.circuitDefinition.columns.length != 0) {
