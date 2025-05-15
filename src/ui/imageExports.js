@@ -19,24 +19,24 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING + 30;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 700;
+            circuitAreaWidth = 100;
             circuitAreaHeight = 150;
         }
         if(cur.displayedCircuit.circuitDefinition.numWires === 2 && cur.displayedCircuit.circuitDefinition.columns.length != 0) {
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 600;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 80;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 450;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 100;
             }
         }
         if(cur.displayedCircuit.circuitDefinition.numWires > 2) {
             circuitAreaHeight += 30;
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 800;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 80;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 650;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 100;
             }
         }
 
@@ -74,24 +74,24 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING + 30;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 300;
-            circuitAreaHeight = 200;
+            circuitAreaWidth = 200;
+            circuitAreaHeight = 150;
         }
-        if(cur.displayedCircuit.circuitDefinition.numWires === 2) {
+        if(cur.displayedCircuit.circuitDefinition.numWires === 2 && cur.displayedCircuit.circuitDefinition.columns.length != 0) {
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 600;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 500;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 450;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 350;
             }
         }
         if(cur.displayedCircuit.circuitDefinition.numWires > 2) {
             circuitAreaHeight += 30;
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 800;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 700;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 650;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 550;
             }
         }
 
@@ -129,24 +129,24 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING + 30;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 300;
-            circuitAreaHeight = 200;
+            circuitAreaWidth = 200;
+            circuitAreaHeight = 150;
         }
-        if(cur.displayedCircuit.circuitDefinition.numWires === 2) {
+        if(cur.displayedCircuit.circuitDefinition.numWires === 2 && cur.displayedCircuit.circuitDefinition.columns.length != 0) {
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 600;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 500;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 450;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 350;
             }
         }
         if(cur.displayedCircuit.circuitDefinition.numWires > 2) {
             circuitAreaHeight += 30;
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 800;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 700;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 650;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 550;
             }
         }
 
@@ -184,24 +184,24 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING + 30;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 300;
-            circuitAreaHeight = 200;
+            circuitAreaWidth = 200;
+            circuitAreaHeight = 150;
         }
-        if(cur.displayedCircuit.circuitDefinition.numWires === 2) {
+        if(cur.displayedCircuit.circuitDefinition.numWires === 2 && cur.displayedCircuit.circuitDefinition.columns.length != 0) {
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 600;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 500;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 450;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 350;
             }
         }
         if(cur.displayedCircuit.circuitDefinition.numWires > 2) {
             circuitAreaHeight += 30;
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 800;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 700;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 650;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 550;
             }
         }
 
@@ -246,24 +246,24 @@ function initImageExports(displayed) {
         let circuitAreaHeight = cur.displayedCircuit.circuitDefinition.numWires * Config.WIRE_SPACING + 30;
         let circuitAreaWidth = 0;
         if(cur.displayedCircuit.circuitDefinition.columns.length === 0) {
-            circuitAreaWidth = 300;
-            circuitAreaHeight = 200;
+            circuitAreaWidth = 200;
+            circuitAreaHeight = 150;
         }
-        if(cur.displayedCircuit.circuitDefinition.numWires === 2) {
+        if(cur.displayedCircuit.circuitDefinition.numWires === 2 && cur.displayedCircuit.circuitDefinition.columns.length != 0) {
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 600;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 500;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 450;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 350;
             }
         }
         if(cur.displayedCircuit.circuitDefinition.numWires > 2) {
             circuitAreaHeight += 30;
             if(cur.displayedCircuit.circuitDefinition.columns.length <= 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 800;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 700;
             }
             if(cur.displayedCircuit.circuitDefinition.columns.length > 3) {
-                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 650;
+                circuitAreaWidth = cur.displayedCircuit.circuitDefinition.columns.length * (Config.GATE_RADIUS * 2 + Config.TOOLBOX_GATE_SPACING) + 550;
             }
         }
 
