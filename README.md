@@ -68,6 +68,6 @@ Majid Haghparast <<majid.m.haghparast@jyu.fi>>
 
 # References
 
-[1] https://github.com/Strilanc/Quirk
+[1] Craig Gidney. Quirk: A drag-and-drop quantum circuit simulator in the browser. 2017. Available at: https://algassert.com/quirk Github: https://github.com/Strilanc/Quirk
 
 [2] https://doi.org/ (*Will be updated...*)
