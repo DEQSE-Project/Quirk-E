@@ -66,8 +66,8 @@ Confirm the output works by opening out/quirk.html with a web browser.
 
 Majid Haghparast <<majid.m.haghparast@jyu.fi>>
 
-# References
+# References to cite
 
 [1] Craig Gidney. Quirk: A drag-and-drop quantum circuit simulator in the browser. 2017. Available at: https://algassert.com/quirk Github: https://github.com/Strilanc/Quirk
 
-[2] https://doi.org/ (*Will be updated...*)
+[2] Haghparast, M., Heikkinen, R., Ovaskainen, S., Fuchs, J., Jokinen, J. P., & Mikkonen, T. (2025). Quirk-E Quantum Circuit Simulator: Integrated Tool for Quantum Algorithm Development. SoftwareX, Accepted, In Press. (*Will be updated...*)
