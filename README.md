@@ -22,6 +22,9 @@ Access Quirk-E via:
 
 - **DEQSE Visual Studio Code Extension:** [GitHub Repository](https://github.com/DEQSE-Project/deqse-vscode-extension) | [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=JYUQICTeam.deqse)
 
+
+# Acknowledgement
+
 This work was supported by the Research Council of Finland [grant number [349945](https://research.fi/en/results/funding/70030)].
 
 # Features
