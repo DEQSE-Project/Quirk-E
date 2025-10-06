@@ -4,12 +4,17 @@
 
 The Quirk-E tool, which is presented in [2], adds more functionalities to the Quirk [1] quantum circuit simulator.
 
+
+# How to Cite?
+
 Quirk-E is free-to-use and to modify. However, you must add references [1] and [2] in case of any publication/production/execution/etc.
 
 [1] Craig Gidney. Quirk: A drag-and-drop quantum circuit simulator in the browser. 2017. Available at: https://algassert.com/quirk Github: https://github.com/Strilanc/Quirk
 
 [2] Haghparast, M., Heikkinen, R., Ovaskainen, S., Fuchs, J., Jokinen, J. P., & Mikkonen, T. (2025). Quirk-E quantum circuit simulator: Integrated tool for quantum algorithm development. SoftwareX, 32, 102383.
 
+
+# How to Access?
 
 Quirk-E is also embedded in the DEQSE Visual Studio Code Extension [3], designed to enhance the quantum software development experience. The extension is available for download from [GitHub](https://github.com/DEQSE-Project/deqse-vscode-extension) and [Visual Studio Marketplace](https://marketplace.visualstudio.com/publishers/jyuqicteam).
 
