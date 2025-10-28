@@ -1,6 +1,6 @@
 # Quirk-E
 
-[Quirk-E](https://quirk-e.dev) is an open-source quantum circuit simulator built as an extended version of the original Quirk [[1](https://github.com/Strilanc/Quirk)] platform. Quirk-E has been developed as part of the <strong>Developer Experience in Iterative Quantum Software Engineering (DEQSE)</strong> project by the [Empirical Software Engineering Research Team](https://www.jyu.fi/en/research-groups/empirical-software-engineering-research) and the [QIC Team](https://www.jyu.fi/en/research-groups/quantum-information-and-computation-team) at the [University of Jyvaskyla](https://www.jyu.fi/en) in Finland. The Quirk-E tool, which is presented in [2], adds more functionalities to the Quirk [1] quantum circuit simulator.
+[Quirk-E](https://quirk-e.dev) is an open-source quantum circuit simulator built as an extended version of the original Quirk [[1](https://github.com/Strilanc/Quirk)] platform. Quirk-E has been developed as part of the <strong>Developer Experience in Iterative Quantum Software Engineering (DEQSE)</strong> project by the [Quantum Programming and Algorithms (QPA) Research Group](https://users.jyu.fi/~mhaghpyz/#qpa) at the [University of Jyvaskyla](https://www.jyu.fi/en) in Finland. The Quirk-E tool, which is presented in [2], adds more functionalities to the Quirk [1] quantum circuit simulator.
 
 
 # How to Cite?
